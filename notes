@@ -8,6 +8,29 @@ id, user_id, post, time-stamp
 3. Follow_list
 id, user_id following, user_id follower
 
+		db.update("CREATE TABLE user (" +
+            "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
+			"name varchar(128) DEFAULT '' NOT NULL," +
+            "email varchar(128) NOT NULL," +
+            "password varchar(40) NOT NULL" +
+            ")");
+			
+		db.update("CREATE TABLE post (" +
+            "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
+			"FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
+            "post varchar(140) NOT NULL," +
+            "time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL" +
+            ")");
+
+		db.update("CREATE TABLE followers (" +
+            "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
+			"FOREIGN KEY (user) REFERENCES user(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
+            "FOREIGN KEY (follower) REFERENCES user(id) ON DELETE RESTRICT ON UPDATE RESTRICT" +
+            ")");		
+
+
+
+
 Pages:
 1. Login - Register
 2. Profile -> show user posts
