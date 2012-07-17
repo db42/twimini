@@ -1,75 +1,81 @@
-<%@ page
-        import="org.springframework.beans.propertyeditors.StringArrayPropertyEditor"
-        import="java.util.ArrayList"
-        %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <style>
+        form {
+            display: inline-block;
+        }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="/static/js/ejs_production.js"></script>
 
-<script type="text/javascript"
-    src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js">
-</script>
+    <script type="text/javascript">
+        function submitForm(id) {
+            var name = '#' + id;
+            $(name).submit();
+        }
 
-<script type="text/javascript"
-        src="/static/js/ejs.js">
-</script>
+        function addToDoItem(form) {
+            $.post('/todo/new.json',
+                    $(form).serialize(), function (data) {
+                        var todoItemLI = $(new EJS({url:'/static/ejs/foo.ejs'}).render(data));
+                        $('#todoList').append(todoItemLI);
 
-<script type="text/javascript">
-    function TaskNew(form){
-        $.post('/todo/new.json', $(form).serialize(),function(data) {
-            var todoItemLI = $(new EJS({url:
-            '/static/ejs/todo.ejs'
-            }).render(data));
-            $('#todoList').append(todoItemLI);
-        });
-    }
+                    });
+        }
 
-    function TaskDelete(index){
-        $.get('/todo/delete.json?id='+index, function(data) {
-            $('#'+index).remove();
-        });
-    }
+        function deleteToDoItem(id) {
+            var form_id= "#delete-"+id;
+            var form= $(form_id);
 
-    function TaskModify(form,index){
-        $.post('/todo/modify.json',$(form).serialize(), function(data){
-            var todoItemLI = $(new EJS({url:
-                    '/static/ejs/todo.ejs'
-            }).render(data));
-            $('#'+index).replaceWith(todoItemLI);
-        });
-    }
-</script>
+            $.post('/todo/delete.json',
+                    $(form).serialize(), function (data) {
+                        var li_id= '#li-'+data.index;
+                        $(li_id).remove();
+
+                    });
+        }
+
+        function editToDoItem(form) {
+            $.post('/todo/edit.json',
+                    $(form).serialize(), function (data) {
+                        var todoItemLI = $(new EJS({url:'/static/ejs/foo.ejs'}).render(data));
+                        var li_id= '#li-'+data.index;
+                        $(li_id).replaceWith(todoItemLI);
+
+                    });
+        }
+
+
+    </script>
 
 </head>
 <body>
-<h1>ToDo</h1>
 
+<h2>ToDo</h2>
 <ul id="todoList">
-<c:set var="index" value="0" scope="page" />
-<c:forEach var='item' items='${tasks}'>
 
-    <li>
+    <c:forEach items="${todo_new}" var="obj" varStatus="count">
+        <li id="li-<c:out value="${count.index}"/>">
+            <form id="delete-<c:out value="${count.index}"/>" action="" method="post"  "> todo <c:out value="${obj}"/> |
+                <input type="hidden" name="index" value="<c:out value="${count.index}"/>"/>
+                <a href="javascript:deleteToDoItem(<c:out value='${count.index}'/>); return false;">Delete</a>|
+            </form>
 
-        <form name="modify" action="todo/modify" method="post">
-        ${item} |<a href="todo/delete?id=${index}"> Delete</a>
+            <form id="edit-<c:out value="${count.index}"/>" action="" method="post" onsubmit="editToDoItem(this); return false;">
+                <input type="hidden" name="index_new" value="<c:out value="${count.index}"/>"/>
+                <input type="text" name="todo_old_change" value="<c:out value="${obj}"/>"/>
+                <input type="submit" value="Save Changes"/>
+            </form>
 
-        <input type="text" name="task_new" />
-        <input type="hidden" name="id" value="${index}" />
-        <input type="submit" value="Modify" />
-        </form>
-    </li>
-
-    <c:set var="index" value="${index + 1}" scope="page"/>
-</c:forEach>
-
-
+        </li>
+    </c:forEach>
 </ul>
 
-<form name="input" action="todo/new" method="post" onsubmit="TaskNew(this); return false;">
-    New todo: <input type="text" name="task" />
-    <input type="submit" value="Add" />
+<form action="" method="post" onsubmit="addToDoItem(this); return false;">
+    New todo : <input type="text" name="todo_new"/>
+    <input type="submit" value="Add"/>
 </form>
 </body>
 </html>

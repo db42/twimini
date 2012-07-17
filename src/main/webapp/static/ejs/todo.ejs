@@ -1,9 +1,16 @@
-<li id="<%=index%>">
-    <form name="modify"  action="todo/modify" method="post" onsubmit="TaskModify(this,<%=index%>); return false;">
-        <%=task%> |<a href="javascript:TaskDelete(<%=index%>);"> Delete</a>
 
-        <input type="text" name="task_new" />
-        <input type="hidden" name="id" value="<%=index%>" />
-        <input type="submit" value="Modify" />
+<li id="li-<%=index %>">
+
+    <form id='delete-<%=index %>' action="" method="post" > todo <%=todo_old_change %> |
+    <input type="hidden" name="index" value="<%=index %>"/>
+    <a href="javascript:deleteToDoItem('<%=index %>' ); return false;"> Delete</a>
+    |
     </form>
+
+    <form id="edit-<%=index %>" action="" method="post" onsubmit="editToDoItem(this); return false;">
+        <input type="hidden" name="index_new" value="<%=index_new %>"/>
+        <input type="text" name="todo_old_change" value="<%=todo_old_change %>"/>
+        <input type="submit" value="Save Changes"/>
+    </form>
+
 </li>
