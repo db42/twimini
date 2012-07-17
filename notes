@@ -1,0 +1,25 @@
+DB tables
+1. User
+id, email, password, name
+
+2. post
+id, user_id, post, time-stamp
+
+3. Follow_list
+id, user_id following, user_id follower
+
+Pages:
+1. Login - Register
+2. Profile -> show user posts
+3. Followers -> show followers list
+4. Followings -> show following users list
+5. Home -> show subscribed user's posts
+6. Logout
+
+
+Other work:
+1. CSS/HTML designing
+2. Javascript
+3. JSON/ REST api
+4. Optimizations
+    - caching, backend db and all that
