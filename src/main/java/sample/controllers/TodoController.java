@@ -27,10 +27,12 @@ import java.util.Map;
 public class TodoController {
 
     SimpleJdbcTemplate myjdbc;
+    TodoStore tds;
 
     @Autowired
-    public void TodoController(SimpleJdbcTemplate db){
+    public TodoController(SimpleJdbcTemplate db, TodoStore tds){
         myjdbc = db;
+        this.tds = tds;
     }
 
     @RequestMapping("/todo")
@@ -38,7 +40,7 @@ public class TodoController {
 
         ModelAndView mv = new ModelAndView("todo");
 
-        TodoStore tds = new TodoStore(myjdbc);
+//        TodoStore tds = new TodoStore(myjdbc);
         List<Map<String,Object>> ar = tds.returnSelect();
 
         mv.addObject("todo_new", ar);
