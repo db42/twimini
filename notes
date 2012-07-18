@@ -32,13 +32,17 @@ id, user_id following, user_id follower
 
 
 Pages:
-1. Login - Register
-2. Profile -> show user posts
-3. Followers -> show followers list
-4. Followings -> show following users list
-5. Home -> show subscribed user's posts
+1. Login - Register : /
+2. Profile -> show user posts :/id
+3. Followers -> show followers list :/followers
+4. Followings -> show following users list :/following
+5. Home -> show subscribed user's posts :/
 6. Logout
 
+TODO:
+1. explore #!
+2. exlore authentication - login and register
+3. start building controller functions for pages
 
 Other work:
 1. CSS/HTML designing
@@ -46,3 +50,5 @@ Other work:
 3. JSON/ REST api
 4. Optimizations
     - caching, backend db and all that
+
+
