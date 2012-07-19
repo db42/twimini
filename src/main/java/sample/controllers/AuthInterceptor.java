@@ -21,8 +21,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
         HttpSession session = request.getSession(false);
         if (session != null) {
-            String userName = (String) session.getAttribute("userName");
-            if (userName != null) {
+            String email = (String) session.getAttribute("email");
+            if (email != null) {
                 userID.set((Long) session.getAttribute("userID"));
                 return true;
             }
