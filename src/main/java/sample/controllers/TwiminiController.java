@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import sample.model.Post;
+import sample.model.User;
 import sample.service.TwiminiStore;
 
 import java.util.Hashtable;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/twimini")
+@RequestMapping("/twimini") //TODO: need to remove this prefix
 public class TwiminiController {
     TwiminiStore tStore;
 
@@ -68,4 +69,23 @@ public class TwiminiController {
     List<Post> getPostsJson(){
         return tStore.getPosts();
     }
+
+    @RequestMapping(value = "/followers.json", method = RequestMethod.GET)
+    @ResponseBody
+    List<User> getFollowersJson(){
+        return tStore.getFollowers();
+    }
+
+    @RequestMapping(value = "/followings.json", method = RequestMethod.GET)
+    @ResponseBody
+    List<User> getFollowings(){
+        return tStore.getFollowings();
+    }
+
+    @RequestMapping(value = "/feed.json", method = RequestMethod.GET)
+    @ResponseBody
+    List<Post> getSubscribedPostsJson(){
+        return tStore.getSubscribedPosts();
+    }
+
 }

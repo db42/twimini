@@ -45,8 +45,8 @@ TODO:
 3. start building controller functions for pages
 
 4. login -register  -- done
-5. newpost, newfollower -> form - basic jsp
-6. controller for 3,4,5
+5. Basic jsp pages for 2-5 including forms
+6. controller for 3,4 - done, 5 -todo
 7. basic css, html
 8. return status from store
 9. logout

@@ -28,4 +28,12 @@ public class User {
     public int getId() {
         return id;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

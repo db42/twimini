@@ -38,7 +38,6 @@ public class TwiminiStore {
 
     public List<Post> getPosts(){
         PostRowMapper postRowMapper = new PostRowMapper();
-
         List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID.get(), postRowMapper);
 
         if (posts==null)
@@ -46,7 +45,7 @@ public class TwiminiStore {
         return posts;
 
    }
-
+    //TODO: return status
     public void addFollower(int following) {
         jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID.get());
     }
@@ -60,6 +59,24 @@ public class TwiminiStore {
 
         User user = (User) jdbcTemplate.queryForObject("select * from users where email= \"" + email + "\"", userRowMapper);
         return user;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public List<User> getFollowers() {
+        UserRowMapper userRowMapper = new UserRowMapper();
+        List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID.get() +")", userRowMapper);
+        return followers;
+    }
+
+    public List<User> getFollowings() {
+        UserRowMapper userRowMapper = new UserRowMapper();
+        List<User> followings = jdbcTemplate.query("select * from users where id in (select user_id from followers where follower="+ userID.get() +")", userRowMapper);
+        return followings;
+    }
+
+    public List<Post> getSubscribedPosts() {
+        PostRowMapper postRowMapper = new PostRowMapper();
+        List<Post> subscribedPosts = jdbcTemplate.query("select * from posts where user_id in (select user_id from followers where follower=" + userID.get() +")", postRowMapper);
+        return subscribedPosts;
     }
 }
 
