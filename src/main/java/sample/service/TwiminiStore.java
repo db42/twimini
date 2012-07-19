@@ -38,7 +38,8 @@ public class TwiminiStore {
 
     public List<Post> getPosts(){
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID.get(), postRowMapper);
+        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID.get(),
+                postRowMapper);
 
         if (posts==null)
             posts = new ArrayList< Post>();

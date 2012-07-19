@@ -1,23 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
+    <script src="/static/js/jquery.min.js"type="text/javascript"></script>
+    <script src="/static/js/ejs_production.js"type="text/javascript"></script>
     <script type="text/javascript">
         function starter_script() {
-            $.post('/posts.json',
-                    null,
-                    function(data){
+            $.get('/twimini/posts.json',
+                function(data){
+                    jQuery.each(data, function(){
                         var tweets = $(new EJS({
-                                    url: '/static/ejs/addTweet.ejs'}).render(data));
-                        $('#tweetlist').append(tweets);
-                })
+                            url: '/static/ejs/addTweet.ejs'}).render(this));
+                    $('#tweetlist').append(tweets);
+                    })
+
+            })
         }
-        document.getElementById("demo").innerHTML="My First JavaScript";
     </script>
 </head>
 
 <body onload="starter_script();">
 Hello ${username} <a href="/logout">Logout</a>
-<form action="/newpost.json" method="post">
+<form action="/twimini/newpost.json" method="post">
     Tweet: <input type="textarea" name="post"></br>
     <input type="submit" value="addpost">
 </form>
@@ -27,3 +30,4 @@ Hello ${username} <a href="/logout">Logout</a>
 </ul>
 
 </body>
+</html>

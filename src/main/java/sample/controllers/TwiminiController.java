@@ -67,6 +67,7 @@ public class TwiminiController {
     @RequestMapping(value = "/posts.json", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getPostsJson(){
+        System.out.print("postsJson called");
         return tStore.getPosts();
     }
 
