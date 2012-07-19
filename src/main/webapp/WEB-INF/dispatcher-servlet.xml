@@ -14,8 +14,8 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/todo/*"/>
-            <mvc:mapping path="/todo"/>
+            <mvc:mapping path="/*"/>
+            <mvc:mapping path="/"/>
             <bean class="sample.controllers.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
