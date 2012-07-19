@@ -12,8 +12,15 @@
 </c:if>
 
 Login:
-<form action="/user/login" method="post">
-    username: <input type="text" name="username"></br>
+<form action="/login" method="post">
+    email: <input type="text" name="email"></br>
     password: <input type="password" name="password"></br>
-    <input type="submit">
+    <input type="submit" value="login">
+</form>
+
+<form action="/register" method="post">
+    Name: <input type="text" name="name"></br>
+    email: <input type="text" name="email"></br>
+    password: <input type="password" name="password"></br>
+    <input type="submit" value="register">
 </form>

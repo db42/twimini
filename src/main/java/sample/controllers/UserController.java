@@ -29,15 +29,16 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam("username") String userName,
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView login(@RequestParam("email") String email,
                               @RequestParam("password") String password,
                               HttpSession session) {
+
         ModelAndView mv = new ModelAndView("/index");
         long userID;
         try {
-            Map<String, Object> userData = db.queryForMap("select id, name, password from users where name=?",
-                                                          userName);
+            Map<String, Object> userData = db.queryForMap("select id, email, password from users where email=?",
+                                                          email);
 
             // add md5 function for password check
             if (!userData.get("password").equals(password)) {
@@ -45,7 +46,7 @@ public class UserController {
                 return mv;
             }
             userID = (Integer) userData.get("id");
-            session.setAttribute("userName", userName);
+            session.setAttribute("email", email);
             session.setAttribute("userID", userID);
         } catch (EmptyResultDataAccessException e) {
             mv.addObject("message", "No such user exists!");

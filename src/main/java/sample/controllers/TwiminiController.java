@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import sample.model.Post;
 import sample.service.TwiminiStore;
 
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -24,19 +25,32 @@ import java.util.Map;
 @Controller
 public class TwiminiController {
     TwiminiStore tStore;
-    int userID;
 
     @Autowired
     public TwiminiController(TwiminiStore tStore){
         this.tStore = tStore;
     }
 
+    @RequestMapping("/index")
+    ModelAndView indexPage(){
+        ModelAndView mv = new ModelAndView("index");
+        return mv;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    Hashtable<String, String> registerJson(@RequestParam String name, @RequestParam String email, @RequestParam String password){
+        tStore.addUser(name, email, password);
+        Hashtable hs = new Hashtable<String, String>();
+        hs.put("status","Added Successfully");
+        return hs;
+    }
+
     @RequestMapping(value = "/newpost.json", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newPostJson(@RequestParam String post){
-    // post, userID
         Hashtable hs = new Hashtable<String, String>();
-        tStore.addPost(userID, post);
+        tStore.addPost(post);
         hs.put("status","Added Successfully");
         return hs;
     }
@@ -46,18 +60,14 @@ public class TwiminiController {
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@RequestParam int following){
         Hashtable hs = new Hashtable<String, String>();
-        tStore.addFollower(following, userID);
+        tStore.addFollower(following);
         hs.put("status","Added Successfully");
         return hs;
     }
 
     @RequestMapping(value = "/posts.json", method = RequestMethod.GET)
     @ResponseBody
-    List<Map<String, String>> getPostsJson(){
-        List<Map<String, Object>> posts =  tStore.getPosts(userID);
-
+    List<Post> getPostsJson(){
+        return tStore.getPosts();
     }
-
-
-
 }

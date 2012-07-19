@@ -1,12 +1,16 @@
 package sample.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
+import sample.model.Post;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,25 +23,43 @@ import java.util.Map;
 @Service
 public class TwiminiStore {
     SimpleJdbcTemplate jdbcTemplate;
+    private final ThreadLocal<Long> userID;
 
     @Autowired
-    public TwiminiStore(SimpleJdbcTemplate jdbcTemplate){
+    public TwiminiStore(SimpleJdbcTemplate jdbcTemplate,@Qualifier("userID") ThreadLocal<Long> userID){
         this.jdbcTemplate = jdbcTemplate;
+        this.userID = userID;
     }
 
-    public void addPost(int userID, String post) {
-        jdbcTemplate.update("INSERT INTO post (user_id, post) VALUES (?,?)", userID, post);
+    public void addPost( String post) {
+        jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID.get(), post);
     }
 
-    public List<Map<String, Object>> getPosts(int userID){
-        List<Map<String, Object>> posts = jdbcTemplate.queryForList("select * from posts where user_id=?",userID);
-        if (posts == null)
-            posts = new ArrayList<Map<String, Object>>();
+    public List<Post> getPosts(){
+        PostRowMapper postRowMapper = new PostRowMapper();
 
+        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID.get(), postRowMapper);
+
+        if (posts==null)
+            posts = new ArrayList< Post>();
         return posts;
+
+   }
+
+    public void addFollower(int following) {
+        jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID.get());
     }
 
-    public void addFollower(int following, int follower) {
-        jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, follower);
+    public void addUser(String name, String email, String password) {
+        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)", name, email, password);
+    }
+}
+
+class PostRowMapper implements RowMapper {
+
+    @Override
+    public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+        Post post = new Post(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("post"), resultSet.getTimestamp("time"));
+        return post;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

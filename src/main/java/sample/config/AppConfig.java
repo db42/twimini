@@ -20,12 +20,12 @@ public class AppConfig {
 
         db.update("CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
-                "name varchar(128) DEFAULT '' NOT NULL," +
+                "username varchar(128) DEFAULT '' NOT NULL," +
                 "email varchar(128) NOT NULL," +
                 "password varchar(40) NOT NULL" +
                 ")");
 
-        db.update("CREATE TABLE IF NOT EXISTS post (" +
+        db.update("CREATE TABLE IF NOT EXISTS posts (" +
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
                 "user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
                 "post varchar(140) NOT NULL," +
