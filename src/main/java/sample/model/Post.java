@@ -15,6 +15,22 @@ public class Post {
     String post;
     Timestamp timestamp;
 
+    public int getId() {
+        return id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
     public Post(int id, int user_id, String post, Timestamp time){
         this.id = id;
         this.user_id = user_id;
