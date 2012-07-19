@@ -44,6 +44,14 @@ TODO:
 2. exlore authentication - login and register
 3. start building controller functions for pages
 
+4. login -register  -- done
+5. newpost, newfollower -> form - basic jsp
+6. controller for 3,4,5
+7. basic css, html
+8. return status from store
+9. logout
+
+
 Other work:
 1. CSS/HTML designing
 2. Javascript
