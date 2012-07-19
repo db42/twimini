@@ -45,7 +45,7 @@ public class TwiminiStore {
         return posts;
 
    }
-
+    //TODO: return status
     public void addFollower(int following) {
         jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID.get());
     }

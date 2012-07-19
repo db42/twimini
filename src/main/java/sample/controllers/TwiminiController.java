@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/twimini")
+@RequestMapping("/twimini") //TODO: need to remove this prefix
 public class TwiminiController {
     TwiminiStore tStore;
 
