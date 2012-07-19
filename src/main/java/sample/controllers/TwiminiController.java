@@ -23,6 +23,7 @@ import java.util.List;
  */
 
 @Controller
+@RequestMapping("/twimini")
 public class TwiminiController {
     TwiminiStore tStore;
 

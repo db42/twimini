@@ -14,8 +14,8 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/*"/>
-            <mvc:mapping path="/"/>
+            <mvc:mapping path="/twimini/*"/>
+            <mvc:mapping path="/twimini/"/>
             <bean class="sample.controllers.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

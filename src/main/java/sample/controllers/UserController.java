@@ -19,11 +19,6 @@ public class UserController {
     @Autowired
     public UserController(SimpleJdbcTemplate db) {this.db = db;}
 
-    @RequestMapping("/")
-    public String index() {
-        return "index";
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginForm() {
         return "index";
@@ -51,7 +46,7 @@ public class UserController {
         } catch (EmptyResultDataAccessException e) {
             mv.addObject("message", "No such user exists!");
         }
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:twimini/posts.json");
         return mv;
     }
 
