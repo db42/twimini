@@ -38,6 +38,13 @@ public class TwiminiController {
         return mv;
     }
 
+    @RequestMapping("/profile")
+    ModelAndView ProfilePage(){
+        ModelAndView mv = new ModelAndView("profile");
+        mv.addObject("username", "UserName to be added");
+        return mv;
+    }
+
     @RequestMapping(value = "/newpost.json", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newPostJson(@RequestParam String post){

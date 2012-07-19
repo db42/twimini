@@ -56,7 +56,7 @@ public class UserController {
         } catch (EmptyResultDataAccessException e) {
             mv.addObject("message", "No such user exists!");
         }
-        mv.setViewName("redirect:twimini/posts.json");
+        mv.setViewName("redirect:twimini/profile");
         return mv;
     }
 

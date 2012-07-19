@@ -27,7 +27,7 @@ public class TwiminiStore {
     private final ThreadLocal<Long> userID;
 
     @Autowired
-    public TwiminiStore(SimpleJdbcTemplate jdbcTemplate,@Qualifier("userID") ThreadLocal<Long> userID){
+    public TwiminiStore(SimpleJdbcTemplate jdbcTemplate, @Qualifier("userID") ThreadLocal<Long> userID){
         this.jdbcTemplate = jdbcTemplate;
         this.userID = userID;
     }
