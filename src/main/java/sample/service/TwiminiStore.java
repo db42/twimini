@@ -38,7 +38,6 @@ public class TwiminiStore {
 
     public List<Post> getPosts(){
         PostRowMapper postRowMapper = new PostRowMapper();
-
         List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID.get(), postRowMapper);
 
         if (posts==null)
@@ -72,6 +71,12 @@ public class TwiminiStore {
         UserRowMapper userRowMapper = new UserRowMapper();
         List<User> followings = jdbcTemplate.query("select * from users where id in (select user_id from followers where follower="+ userID.get() +")", userRowMapper);
         return followings;
+    }
+
+    public List<Post> getSubscribedPosts() {
+        PostRowMapper postRowMapper = new PostRowMapper();
+        List<Post> subscribedPosts = jdbcTemplate.query("select * from posts where user_id in (select user_id from followers where follower=" + userID.get() +")", postRowMapper);
+        return subscribedPosts;
     }
 }
 

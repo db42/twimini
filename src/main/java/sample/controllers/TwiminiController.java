@@ -75,4 +75,10 @@ public class TwiminiController {
         return tStore.getFollowings();
     }
 
+    @RequestMapping(value = "/feed.json", method = RequestMethod.GET)
+    @ResponseBody
+    List<Post> getSubscribedPostsJson(){
+        return tStore.getSubscribedPosts();
+    }
+
 }
