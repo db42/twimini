@@ -38,15 +38,6 @@ public class TwiminiController {
         return mv;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
-    Hashtable<String, String> registerJson(@RequestParam String name, @RequestParam String email, @RequestParam String password){
-        tStore.addUser(name, email, password);
-        Hashtable hs = new Hashtable<String, String>();
-        hs.put("status","success");
-        return hs;
-    }
-
     @RequestMapping(value = "/newpost.json", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newPostJson(@RequestParam String post){

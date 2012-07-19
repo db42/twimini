@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
 import sample.model.Post;
+import sample.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,6 +53,22 @@ public class TwiminiStore {
 
     public void addUser(String name, String email, String password) {
         jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)", name, email, password);
+    }
+
+    public User getUser(String email) {
+        UserRowMapper userRowMapper = new UserRowMapper();
+
+        User user = (User) jdbcTemplate.queryForObject("select * from users where email= \"" + email + "\"", userRowMapper);
+        return user;  //To change body of created methods use File | Settings | File Templates.
+    }
+}
+
+class UserRowMapper implements RowMapper {
+
+    @Override
+    public User mapRow(ResultSet resultSet, int i) throws SQLException {
+        User user = new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("email"), resultSet.getString("password"));
+        return user;
     }
 }
 
