@@ -2,31 +2,37 @@ package sample.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import sample.model.User;
+import sample.service.TwiminiStore;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
+import java.util.Hashtable;
 
 @Controller
 public class UserController {
-    public final SimpleJdbcTemplate db;
+    TwiminiStore tStore;
 
     @Autowired
-    public UserController(SimpleJdbcTemplate db) {this.db = db;}
-
-    @RequestMapping("/")
-    public String index() {
-        return "index";
-    }
+    public UserController(TwiminiStore tStore) {this.tStore = tStore;}
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginForm() {
         return "index";
+    }
+
+   @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    Hashtable<String, String> registerJson(@RequestParam String name, @RequestParam String email, @RequestParam String password){
+        tStore.addUser(name, email, password);
+        Hashtable hs = new Hashtable<String, String>();
+        hs.put("status","success");
+        return hs;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -37,21 +43,20 @@ public class UserController {
         ModelAndView mv = new ModelAndView("/index");
         long userID;
         try {
-            Map<String, Object> userData = db.queryForMap("select id, email, password from users where email=?",
-                                                          email);
+            User user = tStore.getUser(email);
 
             // add md5 function for password check
-            if (!userData.get("password").equals(password)) {
+            if (!user.getPassword().equals(password)) {
                 mv.addObject("message", "Invalid password.");
                 return mv;
             }
-            userID = (Integer) userData.get("id");
+            userID = (Integer) user.getId();
             session.setAttribute("email", email);
             session.setAttribute("userID", userID);
         } catch (EmptyResultDataAccessException e) {
             mv.addObject("message", "No such user exists!");
         }
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:twimini/posts.json");
         return mv;
     }
 
