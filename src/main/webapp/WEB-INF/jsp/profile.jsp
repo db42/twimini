@@ -15,12 +15,22 @@
 
             })
         }
+
+        function add_tweet(form){
+            $.post('/twimini/newpost.json',$(form).serialize(), function(data){
+                /*var tweet = $(new EJS({
+                    url: '/static/ejs/addTweet.ejs'}).render(this));
+                $('#tweetlist').append(tweet);*/
+                $('#tweetlist').empty();
+                starter_script();
+            });
+        }
     </script>
 </head>
 
 <body onload="starter_script();">
 Hello ${username} <a href="/logout">Logout</a>
-<form action="/twimini/newpost.json" method="post">
+<form action="/twimini/newpost.json" onsubmit="add_tweet(this); return false;">
     Tweet: <input type="textarea" name="post"></br>
     <input type="submit" value="addpost">
 </form>
