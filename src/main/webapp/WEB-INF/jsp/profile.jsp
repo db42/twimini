@@ -18,12 +18,9 @@
 
         function add_tweet(form){
             $.post('/twimini/newpost.json',$(form).serialize(), function(data){
-                alert("added tweet :)"+data);
                 var tweet = $(new EJS({
-                    url: '/static/ejs/addTweet.ejs'}).render(this));
+                    url: '/static/ejs/addTweet.ejs'}).render(data));
                 $('#tweetlist').append(tweet);
-                //$('#tweetlist').empty();
-                //starter_script();
             });
         }
     </script>
