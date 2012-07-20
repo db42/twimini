@@ -50,9 +50,14 @@ public class TwiminiController {
     @ResponseBody
     Hashtable<String, String> newPostJson(@RequestParam String post){
         Hashtable hs = new Hashtable<String, String>();
-        tStore.addPost(post);
-        hs.put("status","success");
+        Post p = tStore.addPost(post);
+        hs.put("user_id", p.getUser_id());
+        hs.put("id", p.getId());
+        hs.put("post" ,p.getPost());
+        hs.put("timestamp", p.getTimestamp());
         return hs;
+        /*hs.put("status","success");
+        return hs;*/
     }
 
     @RequestMapping(value = "/newfollower.json", method = RequestMethod.POST)
@@ -67,7 +72,6 @@ public class TwiminiController {
     @RequestMapping(value = "/posts.json", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getPostsJson(){
-        System.out.print("postsJson called");
         return tStore.getPosts();
     }
 

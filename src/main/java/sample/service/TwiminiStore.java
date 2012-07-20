@@ -32,8 +32,11 @@ public class TwiminiStore {
         this.userID = userID;
     }
 
-    public void addPost( String post) {
+    public Post addPost(String post) {
+        PostRowMapper postRowMapper = new PostRowMapper();
         jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID.get(), post);
+        return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID.get() +
+                " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
 
     public List<Post> getPosts(){
