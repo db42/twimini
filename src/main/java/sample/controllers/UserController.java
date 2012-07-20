@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import sample.model.User;
 import sample.service.TwiminiStore;
 
 import javax.servlet.http.HttpSession;
+import java.util.Hashtable;
 
 @Controller
 public class UserController {
@@ -25,12 +27,12 @@ public class UserController {
     }
 
    @RequestMapping(value = "/register", method = RequestMethod.POST)
-   public ModelAndView registerJson(@RequestParam String name,
-                             @RequestParam String email,
-                             @RequestParam String password,
-                             HttpSession session){
-       tStore.addUser(name, email, password);
-       return login(email, password, session);
+    @ResponseBody
+    Hashtable<String, String> registerJson(@RequestParam String name, @RequestParam String email, @RequestParam String password){
+        tStore.addUser(name, email, password);
+        Hashtable hs = new Hashtable<String, String>();
+        hs.put("status","success");
+        return hs;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
