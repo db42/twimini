@@ -46,7 +46,7 @@
 
 <body onload="starter_script();">
 Hello ${username} <a href="/logout">Logout</a>
-<form action="/newpost.json" onsubmit="add_tweet(this); return false;">
+<form action="/posts.json" onsubmit="add_tweet(this); return false;">
     Tweet: <input type="textarea" name="post"></br>
     <input type="submit" value="addpost">
 </form>
