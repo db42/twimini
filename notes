@@ -46,10 +46,14 @@ TODO:
 
 4. login -register  -- done
 5. Basic jsp pages for 2-5 including forms
-6. controller for 3,4 - done, 5 -todo
-7. basic css, html
-8. return status from store
+6. controller for 3,4 - done, 5 -done
+
+23, July
+7. start css, html
+8. explore and start rest api + independent application using javascript
 9. logout
+10. return status from store
+
 
 
 Other work:
