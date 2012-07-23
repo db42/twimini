@@ -14,6 +14,24 @@
                     })
 
             })
+            $.get('/twimini/followers.json',
+                function(data){
+                    jQuery.each(data, function(){
+                        var follower = $(new EJS({
+                            url: '/static/ejs/addUser.ejs'}).render(this));
+                    $('#followerslist').append(follower);
+                    })
+
+            })
+            $.get('/twimini/followings.json',
+                function(data){
+                    jQuery.each(data, function(){
+                        var following = $(new EJS({
+                            url: '/static/ejs/addUser.ejs'}).render(this));
+                    $('#followinglist').append(following);
+                    })
+
+            })
         }
 
         function add_tweet(form){
@@ -33,9 +51,16 @@ Hello ${username} <a href="/logout">Logout</a>
     <input type="submit" value="addpost">
 </form>
 
+<h1>Tweets: </h1>
 <ul id="tweetlist">
-
 </ul>
+<h1>Followers: </h1>
+<ul id="followerslist">
+</ul>
+<h1>Following: </h1>
+<ul id="followinglist">
+</ul>
+
 
 </body>
 </html>
