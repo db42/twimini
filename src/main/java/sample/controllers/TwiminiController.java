@@ -46,7 +46,7 @@ public class TwiminiController {
         return mv;
     }
 
-    @RequestMapping(value = "/newpost.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/posts.json", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newPostJson(@RequestParam String post){
         Hashtable hs = new Hashtable<String, String>();
@@ -60,7 +60,7 @@ public class TwiminiController {
         return hs;*/
     }
 
-    @RequestMapping(value = "/newfollower.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/followers.json", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@RequestParam int following){
         Hashtable hs = new Hashtable<String, String>();

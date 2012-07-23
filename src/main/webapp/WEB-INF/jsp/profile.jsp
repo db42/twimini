@@ -35,7 +35,7 @@
         }
 
         function add_tweet(form){
-            $.post('/twimini/newpost.json',$(form).serialize(), function(data){
+            $.post('/twimini/posts.json',$(form).serialize(), function(data){
                 var tweet = $(new EJS({
                     url: '/static/ejs/addTweet.ejs'}).render(data));
                 $('#tweetlist').append(tweet);
