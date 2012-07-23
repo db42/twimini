@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import sample.model.Post;
 import sample.model.User;
 import sample.service.TwiminiStore;
@@ -14,36 +13,20 @@ import sample.service.TwiminiStore;
 import java.util.Hashtable;
 import java.util.List;
 
-
 /**
  * Created with IntelliJ IDEA.
  * User: dushyant
- * Date: 18/7/12
- * Time: 1:50 PM
+ * Date: 23/7/12
+ * Time: 4:53 PM
  * To change this template use File | Settings | File Templates.
  */
-
 @Controller
-@RequestMapping("/twimini") //TODO: need to remove this prefix
-public class TwiminiController {
+public class TwiminiRestContoller {
     TwiminiStore tStore;
 
     @Autowired
-    public TwiminiController(TwiminiStore tStore){
+    public TwiminiRestContoller(TwiminiStore tStore){
         this.tStore = tStore;
-    }
-
-    @RequestMapping("/index")
-    ModelAndView indexPage(){
-        ModelAndView mv = new ModelAndView("index");
-        return mv;
-    }
-
-    @RequestMapping("/profile")
-    ModelAndView ProfilePage(){
-        ModelAndView mv = new ModelAndView("profile");
-        mv.addObject("username", "UserName to be added");
-        return mv;
     }
 
     @RequestMapping(value = "/posts.json", method = RequestMethod.POST)

@@ -5,7 +5,7 @@
     <script src="/static/js/ejs_production.js"type="text/javascript"></script>
     <script type="text/javascript">
         function starter_script() {
-            $.get('/twimini/posts.json',
+            $.get('/posts.json',
                 function(data){
                     jQuery.each(data, function(){
                         var tweets = $(new EJS({
@@ -14,7 +14,7 @@
                     })
 
             })
-            $.get('/twimini/followers.json',
+            $.get('/followers.json',
                 function(data){
                     jQuery.each(data, function(){
                         var follower = $(new EJS({
@@ -23,7 +23,7 @@
                     })
 
             })
-            $.get('/twimini/followings.json',
+            $.get('/followings.json',
                 function(data){
                     jQuery.each(data, function(){
                         var following = $(new EJS({
@@ -35,7 +35,7 @@
         }
 
         function add_tweet(form){
-            $.post('/twimini/posts.json',$(form).serialize(), function(data){
+            $.post('/posts.json',$(form).serialize(), function(data){
                 var tweet = $(new EJS({
                     url: '/static/ejs/addTweet.ejs'}).render(data));
                 $('#tweetlist').append(tweet);
@@ -46,7 +46,7 @@
 
 <body onload="starter_script();">
 Hello ${username} <a href="/logout">Logout</a>
-<form action="/twimini/newpost.json" onsubmit="add_tweet(this); return false;">
+<form action="/newpost.json" onsubmit="add_tweet(this); return false;">
     Tweet: <input type="textarea" name="post"></br>
     <input type="submit" value="addpost">
 </form>
