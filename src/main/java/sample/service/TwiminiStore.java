@@ -56,6 +56,7 @@ public class TwiminiStore {
 
     public void addUser(String name, String email, String password) {
         jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)", name, email, password);
+//        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,SHA1(?))", name, email, password);
     }
 
     public User getUser(String email) {
