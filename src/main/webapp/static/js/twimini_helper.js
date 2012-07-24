@@ -35,3 +35,5 @@ function add_tweet(form){
         $('#tweetlist').append(tweet);
     });
 }
+
+$(window).load(starter_script);

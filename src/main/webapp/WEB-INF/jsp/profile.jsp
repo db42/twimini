@@ -6,7 +6,7 @@
     <script src="/static/js/twimini_helper.js"type="text/javascript"></script>
 </head>
 
-<body onload="starter_script();">
+<body>
 Hello ${username} <a href="/logout">Logout</a>
 <form action="/posts.json" onsubmit="add_tweet(this); return false;">
     Tweet: <input type="textarea" name="post"></br>
