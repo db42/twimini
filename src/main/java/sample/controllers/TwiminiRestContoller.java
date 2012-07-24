@@ -70,7 +70,7 @@ public class TwiminiRestContoller {
         return tStore.getFollowings();
     }
 
-    @RequestMapping(value = "/feed", method = RequestMethod.GET)
+    @RequestMapping(value = "/posts/feed", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getSubscribedPostsJson(){
         return tStore.getSubscribedPosts();
