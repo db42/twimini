@@ -1,5 +1,5 @@
 function starter_script() {
-    $.get('/posts.json',
+    $.get('/posts',
         function(data){
             jQuery.each(data, function(){
                 var tweets = $(new EJS({
@@ -8,7 +8,7 @@ function starter_script() {
             })
 
     })
-    $.get('/followers.json',
+    $.get('/followers',
         function(data){
             jQuery.each(data, function(){
                 var follower = $(new EJS({
@@ -17,7 +17,7 @@ function starter_script() {
             })
 
     })
-    $.get('/followings.json',
+    $.get('/followings',
         function(data){
             jQuery.each(data, function(){
                 var following = $(new EJS({
@@ -29,7 +29,7 @@ function starter_script() {
 }
 
 function add_tweet(form){
-    $.post('/posts.json',$(form).serialize(), function(data){
+    $.post('/posts',$(form).serialize(), function(data){
         var tweet = $(new EJS({
             url: '/static/ejs/addTweet.ejs'}).render(data));
         $('#tweetlist').append(tweet);

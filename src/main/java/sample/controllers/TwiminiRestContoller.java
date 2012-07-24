@@ -29,7 +29,7 @@ public class TwiminiRestContoller {
         this.tStore = tStore;
     }
 
-    @RequestMapping(value = "/posts.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/posts", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newPostJson(@RequestParam String post){
         Hashtable hs = new Hashtable<String, String>();
@@ -43,7 +43,7 @@ public class TwiminiRestContoller {
         return hs;*/
     }
 
-    @RequestMapping(value = "/followers.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/followers", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@RequestParam int following){
         Hashtable hs = new Hashtable<String, String>();
@@ -52,25 +52,25 @@ public class TwiminiRestContoller {
         return hs;
     }
 
-    @RequestMapping(value = "/posts.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/posts", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getPostsJson(){
         return tStore.getPosts();
     }
 
-    @RequestMapping(value = "/followers.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/followers", method = RequestMethod.GET)
     @ResponseBody
     List<User> getFollowersJson(){
         return tStore.getFollowers();
     }
 
-    @RequestMapping(value = "/followings.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/followings", method = RequestMethod.GET)
     @ResponseBody
     List<User> getFollowings(){
         return tStore.getFollowings();
     }
 
-    @RequestMapping(value = "/feed.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getSubscribedPostsJson(){
         return tStore.getSubscribedPosts();
