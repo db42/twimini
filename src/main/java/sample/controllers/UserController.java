@@ -43,10 +43,10 @@ public class UserController {
         ModelAndView mv = new ModelAndView("/index");
         long userID;
         try {
-            User user = tStore.getUser(email);
+            User user = tStore.getUser(email, password);
 
             // add md5 function for password check
-            if (!user.getPassword().equals(password)) {
+            if (user == null) {
                 mv.addObject("message", "Invalid password.");
                 return mv;
             }

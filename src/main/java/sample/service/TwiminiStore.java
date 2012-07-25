@@ -2,6 +2,7 @@ package sample.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -65,11 +66,16 @@ public class TwiminiStore {
         return user;
     }
 
-    public User getUser(String email) {
+    public User getUser(String email, String password) {
         UserRowMapper userRowMapper = new UserRowMapper();
-
-        User user = (User) jdbcTemplate.queryForObject("select * from users where email= \"" + email + "\"", userRowMapper);
-        return user;  //To change body of created methods use File | Settings | File Templates.
+        try{
+            System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
+            User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=\""+ password + "\"", userRowMapper);
+            return user;  //To change body of created methods use File | Settings | File Templates.
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     public List<User> getFollowers() {
