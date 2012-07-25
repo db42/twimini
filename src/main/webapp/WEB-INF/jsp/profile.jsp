@@ -8,8 +8,8 @@
 
 <body>
 Hello ${username} <a href="/logout">Logout</a>
-<form action="/posts.json" onsubmit="add_tweet(this); return false;">
-    Tweet: <input type="textarea" name="post"></br>
+<form action="" onsubmit="add_tweet(this); return false;">
+    Tweet: <input type="text" name="post"></br>
     <input type="submit" value="addpost">
 </form>
 
