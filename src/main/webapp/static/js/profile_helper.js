@@ -1,36 +1,42 @@
-function starter_script() {
-    $.get('/posts',
-        function(data){
-            jQuery.each(data, function(){
-                append_entity('tweetlist','addTweet.ejs',this);
-            })
+function BasicView(ejsName, listName, url, userID){
+    this.ejsName = ejsName
+    this.listName = listName
+    this.url = url
+    this.userID = userID
+}
 
-    })
-    $.get('/followers',
-        function(data){
-            jQuery.each(data, function(){
-                append_entity('followerslist','addUser.ejs',this);
-            })
+BasicView.prototype.getUrl = function(){
+    return '/users/'+ this.userID+'/'+this.url;
+}
+BasicView.prototype.addOne = function(data){
+    var entity = $(new EJS({url:'/static/ejs/'+this.ejsName}).render(data));
+    $('#'+this.listName).append(entity);
+}
 
-    })
-    $.get('/followings',
-        function(data){
-            jQuery.each(data, function(){
-                append_entity('followinglist','addUser.ejs',this);
-            })
+BasicView.prototype.addAll = function(data){
+    viewcontext = this
+    $.each(data, function(index, value){
+        viewcontext.addOne(value)
     })
 }
 
-function append_entity(listName, ejsName, data) {
-    var entity = $(new EJS({
-        url:'/static/ejs/'+ejsName}).render(data));
+BasicView.prototype.populate = function(){
+    viewcontext = this
+    $.get(this.getUrl(), function(data){
+        viewcontext.addAll(data)
+    })
+}
+
+
+function addOne(listName, ejsName, data) {
+    var entity = $(new EJS({url:'/static/ejs/'+ejsName}).render(data));
     $('#'+listName).append(entity);
 }
 
 function add_tweet(form){
-    $.post('/posts',$(form).serialize(), function(data){
-        append_entity('tweetlist','addTweet.ejs',data);
-    });
+    $.post('/users/1/posts',$(form).serialize(), function(data){
+        addOne('tweetlist','addTweet.ejs',data)
+    })
 }
-
-$(window).load(starter_script);
+postview = new BasicView('addTweet.ejs', 'tweetlist','posts', '1')
+$(window).load(postview.populate());
