@@ -3,7 +3,7 @@
 <head>
     <script src="/static/js/jquery.min.js"type="text/javascript"></script>
     <script src="/static/js/ejs_production.js"type="text/javascript"></script>
-    <script src="/static/js/twimini_helper.js"type="text/javascript"></script>
+    <script src="/static/js/profile_helper.js"type="text/javascript"></script>
 </head>
 
 <body>
