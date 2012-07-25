@@ -11,7 +11,6 @@ import sample.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,13 +39,11 @@ public class TwiminiStore {
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
 
-    public List<Post> getPosts(){
+    public List<Post> getPosts(String userID){
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID.get(),
+        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID,
                 postRowMapper);
 
-        if (posts==null)
-            posts = new ArrayList< Post>();
         return posts;
 
    }

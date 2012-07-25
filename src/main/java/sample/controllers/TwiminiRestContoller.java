@@ -49,10 +49,15 @@ public class TwiminiRestContoller {
         return hs;
     }
 
-    @RequestMapping(value = "/posts", method = RequestMethod.GET)
+    @RequestMapping(value = "/posts/user/{userID}", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getPostsJson(){
-        return tStore.getPosts();
+    List<Post> getPostsJson(@PathVariable String userID){
+        List<Post> posts = tStore.getPosts(userID);
+        if (posts.isEmpty())
+            throw new ResourceNotFoundException();
+        else
+            return posts;
+
     }
 
     @RequestMapping(value = "/followers", method = RequestMethod.GET)
