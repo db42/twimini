@@ -60,10 +60,15 @@ public class TwiminiStore {
 //        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,SHA1(?))", name, email, password);
     }
 
-    public User getUser(){
+    public User getUser(String userID){
         UserRowMapper userRowMapper = new UserRowMapper();
-        User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID.get(), userRowMapper);
-        return user;
+        try{
+            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
+            return user;
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     public User getUser(String email, String password) {

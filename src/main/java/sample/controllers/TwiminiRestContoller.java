@@ -2,10 +2,7 @@ package sample.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sample.model.Post;
 import sample.model.User;
 import sample.service.TwiminiStore;
@@ -76,9 +73,13 @@ public class TwiminiRestContoller {
         return tStore.getSubscribedPosts();
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
     @ResponseBody
-    User getUserJson(){
-        return tStore.getUser();
+    User getUserJson(@PathVariable String userID){
+        User user = tStore.getUser(userID);
+        if (user == null)
+            throw new ResourceNotFoundException();
+        else
+            return user;
     }
 }
