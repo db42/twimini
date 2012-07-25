@@ -26,11 +26,11 @@ public class TwiminiRestContoller {
         this.tStore = tStore;
     }
 
-    @RequestMapping(value = "/posts", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.POST)
     @ResponseBody
-    Hashtable<String, String> newPostJson(@RequestParam String post){
+    Hashtable<String, String> newPostJson(@PathVariable String userID, @RequestParam String post){
         Hashtable hs = new Hashtable<String, String>();
-        Post p = tStore.addPost(post);
+        Post p = tStore.addPost(userID, post);
         hs.put("user_id", p.getUser_id());
         hs.put("id", p.getId());
         hs.put("post" ,p.getPost());
@@ -40,11 +40,11 @@ public class TwiminiRestContoller {
         return hs;*/
     }
 
-    @RequestMapping(value = "/followers", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)
     @ResponseBody
-    Hashtable<String, String> newFollowerJson(@RequestParam int following){
+    Hashtable<String, String> newFollowerJson(@PathVariable String userID,@RequestParam int following){
         Hashtable hs = new Hashtable<String, String>();
-        tStore.addFollower(following);
+        tStore.addFollower(following, userID);
         hs.put("status","success");
         return hs;
     }
@@ -60,22 +60,22 @@ public class TwiminiRestContoller {
 
     }
 
-    @RequestMapping(value = "/followers", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
     @ResponseBody
-    List<User> getFollowersJson(){
-        return tStore.getFollowers();
+    List<User> getFollowersJson(@PathVariable String userID){
+        return tStore.getFollowers(userID);
     }
 
-    @RequestMapping(value = "/followings", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
     @ResponseBody
-    List<User> getFollowings(){
-        return tStore.getFollowings();
+    List<User> getFollowings(@PathVariable String userID){
+        return tStore.getFollowings(userID);
     }
 
-    @RequestMapping(value = "/posts/feed", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{userID}/posts/feed", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getSubscribedPostsJson(){
-        return tStore.getSubscribedPosts();
+    List<Post> getSubscribedPostsJson(@PathVariable String userID){
+        return tStore.getSubscribedPosts(userID);
     }
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
