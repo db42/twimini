@@ -76,4 +76,9 @@ public class TwiminiRestContoller {
         return tStore.getSubscribedPosts();
     }
 
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @ResponseBody
+    User getUserJson(){
+        return tStore.getUser();
+    }
 }
