@@ -2,37 +2,34 @@ function starter_script() {
     $.get('/posts',
         function(data){
             jQuery.each(data, function(){
-                var tweets = $(new EJS({
-                    url: '/static/ejs/addTweet.ejs'}).render(this));
-            $('#tweetlist').append(tweets);
+                append_entity('tweetlist','addTweet.ejs',this);
             })
 
     })
     $.get('/followers',
         function(data){
             jQuery.each(data, function(){
-                var follower = $(new EJS({
-                    url: '/static/ejs/addUser.ejs'}).render(this));
-            $('#followerslist').append(follower);
+                append_entity('followerslist','addUser.ejs',this);
             })
 
     })
     $.get('/followings',
         function(data){
             jQuery.each(data, function(){
-                var following = $(new EJS({
-                    url: '/static/ejs/addUser.ejs'}).render(this));
-            $('#followinglist').append(following);
+                append_entity('followinglist','addUser.ejs',this);
             })
-
     })
+}
+
+function append_entity(listName, ejsName, data) {
+    var entity = $(new EJS({
+        url:'/static/ejs/'+ejsName}).render(data));
+    $('#'+listName).append(entity);
 }
 
 function add_tweet(form){
     $.post('/posts',$(form).serialize(), function(data){
-        var tweet = $(new EJS({
-            url: '/static/ejs/addTweet.ejs'}).render(data));
-        $('#tweetlist').append(tweet);
+        append_entity('tweetlist','addTweet.ejs',data);
     });
 }
 
