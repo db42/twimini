@@ -49,7 +49,7 @@ public class TwiminiRestContoller {
         return hs;
     }
 
-    @RequestMapping(value = "/posts/user/{userID}", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getPostsJson(@PathVariable String userID){
         List<Post> posts = tStore.getPosts(userID);
