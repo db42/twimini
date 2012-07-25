@@ -32,10 +32,10 @@ public class TwiminiStore {
         this.userID = userID;
     }
 
-    public Post addPost(String post) {
+    public Post addPost(String userID, String post) {
         PostRowMapper postRowMapper = new PostRowMapper();
-        jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID.get(), post);
-        return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID.get() +
+        jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID, post);
+        return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID +
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
 
@@ -48,8 +48,8 @@ public class TwiminiStore {
 
    }
     //TODO: return status
-    public void addFollower(int following) {
-        jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID.get());
+    public void addFollower(int following, String userID) {
+        jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID);
     }
 
     public void addUser(String name, String email, String password) {
@@ -80,22 +80,33 @@ public class TwiminiStore {
         }
     }
 
-    public List<User> getFollowers() {
+    public List<User> getFollowers(String userID) {
         UserRowMapper userRowMapper = new UserRowMapper();
-        List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID.get() +")", userRowMapper);
+        List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID +")", userRowMapper);
         return followers;
     }
 
-    public List<User> getFollowings() {
+    public List<User> getFollowings(String userID) {
         UserRowMapper userRowMapper = new UserRowMapper();
-        List<User> followings = jdbcTemplate.query("select * from users where id in (select user_id from followers where follower="+ userID.get() +")", userRowMapper);
+        List<User> followings = jdbcTemplate.query("select * from users where id in (select user_id from followers where follower="+ userID +")", userRowMapper);
         return followings;
     }
 
-    public List<Post> getSubscribedPosts() {
+    public List<Post> getSubscribedPosts(String userID) {
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> subscribedPosts = jdbcTemplate.query("select * from posts where user_id in (select user_id from followers where follower=" + userID.get() +")", postRowMapper);
+        List<Post> subscribedPosts = jdbcTemplate.query("select * from posts where user_id in (select user_id from followers where follower=" + userID +")", postRowMapper);
         return subscribedPosts;
+    }
+
+    public Post getPost(String postID) {
+        PostRowMapper postRowMapper = new PostRowMapper();
+        try{
+            Post post = (Post) jdbcTemplate.queryForObject("select * from posts where id=" + postID, postRowMapper);
+            return post;
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 }
 

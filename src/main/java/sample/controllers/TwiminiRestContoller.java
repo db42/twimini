@@ -60,6 +60,16 @@ public class TwiminiRestContoller {
 
     }
 
+    @RequestMapping(value = "/posts/{postID}", method = RequestMethod.GET)
+    @ResponseBody
+    Post getPostJson(@PathVariable String postID){
+        Post post = tStore.getPost(postID);
+        if (post == null)
+            throw new ResourceNotFoundException();
+        else
+            return post;
+
+    }
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
     @ResponseBody
     List<User> getFollowersJson(@PathVariable String userID){
