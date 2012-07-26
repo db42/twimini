@@ -11,5 +11,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * To change this template use File | Settings | File Templates.
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
+final class ResourceNotFoundException extends RuntimeException {
+}
+
+@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+final class NotAuthorisedException extends RuntimeException{
+
 }

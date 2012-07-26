@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import sample.model.Post;
 import sample.model.User;
 import sample.service.TwiminiStore;
+import sun.misc.BASE64Decoder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -31,8 +34,17 @@ public class TwiminiRestContoller {
     @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    Hashtable<String, String> newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletResponse response){
+    Hashtable<String, String> newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Hashtable hs = new Hashtable<String, String>();
+
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] decodedBytes = decoder.decodeBuffer(request.getHeader("Authorization"));
+        String password = new String(decodedBytes);
+
+        if (tStore.getUserByUserID(userID, password) == null) {
+            throw new NotAuthorisedException();
+        }
+
         Post p = tStore.addPost(userID, post);
         response.setHeader("Location","/posts/"+p.getId());
 

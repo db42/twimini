@@ -68,7 +68,17 @@ public class TwiminiStore {
         }
     }
 
-    public User getUser(String email, String password) {
+    public User getUserByUserID(String userID, String password) {
+        UserRowMapper userRowMapper = new UserRowMapper();
+        try{
+            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=\""+ password + "\"", userRowMapper);
+            return user;  //To change body of created methods use File | Settings | File Templates.
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+    public User getUserByEmail(String email, String password) {
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
             System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
