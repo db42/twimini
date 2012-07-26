@@ -34,9 +34,19 @@ function addOne(listName, ejsName, data) {
 }
 
 function add_tweet(form){
-    $.post('/users/1/posts',$(form).serialize(), function(data){
+    $.ajax({
+        url: '/users/1/posts',
+        type: 'POST',
+        data: $(form).serialize(),
+        headers : {
+            "Authorization" : window.btoa("1234"),
+            "Content-Type" : "application/x-www-form-urlencoded"
+        },
+        success : function(data){
+//    $.post('/users/1/posts',$(form).serialize(), function(data){
         addOne('tweetlist','addTweet.ejs',data)
-    })
+    }
+    });
 }
 postview = new BasicView('addTweet.ejs', 'tweetlist','posts', '1')
 $(window).load(postview.populate());
