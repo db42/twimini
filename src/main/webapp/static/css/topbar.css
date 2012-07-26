@@ -41,11 +41,20 @@ body {
 	background-color: #302941;
 }
 
+.icon-position{
+	position: relative;
+	margin: auto auto;
+	height: 40px;
+	width: 36px;
+	margin-left: 40%;
+	display: inline-block;
+}
 .twitter-icon-embossed{
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;	
+	background-image: url("/static/images/icon.png");
+	height: 24px;
+	width: 30px;
+	float: left;
+	margin: 8px 3px;
 }
 
 .right-pull{
