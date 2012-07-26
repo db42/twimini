@@ -98,20 +98,20 @@
 	padding: 3px 10px;
 	
 }
-.tweet{
+.common-block{
 	padding: 4px 6px;
 	position: relative;
 	border-bottom: 1px solid #292435;
     min-height: 52px;
 }
-.tweet-details{
+.details{
 	margin: -50px 0 0 55px;
 }
 .post{
 	/*text-overflow: ellipsis;*/
 	word-wrap: break-word;
 }
-.time{
+.right-top{
 	float: right;
 }
 .addpost-btn{

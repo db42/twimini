@@ -64,16 +64,38 @@
 					<div class="link-to-tab"> <a href="#following"> Following -> </a></div>
                 </div>
 				<div class="right-part">
-					<a class="tweet-container" name = "#tweets">
+					<a class="tweet-container" id= "tweets">
 						<div class="top-message"> Tweets </div>
 					</a>
-					<a class="followers-container" name="#followers">
+					<a class="followers-container" id="followers">
 						<div class="top-message"> Followers </div>
-						<div class="followerslist"></div>
+						<div class="followerslist">
+                            <div class="common-block">
+                                <div class="profile-pic small-pic"> </div>
+                                <div class="details">
+                                    UserName
+                                    <div class="right-top">id</div>
+                                    <div class="post">
+                                    email
+                                    </div>
+                                </div>
+                            </div>
+						</div>
 					</a>
-					<a class="following-container" name="#following">
+					<a class="following-container" id="following">
 						<div class="top-message"> Following </div>
-						<div class="followinglist"></div>
+						<div class="followinglist">
+                            <div class="common-block">
+                                <div class="profile-pic small-pic"> </div>
+                                <div class="details">
+                                    UserName
+                                    <div class="right-top">id</div>
+                                    <div class="post">
+                                    email
+                                    </div>
+                                </div>
+                            </div>
+						</div>
 					</a>
 				</div>
 			</div>

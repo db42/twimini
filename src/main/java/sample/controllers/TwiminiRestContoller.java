@@ -35,8 +35,6 @@ public class TwiminiRestContoller {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     Post newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Hashtable hs = new Hashtable<String, String>();
-
         BASE64Decoder decoder = new BASE64Decoder();
         byte[] decodedBytes = decoder.decodeBuffer(request.getHeader("Authorization"));
         String password = new String(decodedBytes);
@@ -49,8 +47,6 @@ public class TwiminiRestContoller {
         response.setHeader("Location","/posts/"+p.getId());
 
         return p;
-        /*hs.put("status","success");
-        return hs;*/
     }
 
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)
