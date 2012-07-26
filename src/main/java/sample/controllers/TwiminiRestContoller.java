@@ -1,12 +1,14 @@
 package sample.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sample.model.Post;
 import sample.model.User;
 import sample.service.TwiminiStore;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -27,10 +29,13 @@ public class TwiminiRestContoller {
     }
 
     @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    Hashtable<String, String> newPostJson(@PathVariable String userID, @RequestParam String post){
+    Hashtable<String, String> newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletResponse response){
         Hashtable hs = new Hashtable<String, String>();
         Post p = tStore.addPost(userID, post);
+        response.setHeader("Location","/posts/"+p.getId());
+
         hs.put("user_id", p.getUser_id());
         hs.put("id", p.getId());
         hs.put("post" ,p.getPost());
