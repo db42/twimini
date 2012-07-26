@@ -90,7 +90,6 @@
 	background: -moz-linear-gradient(top,  #e6f7ff,  #8673a6);
 	
 	box-shadow: 0px 0px 10px #f3f0ff;
-	height: 800px;
 }
 .top-message{
 	font: 20px Arial, Helvetica, sans-serif;
@@ -103,6 +102,7 @@
 	padding: 4px 6px;
 	position: relative;
 	border-bottom: 1px solid #292435;
+    min-height: 52px;
 }
 .tweet-details{
 	margin: -50px 0 0 55px;
