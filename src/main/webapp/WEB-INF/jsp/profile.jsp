@@ -52,16 +52,16 @@
 			</div>
 
 			<div class="user-content">
+                <%--<div class="left-part">
+                    <form action="" onsubmit="add_tweet(this); return false;">
+                        <input type="text" class="addpost-input" name="post" placeholder="Tweet" autocomplete="off" dir="ltr"></br>
+                        <input type="submit" value="addpost" class="addpost-btn">
+                    </form>
+                </div>--%>
 				<div class="left-part">
 					<div class="link-to-tab"> <a href="#tweets"> Tweets -></a></div>
 					<div class="link-to-tab"> <a href="#followers"> Followers -> </a></div>
 					<div class="link-to-tab"> <a href="#following"> Following -> </a></div>
-				</div>
-                <div class="left-part">
-                    <form action="" onsubmit="add_tweet(this); return false;">
-                        Tweet: <input type="text" name="post"></br>
-                        <input type="submit" value="addpost">
-                    </form>
                 </div>
 				<div class="right-part">
 					<a class="tweet-container" name = "#tweets">

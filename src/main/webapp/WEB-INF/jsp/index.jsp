@@ -22,7 +22,7 @@
 	<body>
 		<div class="topbar-permanant">
 			<div class="container">
-				<i class="twitter-icon-embossed">Icon</i>
+				<i class="twitter-icon-embossed"></i>
 			</div>
 		</div>
 		<div class="front-box">
