@@ -35,7 +35,7 @@ public class TwiminiStore {
     public Post addPost(String userID, String post) {
         PostRowMapper postRowMapper = new PostRowMapper();
         jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID, post);
-        return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID +
+        return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts INNER JOIN users on posts.user_id=users.id WHERE user_id=" + userID +
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
 

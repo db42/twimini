@@ -34,7 +34,7 @@ public class TwiminiRestContoller {
     @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    Hashtable<String, String> newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Post newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Hashtable hs = new Hashtable<String, String>();
 
         BASE64Decoder decoder = new BASE64Decoder();
@@ -48,11 +48,7 @@ public class TwiminiRestContoller {
         Post p = tStore.addPost(userID, post);
         response.setHeader("Location","/posts/"+p.getId());
 
-        hs.put("user_id", p.getUser_id());
-        hs.put("id", p.getId());
-        hs.put("post" ,p.getPost());
-        hs.put("timestamp", p.getTimestamp());
-        return hs;
+        return p;
         /*hs.put("status","success");
         return hs;*/
     }
