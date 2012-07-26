@@ -1,8 +1,9 @@
-function BasicView(ejsName, listName, url, userID){
+function BasicView(ejsName, listName, containerName, url, userID){
     this.ejsName = ejsName
     this.listName = listName
     this.url = url
     this.userID = userID
+    this.containerName = containerName
 }
 
 BasicView.prototype.getUrl = function(){
@@ -21,6 +22,9 @@ BasicView.prototype.addAll = function(data){
 }
 
 BasicView.prototype.populate = function(){
+    entityList = $(new EJS({url:'/static/ejs/entityList.ejs'}).render({"listname":this.listName}));
+    $("#"+this.containerName).append(entityList);
+
     viewcontext = this
     $.get(this.getUrl(), function(data){
         viewcontext.addAll(data)
@@ -48,5 +52,12 @@ function add_tweet(form){
     }
     });
 }
-postview = new BasicView('addTweet.ejs', 'tweetlist','posts', '1')
-$(window).load(postview.populate());
+
+function get_posts(){
+    postview = new BasicView('addTweet.ejs', 'tweetlist', 'main-list','posts', '1');
+    postview.populate();
+}
+$(function(){
+    get_posts();
+});
+

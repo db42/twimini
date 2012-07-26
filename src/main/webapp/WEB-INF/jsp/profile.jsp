@@ -14,8 +14,8 @@ Hello ${username} <a href="/logout">Logout</a>
 </form>
 
 <h1>Tweets: </h1>
-<ul id="tweetlist">
-</ul>
+<div id="main-list">
+</div>
 <h1>Followers: </h1>
 <ul id="followerslist">
 </ul>
