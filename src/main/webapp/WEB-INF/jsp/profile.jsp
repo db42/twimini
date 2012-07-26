@@ -66,18 +66,6 @@
 				<div class="right-part">
 					<a class="tweet-container" name = "#tweets">
 						<div class="top-message"> Tweets </div>
-						<div class="tweetlist">
-							<div class="tweet">
-								<div class="profile-pic small-pic"> </div>
-								<div class="tweet-details">
-									Username
-									<div class="time">timestamp</div>
-									<div class="post">
-										aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaaa a
-									</div>
-								</div>
-							</div>
-						</div>
 					</a>
 					<a class="followers-container" name="#followers">
 						<div class="top-message"> Followers </div>

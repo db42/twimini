@@ -11,7 +11,7 @@ BasicView.prototype.getUrl = function(){
 }
 BasicView.prototype.addOne = function(data){
     var entity = $(new EJS({url:'/static/ejs/'+this.ejsName}).render(data));
-    $('#'+this.listName).append(entity);
+    $('.'+this.listName).append(entity);
 }
 
 BasicView.prototype.addAll = function(data){
@@ -23,7 +23,7 @@ BasicView.prototype.addAll = function(data){
 
 BasicView.prototype.populate = function(){
     entityList = $(new EJS({url:'/static/ejs/entityList.ejs'}).render({"listname":this.listName}));
-    $("#"+this.containerName).append(entityList);
+    $("."+this.containerName).append(entityList);
 
     viewcontext = this
     $.get(this.getUrl(), function(data){
@@ -34,7 +34,7 @@ BasicView.prototype.populate = function(){
 
 function addOne(listName, ejsName, data) {
     var entity = $(new EJS({url:'/static/ejs/'+ejsName}).render(data));
-    $('#'+listName).append(entity);
+    $('.'+listName).append(entity);
 }
 
 function add_tweet(form){
@@ -54,7 +54,7 @@ function add_tweet(form){
 }
 
 function get_posts(){
-    postview = new BasicView('addTweet.ejs', 'tweetlist', 'main-list','posts', '1');
+    postview = new BasicView('addTweet.ejs', 'tweetlist', 'tweet-container','posts', '1');
     postview.populate();
 }
 $(function(){
