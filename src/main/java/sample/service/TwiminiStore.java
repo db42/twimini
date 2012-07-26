@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Created on IntelliJ IDEA.
  * User: dushyant
  * Date: 18/7/12
  * Time: 1:46 PM
@@ -41,7 +41,7 @@ public class TwiminiStore {
 
     public List<Post> getPosts(String userID){
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts where user_id=" + userID,
+        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts INNER JOIN users on posts.user_id=users.id where user_id=" + userID,
                 postRowMapper);
 
         return posts;
@@ -104,14 +104,14 @@ public class TwiminiStore {
 
     public List<Post> getSubscribedPosts(String userID) {
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> subscribedPosts = jdbcTemplate.query("select * from posts where user_id in (select user_id from followers where follower=" + userID +")", postRowMapper);
+        List<Post> subscribedPosts = jdbcTemplate.query("select * from posts INNER JOIN users on posts.user_id=users.id where user_id in (select user_id from followers where follower=" + userID +")", postRowMapper);
         return subscribedPosts;
     }
 
     public Post getPost(String postID) {
         PostRowMapper postRowMapper = new PostRowMapper();
         try{
-            Post post = (Post) jdbcTemplate.queryForObject("select * from posts where id=" + postID, postRowMapper);
+            Post post = (Post) jdbcTemplate.queryForObject("select * from posts INNER JOIN users on posts.user_id=users.id where id=" + postID, postRowMapper);
             return post;
         }
         catch (EmptyResultDataAccessException e){
@@ -133,7 +133,8 @@ class PostRowMapper implements RowMapper {
 
     @Override
     public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-        Post post = new Post(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("post"), resultSet.getTimestamp("time"));
+        User user = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("email"));
+        Post post = new Post(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("post"), resultSet.getTimestamp("time"), user);
         return post;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

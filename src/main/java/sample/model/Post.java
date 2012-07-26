@@ -14,14 +14,15 @@ public class Post {
     int user_id;
     String post;
     Timestamp timestamp;
+    User user;
 
     public int getId() {
         return id;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
+//    public int getUser_id() {
+//        return user_id;
+//    }
 
     public String getPost() {
         return post;
@@ -31,11 +32,16 @@ public class Post {
         return timestamp;
     }
 
-    public Post(int id, int user_id, String post, Timestamp time){
+    public User getUser() {
+        return user;
+    }
+
+    public Post(int id, int user_id, String post, Timestamp time, User user){
         this.id = id;
         this.user_id = user_id;
         this.post = post;
         this.timestamp = time;
+        this.user = user;
     }
 
 }
