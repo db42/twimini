@@ -111,7 +111,7 @@ public class TwiminiStore {
     public Post getPost(String postID) {
         PostRowMapper postRowMapper = new PostRowMapper();
         try{
-            Post post = (Post) jdbcTemplate.queryForObject("select * from posts INNER JOIN users on posts.user_id=users.id where id=" + postID, postRowMapper);
+            Post post = (Post) jdbcTemplate.queryForObject("select * from posts INNER JOIN users on posts.user_id=users.id where posts.id=" + postID, postRowMapper);
             return post;
         }
         catch (EmptyResultDataAccessException e){
