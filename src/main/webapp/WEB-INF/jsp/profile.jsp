@@ -66,6 +66,8 @@
 				<div class="right-part">
 					<a class="tweet-container" id= "tweets">
 						<div class="top-message"> Tweets </div>
+                        <div class="tweetlist">
+                        </div>
 					</a>
 					<a class="followers-container" id="followers">
 						<div class="top-message"> Followers </div>
