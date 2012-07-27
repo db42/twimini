@@ -1,6 +1,7 @@
 package sample.model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,8 +29,9 @@ public class Post {
         return post;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public String getTimestamp() {
+        String dateString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(timestamp);
+        return dateString;
     }
 
     public User getUser() {
