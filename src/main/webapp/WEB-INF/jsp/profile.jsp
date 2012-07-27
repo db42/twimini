@@ -6,10 +6,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="/static/css/topbar.css" type="text/css"/>
 		<link rel="stylesheet" href="/static/css/profile_page.css" type="text/css"/>
+        <link rel="stylesheet" href="/static/css/tabs.css" type="text/css"/>
         <script src="/static/js/jquery.min.js"type="text/javascript"></script>
         <script src="/static/js/ejs_production.js"type="text/javascript"></script>
-        <script src="/static/js/profile_helper.js"type="text/javascript"></script>
-		<title>Profile - Twimini</title>
+        <title>Profile - Twimini</title>
 	</head>
 	<body>
 		<div class="topbar-permanant">
@@ -59,24 +59,24 @@
                         <input type="submit" value="Tweet" class="addpost-btn">
                     </form>
                 </div>
-				<div class="left-part">
-					<div class="link-to-tab"> <a href="#tweets"> Tweets -></a></div>
-					<div class="link-to-tab"> <a href="#followers"> Followers -> </a></div>
-					<div class="link-to-tab"> <a href="#following"> Following -> </a></div>
-                </div>
+				<ol class="left-part">
+					<li class="link-to-tab"> <a href="#tweets"> Tweets -></a></li>
+					<li class="link-to-tab"> <a href="#followers"> Followers -> </a></li>
+					<li class="link-to-tab"> <a href="#following"> Following -> </a></li>
+                </ol>
                 </div>
 				<div class="right-part">
-					<a class="tweet-container" id= "tweets">
+					<a class="right-container" id="tweets">
 						<div class="top-message"> Tweets </div>
                         <div class="tweetlist">
                         </div>
 					</a>
-					<a class="followers-container" id="followers">
+					<a class="right-container" id="followers">
 						<div class="top-message"> Followers </div>
 						<div class="followerlist">
 						</div>
 					</a>
-					<a class="following-container" id="following">
+					<a class="right-container" id="following">
 						<div class="top-message"> Following </div>
 						<div class="followinglist">
 					    </div>
@@ -85,7 +85,10 @@
 			</div>
 
 		</div>
-
+        <script src="/static/js/activatetable.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            activatables('page', ['tweets', 'followers', 'following']);
+        </script>
 	</body>
 </html>
 

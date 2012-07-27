@@ -66,6 +66,7 @@
 	background-image: url('/static/images/back3.png');
 	background-repeat: repeat; 
 	border-radius: 5px;
+    list-style: none;
 }
 .link-to-tab a{
 	color: white;
@@ -92,6 +93,7 @@
 	background: -moz-linear-gradient(top,  #e6f7ff,  #8673a6);
 	
 	box-shadow: 0px 0px 10px #f3f0ff;
+    min-height: 300px;
 }
 .top-message{
 	font: 20px Arial, Helvetica, sans-serif;
