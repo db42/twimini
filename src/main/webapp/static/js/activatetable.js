@@ -177,7 +177,6 @@ function makeActivatable(paramName, activatables) {
 	}
 
 	activates[paramName] = activate;
-	console.log(activates);
 
 	function attach(item, basePath) {
 		if (item instanceof Array) {
