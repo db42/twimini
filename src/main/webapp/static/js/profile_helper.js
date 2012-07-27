@@ -9,6 +9,12 @@ BasicView.prototype.getUrl = function(){
     return '/users/'+ this.userID+'/'+this.url;
 }
 BasicView.prototype.addOne = function(data){
+    console.log("addOne")
+    console.log(this.ejsName)
+    console.log(this.listName)
+    console.log(this.url)
+    console.log(this.getUrl())
+    console.log(data)
     var entity = $(new EJS({url:'/static/ejs/'+this.ejsName}).render(data));
     $('.'+this.listName).append(entity);
 }
@@ -23,6 +29,7 @@ BasicView.prototype.addAll = function(data){
 BasicView.prototype.populate = function(){
     viewcontext = this
     $.get(this.getUrl(), function(data){
+        console.log(viewcontext.getUrl())
         viewcontext.addAll(data)
     })
 }
@@ -52,8 +59,11 @@ function add_tweet(form){
 function get_posts(){
     postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', '1');
     postview.populate();
+    followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', '1');
+    followersview.populate();
 }
 $(function(){
+    jQuery.ajaxSetup({async:false});
     get_posts();
 });
 
