@@ -42,10 +42,14 @@
 	background-color: blue;
 }
 
-.left-part{
-	float: left;
+.left-container{
+    float: left;
 	width: 30%;
-	margin: 5px 0px 0px 5px; 
+	margin-left: 5px;
+	padding: 0px 10px;
+}
+.left-part{
+	margin: 5px 0px 10px 5px;
 	padding: 5px 10px;
 	border-radius: 8px;
 	
@@ -62,12 +66,10 @@
 	background-image: url('/static/images/back3.png');
 	background-repeat: repeat; 
 	border-radius: 5px;
-	/*width: 2000px;*/
 }
 .link-to-tab a{
 	color: white;
 	text-decoration: none;
-	
 }
 .link-to-tab:hover{
 	padding-left: 11px;	 
@@ -127,9 +129,12 @@
 	box-shadow: 0px 1px 0px #292435;
 }
 .addpost-input{
-	width: 100%;
+	width: 195px;
 	border-radius: 5px;
 	padding-left: 8px;
 	height: 25px;
 	margin-top: 5px;
+}
+.addpost-form{
+    height: 100px;
 }
