@@ -20,14 +20,14 @@ BasicView.prototype.addOne = function(data){
 }
 
 BasicView.prototype.addAll = function(data){
-    viewcontext = this
+    var viewcontext = this
     $.each(data, function(index, value){
         viewcontext.addOne(value)
     })
 }
 
 BasicView.prototype.populate = function(){
-    viewcontext = this
+    var viewcontext = this
     $.get(this.getUrl(), function(data){
         console.log(viewcontext.getUrl())
         viewcontext.addAll(data)
@@ -63,7 +63,6 @@ function get_posts(){
     followersview.populate();
 }
 $(function(){
-    jQuery.ajaxSetup({async:false});
     get_posts();
 });
 
