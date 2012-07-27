@@ -71,7 +71,7 @@
 					</a>
 					<a class="followers-container" id="followers">
 						<div class="top-message"> Followers </div>
-						<div class="followerslist">
+						<div class="followerlist">
 						</div>
 					</a>
 					<a class="following-container" id="following">
