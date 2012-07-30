@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import sample.model.User;
-import sample.service.TwiminiStore;
+import sample.service.Store;
 
 import javax.servlet.http.HttpSession;
 import java.util.Hashtable;
 
 @Controller
 public class UserController {
-    TwiminiStore tStore;
+    Store tStore;
 
     @Autowired
-    public UserController(TwiminiStore tStore) {this.tStore = tStore;}
+    public UserController(Store tStore) {this.tStore = tStore;}
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginForm() {

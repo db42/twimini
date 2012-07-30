@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import sample.service.TwiminiStore;
+import sample.service.Store;
 
 
 /**
@@ -17,11 +17,11 @@ import sample.service.TwiminiStore;
 
 @Controller
 @RequestMapping("/twimini") //TODO: need to remove this prefix
-public class TwiminiAppController {
-    TwiminiStore tStore;
+public class AppController {
+    Store tStore;
 
     @Autowired
-    public TwiminiAppController(TwiminiStore tStore){
+    public AppController(Store tStore){
         this.tStore = tStore;
     }
 
