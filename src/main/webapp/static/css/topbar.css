@@ -94,3 +94,12 @@ body {
 	width: 30px;
 	margin: 0px 2px;
 }
+
+A:link{
+    text-decoration: none;
+    color: #9D84E9;
+}
+A:visited{
+    text-decoration: none;
+    color: #9D84E9;
+}
