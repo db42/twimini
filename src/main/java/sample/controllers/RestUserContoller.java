@@ -1,17 +1,11 @@
 package sample.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sample.model.Post;
 import sample.model.User;
-import sample.service.TwiminiStore;
-import sun.misc.BASE64Decoder;
+import sample.service.Store;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -24,10 +18,10 @@ import java.util.List;
  */
 @Controller
 public class RestUserContoller {
-    TwiminiStore tStore;
+    Store tStore;
 
     @Autowired
-    public RestUserContoller(TwiminiStore tStore){
+    public RestUserContoller(Store tStore){
         this.tStore = tStore;
     }
 

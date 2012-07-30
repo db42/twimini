@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sample.model.Post;
-import sample.service.TwiminiStore;
+import sample.service.Store;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +22,10 @@ import java.util.List;
  */
 @Controller
 public class RestPostController {
-    TwiminiStore tStore;
+    Store tStore;
 
     @Autowired
-    public RestPostController(TwiminiStore tStore){
+    public RestPostController(Store tStore){
         this.tStore = tStore;
     }
 

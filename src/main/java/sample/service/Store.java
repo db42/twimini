@@ -23,12 +23,12 @@ import java.util.List;
  */
 
 @Service
-public class TwiminiStore {
+public class Store {
     SimpleJdbcTemplate jdbcTemplate;
     private final ThreadLocal<Long> userID;
 
     @Autowired
-    public TwiminiStore(SimpleJdbcTemplate jdbcTemplate, @Qualifier("userID") ThreadLocal<Long> userID){
+    public Store(SimpleJdbcTemplate jdbcTemplate, @Qualifier("userID") ThreadLocal<Long> userID){
         this.jdbcTemplate = jdbcTemplate;
         this.userID = userID;
     }
