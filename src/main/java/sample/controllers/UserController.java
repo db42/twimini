@@ -43,7 +43,12 @@ public class UserController {
         ModelAndView mv = new ModelAndView("/index");
         long userID;
         try {
-            User user = tStore.getUserByEmail(email, password);
+            //user can login with email or username
+            User user;
+            if (email.contains("@"))
+                user = tStore.getUserByEmail(email, password);
+            else
+                user = tStore.getUserByUsername(email, password);
 
             // add md5 function for password check
             if (user == null) {

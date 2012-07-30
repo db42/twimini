@@ -91,6 +91,18 @@ public class TwiminiStore {
         }
     }
 
+    public User getUserByUsername(String username, String password) {
+        UserRowMapper userRowMapper = new UserRowMapper();
+        try{
+            System.out.println("select * from users where username=\"" + username + "\" and password=\""+ password + "\"");
+            User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=\""+ password + "\"", userRowMapper);
+            return user;  //To change body of created methods use File | Settings | File Templates.
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
     public List<User> getFollowers(String userID) {
         UserRowMapper userRowMapper = new UserRowMapper();
         List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID +")", userRowMapper);
