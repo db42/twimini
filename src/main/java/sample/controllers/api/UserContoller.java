@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +17,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class RestUserContoller {
+public class UserContoller {
     Store tStore;
 
     @Autowired
-    public RestUserContoller(Store tStore){
+    public UserContoller(Store tStore){
         this.tStore = tStore;
     }
 

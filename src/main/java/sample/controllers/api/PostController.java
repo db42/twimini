@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +21,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class RestPostController {
+public class PostController {
     Store tStore;
 
     @Autowired
-    public RestPostController(Store tStore){
+    public PostController(Store tStore){
         this.tStore = tStore;
     }
 
