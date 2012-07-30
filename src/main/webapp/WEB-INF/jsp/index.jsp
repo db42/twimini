@@ -31,7 +31,7 @@
 			</div>
 			<div class="login-box">
 				<form class="login-form" action="/login" method="post">
-				    <input class="form-input" type="text" name="email" autocomplete="on" title="Email" placeholder="Email"> <br/>
+				    <input class="form-input" type="text" name="email" autocomplete="on" title="Email" placeholder="Username or Email"> <br/>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
 				    <input class="form-submit-btn" type="submit" value="Login">
 				</form>
@@ -39,7 +39,7 @@
 			<div class="register-box">
 				<div class="register-message"><strong>New to Twitter?</strong> Register</div>
 				<form class="register-form" action="/register" method="post">
-				    <input class="form-input" type="text" maxlength="20" name="name" placeholder="Full Name"><br/>
+				    <input class="form-input" type="text" maxlength="20" name="name" placeholder="Username"><br/>
 				    <input class="form-input" type="text" name="email" autocomplete="on" placeholder="Email"><br/>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
 				    <input class="form-submit-btn" type="submit" value="Register">
