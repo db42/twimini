@@ -144,6 +144,16 @@ public class Store {
             return null;
         }
     }
+    public User getUser() {
+        UserRowMapper userRowMapper = new UserRowMapper();
+        try{
+            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + String.valueOf(userID.get()), userRowMapper);
+            return user;
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
 }
 
 class UserRowMapper implements RowMapper {

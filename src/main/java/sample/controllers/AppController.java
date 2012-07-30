@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import sample.model.User;
 import sample.service.Store;
 
 
@@ -46,7 +47,8 @@ public class AppController {
     @RequestMapping("/profile")
     ModelAndView ProfilePage(){
         ModelAndView mv = new ModelAndView("profile");
-        mv.addObject("username", "UserName to be added");
+        User u = tStore.getUser();
+        mv.addObject("username", u.getUsername());
         return mv;
     }
 }
