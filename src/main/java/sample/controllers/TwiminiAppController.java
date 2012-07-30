@@ -31,6 +31,12 @@ public class TwiminiAppController {
         return mv;
     }
 
+    @RequestMapping("/home")
+    ModelAndView HomePage(){
+        ModelAndView mv = new ModelAndView("home");
+        return mv;
+    }
+
     @RequestMapping("/profile")
     ModelAndView ProfilePage(){
         ModelAndView mv = new ModelAndView("profile");

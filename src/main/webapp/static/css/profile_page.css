@@ -38,18 +38,16 @@
 }
 .user-content{
 	display: block;
-	margin: 5px 15px;
+	margin: 5px 20px;
 	background-color: blue;
 }
 
 .left-container{
     float: left;
 	width: 30%;
-	margin-left: 5px;
-	padding: 0px 10px;
 }
 .left-part{
-	margin: 5px 0px 10px 5px;
+	margin: 5px 0px 10px 0px;
 	padding: 5px 10px;
 	border-radius: 8px;
 	
@@ -83,7 +81,7 @@
 	background-color: pink;
 	margin: 5px 0px 0px 5px;
 	padding: 5px 10px;
-	width: 63%;
+	width: 65%;
 	border-radius: 8px; 
 	
 	background: #e6f7ff; /* for non-css3 browsers */
