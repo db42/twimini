@@ -5,29 +5,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sample.model.Post;
-import sample.model.User;
 import sample.service.TwiminiStore;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
  * User: dushyant
- * Date: 23/7/12
- * Time: 4:53 PM
+ * Date: 30/7/12
+ * Time: 8:31 PM
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class TwiminiRestContoller {
+public class RestPostController {
     TwiminiStore tStore;
 
     @Autowired
-    public TwiminiRestContoller(TwiminiStore tStore){
+    public RestPostController(TwiminiStore tStore){
         this.tStore = tStore;
     }
 
@@ -49,16 +47,7 @@ public class TwiminiRestContoller {
         return p;
     }
 
-    @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)
-    @ResponseBody
-    Hashtable<String, String> newFollowerJson(@PathVariable String userID,@RequestParam int following){
-        Hashtable hs = new Hashtable<String, String>();
-        tStore.addFollower(following, userID);
-        hs.put("status","success");
-        return hs;
-    }
-
-    @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
+   @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getPostsJson(@PathVariable String userID){
         List<Post> posts = tStore.getPosts(userID);
@@ -79,31 +68,10 @@ public class TwiminiRestContoller {
             return post;
 
     }
-    @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
-    @ResponseBody
-    List<User> getFollowersJson(@PathVariable String userID){
-        return tStore.getFollowers(userID);
-    }
-
-    @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
-    @ResponseBody
-    List<User> getFollowings(@PathVariable String userID){
-        return tStore.getFollowings(userID);
-    }
 
     @RequestMapping(value = "/users/{userID}/posts/feed", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getSubscribedPostsJson(@PathVariable String userID){
         return tStore.getSubscribedPosts(userID);
-    }
-
-    @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
-    @ResponseBody
-    User getUserJson(@PathVariable String userID){
-        User user = tStore.getUser(userID);
-        if (user == null)
-            throw new ResourceNotFoundException();
-        else
-            return user;
     }
 }
