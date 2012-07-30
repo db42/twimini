@@ -81,7 +81,7 @@ public class Store {
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=\""+ password + "\"", userRowMapper);
-            return user;  //To change body of created methods use File | Settings | File Templates.
+            return user;
         }
         catch (EmptyResultDataAccessException e){
             return null;
@@ -92,7 +92,7 @@ public class Store {
         try{
             System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
             User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=\""+ password + "\"", userRowMapper);
-            return user;  //To change body of created methods use File | Settings | File Templates.
+            return user;
         }
         catch (EmptyResultDataAccessException e){
             return null;
@@ -104,7 +104,7 @@ public class Store {
         try{
             System.out.println("select * from users where username=\"" + username + "\" and password=\""+ password + "\"");
             User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=\""+ password + "\"", userRowMapper);
-            return user;  //To change body of created methods use File | Settings | File Templates.
+            return user;
         }
         catch (EmptyResultDataAccessException e){
             return null;
@@ -159,6 +159,6 @@ class PostRowMapper implements RowMapper {
     public Post mapRow(ResultSet resultSet, int i) throws SQLException {
         User user = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("email"));
         Post post = new Post(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("post"), resultSet.getTimestamp("time"), user);
-        return post;  //To change body of implemented methods use File | Settings | File Templates.
+        return post;
     }
 }
