@@ -64,7 +64,7 @@ function get_posts(){
 }
 
 function get_feed(){
-    postview = new BasicView('addTweet.ejs', 'feedlist', 'posts/feed', '1');
+    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', '1');
     postview.populate();
 }
 

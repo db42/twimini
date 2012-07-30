@@ -54,7 +54,7 @@
 				<div class="right-part">
 					<a class="right-container" id="tweets">
 						<div class="top-message"> Feed </div>
-                        <div class="feedlist">
+                        <div class="tweetlist">
                         </div>
 					</a>
 				</div>
