@@ -125,7 +125,7 @@ public class TwiminiStore {
 
     public List<Post> getSubscribedPosts(String userID) {
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> subscribedPosts = jdbcTemplate.query("select * from posts INNER JOIN users on posts.user_id=users.id where user_id in (select user_id from followers where follower=" + userID +")", postRowMapper);
+        List<Post> subscribedPosts = jdbcTemplate.query("select users.username, users.email, posts.id, posts.user_id, posts.post, posts.time from posts, followers, users  where posts.user_id = users.id AND followers.follower=" + userID +" AND posts.user_id=followers.user_id AND posts.time<followers.unfollow_time", postRowMapper);
         return subscribedPosts;
     }
 
