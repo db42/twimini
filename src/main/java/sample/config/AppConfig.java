@@ -41,7 +41,8 @@ public class AppConfig {
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
                 "user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
                 "follower INTEGER, FOREIGN KEY (follower) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
-                "unfollow_time TIMESTAMP DEFAULT '2038-01-01 00:00:00'"+
+                "unfollow_time TIMESTAMP DEFAULT '2038-01-01 00:00:00',"+
+                "UNIQUE (user_id, follower)"+
                 ")");
         return db;
     }
