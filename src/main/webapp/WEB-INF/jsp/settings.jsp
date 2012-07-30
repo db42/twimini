@@ -112,11 +112,7 @@
 
 		</div>
         <script src="/static/js/activatetable.js" type="text/javascript"></script>
-        <script type="text/javascript">
-		    activatables('tab', ['account', 'profile', 'password']);
-	    </script>
-        <script src="/static/js/helper.js" type="text/javascript"></script>
-        <script src="/static/js/profile_helper.js" type="text/javascript"></script>
+        <script src="/static/js/settings_helper.js" type="text/javascript"></script>
 	</body>
 </html>
 
