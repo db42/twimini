@@ -53,6 +53,11 @@ public class Store {
         jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID);
     }
 
+    public void removeFollower(int following, String userID) {
+        jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?", following, userID);
+    }
+
+
     public User addUser(String username, String email, String password) {
         //todo : make sure username and password are unique
         try {

@@ -1,0 +1,15 @@
+.form-block{
+	display: inline-block;
+	width: 100%;
+}
+
+.in-text{
+	float: left;
+	margin: 10px 0 0 50px;
+	font-family: Arial,sans-serif;
+}
+
+.pr-input{
+	width: 250px;
+	margin-right: 50px;
+}

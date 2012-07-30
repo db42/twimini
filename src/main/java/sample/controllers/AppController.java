@@ -37,6 +37,12 @@ public class AppController {
         return mv;
     }
 
+    @RequestMapping("/settings")
+    ModelAndView SettingsPage(){
+        ModelAndView mv = new ModelAndView("settings");
+        return mv;
+    }
+
     @RequestMapping("/profile")
     ModelAndView ProfilePage(){
         ModelAndView mv = new ModelAndView("profile");
