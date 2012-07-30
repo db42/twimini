@@ -40,7 +40,8 @@ public class AppConfig {
         db.update("CREATE TABLE IF NOT EXISTS followers (" +
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
                 "user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
-                "follower INTEGER, FOREIGN KEY (follower) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT" +
+                "follower INTEGER, FOREIGN KEY (follower) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
+                "unfollow_time TIMESTAMP DEFAULT '2038-01-01 00:00:00'"+
                 ")");
         return db;
     }
