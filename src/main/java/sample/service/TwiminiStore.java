@@ -113,7 +113,7 @@ public class TwiminiStore {
 
     public List<User> getFollowers(String userID) {
         UserRowMapper userRowMapper = new UserRowMapper();
-        List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID +")", userRowMapper);
+        List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID +" AND unfollow_time > NOW())", userRowMapper);
         return followers;
     }
 
