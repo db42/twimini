@@ -29,9 +29,12 @@ public class UserController {
    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> registerJson(@RequestParam String name, @RequestParam String email, @RequestParam String password){
-        tStore.addUser(name, email, password);
+        User user = tStore.addUser(name, email, password);
         Hashtable hs = new Hashtable<String, String>();
-        hs.put("status","success");
+        if (user == null)
+            hs.put("status", "failed");
+        else
+            hs.put("status","success");
         return hs;
     }
 

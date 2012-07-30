@@ -2,6 +2,7 @@ package sample.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
@@ -52,10 +53,17 @@ public class TwiminiStore {
         jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID);
     }
 
-    public void addUser(String username, String email, String password) {
+    public User addUser(String username, String email, String password) {
         //todo : make sure username and password are unique
-        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)",username, email, password);
-//        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,SHA1(?))", name, email, password);
+        try {
+            jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)",username, email, password);
+            UserRowMapper userRowMapper = new UserRowMapper();
+            User user = (User)jdbcTemplate.queryForObject("SELECT * from users where username=\"" + username + "\"", userRowMapper);
+            return user;
+        }
+        catch (DuplicateKeyException e){
+            return null;
+        }
     }
 
     public User getUser(String userID){
