@@ -52,8 +52,9 @@ public class TwiminiStore {
         jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID);
     }
 
-    public void addUser(String name, String email, String password) {
-        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)", name, email, password);
+    public void addUser(String username, String email, String password) {
+        //todo : make sure username and password are unique
+        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)",username, email, password);
 //        jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,SHA1(?))", name, email, password);
     }
 
@@ -125,6 +126,9 @@ class UserRowMapper implements RowMapper {
     @Override
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         User user = new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("email"));
+        user.setCreated_at(resultSet.getTimestamp("created_at"));
+        user.setDescription(resultSet.getString("description"));
+        user.setName(resultSet.getString("name"));
         return user;
     }
 }
