@@ -86,9 +86,7 @@
 
 		</div>
         <script src="/static/js/activatetable.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            activatables('page', ['tweets', 'followers', 'following']);
-        </script>
+        <script src="/static/js/profile_helper.js" type="text/javascript"></script>
 	</body>
 </html>
 

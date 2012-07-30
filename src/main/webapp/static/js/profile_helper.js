@@ -63,6 +63,7 @@ function get_posts(){
     followersview.populate();
 }
 $(function(){
+    activatables('page', ['tweets', 'followers', 'following']);
     get_posts();
 });
 
