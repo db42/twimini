@@ -16,7 +16,7 @@ BasicView.prototype.addOne = function(data){
     console.log(this.getUrl())
     console.log(data)
     var entity = $(new EJS({url:'/static/ejs/'+this.ejsName}).render(data));
-    $('.'+this.listName).append(entity);
+    $('.'+this.listName).prepend(entity);
 }
 
 BasicView.prototype.addAll = function(data){
@@ -37,7 +37,7 @@ BasicView.prototype.populate = function(){
 
 function addOne(listName, ejsName, data) {
     var entity = $(new EJS({url:'/static/ejs/'+ejsName}).render(data));
-    $('.'+listName).append(entity);
+    $('.'+listName).prepend(entity);
 }
 
 function add_tweet(form){
