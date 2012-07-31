@@ -44,7 +44,7 @@ public class UserController {
                               HttpSession session) {
 
         ModelAndView mv = new ModelAndView("/index");
-        long userID;
+        long userID = 0;
         try {
             //user can login with email or username
             User user;
@@ -63,8 +63,9 @@ public class UserController {
             session.setAttribute("userID", userID);
         } catch (EmptyResultDataAccessException e) {
             mv.addObject("message", "No such user exists!");
+            return mv;
         }
-        mv.setViewName("redirect:twimini/profile");
+        mv.setViewName("redirect:twimini/profile/"+userID);
         return mv;
     }
 

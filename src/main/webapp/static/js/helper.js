@@ -56,10 +56,10 @@ function add_tweet(form){
     });
 }
 
-function get_posts(){
-    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', '1');
+function get_posts(userID){
+    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();
-    followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', '1');
+    followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
     followersview.populate();
 }
 
