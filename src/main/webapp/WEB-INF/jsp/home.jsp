@@ -15,30 +15,41 @@
 	<body>
 		<div class="topbar-permanant">
 			<div class="container">
-				<div class = "left-pull">
-					<div class="topbar-button home-button">
-						<a href="/twimini/home"> Home </a>
-					</div>
-				</div>
+                <ul class = "left-pull">
+                    <li class="topbar-button home-button">
+                        <a href="/twimini/home"> Home </a>
+                    </li>
+                </ul>
 
-				<div class="icon-position">
-					<i class="twitter-icon-embossed"></i>
-				</div>
+                <div class="icon-position">
+                    <i class="twitter-icon-embossed"></i>
+                </div>
 
-				<div class = "right-pull">
-					<div class="topbar-button new-tweet-button">
-						ne
-					</div>
-					<div class="topbar-button profile-button">
-						<a href="/twimini/profile"> pr </a>
-					</div>
-					<form class="search-box" action="/search">
-						<span class="search-icon">
-						</span>
-						<input class="search-input" type="text" name="q" placeholder=" Search..." autocomplete="off" dir="ltr"/>
-					</form>
-				</div>
-			</div>
+                <ul class = "right-pull">
+                    <li class="topbar-button new-tweet-button">
+                        ne
+                    </li>
+                    <li class="topbar-button" id="nav">
+                        <ul >
+                            <li class="profile-button">
+                                <ul>
+                                    <li>
+                                        <a href="/twimini/profile">Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="/twimini/settings">Settings</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <form class="search-box" action="/search">
+                        <span class="search-icon">
+                        </span>
+                        <input class="search-input" type="text" name="q" placeholder=" Search..." autocomplete="off" dir="ltr"/>
+                    </form>
+                </ul>
+            </div>
 		</div>
 
 		<div class="page-content">
