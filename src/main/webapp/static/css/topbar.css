@@ -1,3 +1,13 @@
+*{
+	list-style: none;
+}
+A:link {
+	text-decoration: none;
+}
+A:visited{
+	text-decoration: none;
+}
+
 body {
 	background-color: #ce696e;
 }
@@ -26,9 +36,13 @@ body {
 	height: 40px;
 	margin: auto auto;
 }
+.container a{
+	color: #9D84E9;
+}
 
 .left-pull{
 	float: left;
+    margin: 0px;
 }
 
 .home-button{
@@ -49,7 +63,7 @@ body {
 	margin: auto auto;
 	height: 40px;
 	width: 36px;
-	margin-left: 40%;
+	margin-left: 30%;
 	display: inline-block;
 }
 .twitter-icon-embossed{
@@ -64,6 +78,8 @@ body {
 	float: right;
 	display: block;
 	height: 40px;
+	margin: 0px;
+	width: 300px;
 }
 
 .search-box{
@@ -80,11 +96,10 @@ body {
 }
 .profile-button{
 	float: right;
-	display: inline;
-	padding: 10px 10px;
-	height: 20px;
+	height: 30px;
 	width: 30px;
-	margin: 0px 2px;
+	margin: 5px 2px;
+    background-image: url("../images/pr_icon.png");
 }
 .new-tweet-button{
 	float: right;
@@ -94,12 +109,25 @@ body {
 	width: 30px;
 	margin: 0px 2px;
 }
-
-A:link{
-    text-decoration: none;
-    color: #9D84E9;
+#nav ul li{
+	display: block;
+	position: relative;
 }
-A:visited{
-    text-decoration: none;
-    color: #9D84E9;
+#nav li ul {
+	display: none;
+}
+#nav li ul li{
+	background-color: #292435;
+	color: #9D84E9;
+	width: 60px;
+	padding: 5px;
+	padding-left: 10px;
+}
+#nav li:hover ul{
+	display: block;
+	position: relative;
+	margin-top: 30px;
+}
+#nav li:hover li{
+	float: right;
 }
