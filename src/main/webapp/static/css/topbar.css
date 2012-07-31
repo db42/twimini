@@ -44,6 +44,14 @@ body {
 	float: left;
     margin: 0px;
 }
+.right-pull{
+	float: right;
+	display: block;
+	height: 40px;
+	margin: 0px;
+	width: 300px;
+    padding: 0px;
+}
 
 .home-button{
 	padding: 10px 10px;
@@ -74,14 +82,6 @@ body {
 	margin: 8px 3px;
 }
 
-.right-pull{
-	float: right;
-	display: block;
-	height: 40px;
-	margin: 0px;
-	width: 300px;
-}
-
 .search-box{
 	float: right;
 	display: inline;
@@ -99,15 +99,17 @@ body {
 	height: 30px;
 	width: 30px;
 	margin: 5px 2px;
-    background-image: url("../images/pr_icon.png");
+    cursor: pointer;
+    background-image: url("/static/images/pr_icon.png");
 }
 .new-tweet-button{
 	float: right;
 	display: inline;
-	padding: 10px 10px;
-	height: 20px;
-	width: 30px;
-	margin: 0px 2px;
+	height: 32px;
+	width: 32px;
+	margin: 4px 35px 4px 5px;
+    background-image: url("/static/images/nt.png");
+    cursor: pointer;
 }
 #nav ul li{
 	display: block;

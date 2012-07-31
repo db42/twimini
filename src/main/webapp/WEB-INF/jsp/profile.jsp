@@ -25,8 +25,8 @@
                 </div>
 
                 <ul class = "right-pull">
-                    <li class="topbar-button new-tweet-button">
-                        ne
+                    <li class="topbar-button">
+                        <a onclick="focus_new_tweet();" class="new-tweet-button"></a>
                     </li>
                     <li class="topbar-button" id="nav">
                         <ul >
@@ -37,6 +37,9 @@
                                     </li>
                                     <li>
                                         <a href="/twimini/settings">Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="/logout">Logout</a>
                                     </li>
                                 </ul>
                             </li>
@@ -53,13 +56,7 @@
 
 		<div class="page-content">
 			<div class="profile-block">
-				<div class="left-pull">
-					<div class="profile-pic"> </div>
-					<div class="username">Hello, ${username} <a href="/logout">Logout</a></div>
-				</div>
-				<div class="right-pull">
-					<div class="profile-details">details</div>
-				</div>
+
 			</div>
 
 			<div class="user-content">

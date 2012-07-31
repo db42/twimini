@@ -58,4 +58,17 @@ public class User {
     public String getEmail() {
         return email;
     }
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
 }

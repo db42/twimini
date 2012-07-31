@@ -23,14 +23,13 @@
 	display: inline-block;
 	height: 100px;
 	width: 100px;
-	/*margin: auto;*/
 }
 .small-pic{
 	height: 50px;
 	width: 50px;
 }
 
-.username{
+.user-text{
 	margin: -100px 0 0 120px;
 }
 .profile-details{
