@@ -13,44 +13,7 @@
         <title>Profile - Twimini</title>
 	</head>
 	<body>
-		<div class="topbar-permanant">
-			<div class="container">
-                <ul class = "left-pull">
-                    <li class="topbar-button home-button">
-                        <a href="/twimini/home"> Home </a>
-                    </li>
-                </ul>
-
-                <div class="icon-position">
-                    <i class="twitter-icon-embossed"></i>
-                </div>
-
-                <ul class = "right-pull">
-                    <li class="topbar-button new-tweet-button">
-                        ne
-                    </li>
-                    <li class="topbar-button" id="nav">
-                        <ul >
-                            <li class="profile-button">
-                                <ul>
-                                    <li>
-                                        <a href="/twimini/profile">Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="/twimini/settings">Settings</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <form class="search-box" action="/search">
-                        <span class="search-icon">
-                        </span>
-                        <input class="search-input" type="text" name="q" placeholder=" Search..." autocomplete="off" dir="ltr"/>
-                    </form>
-                </ul>
-            </div>
-		</div>
+		<%@include file="topbar.jsp" %>
 
 		<div class="page-content">
 			<div class="user-content">

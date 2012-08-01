@@ -13,55 +13,10 @@
         <title>Settings - Twimini</title>
 	</head>
 	<body>
-		<div class="topbar-permanant">
-			<div class="container">
-                <ul class = "left-pull">
-                    <li class="topbar-button home-button">
-                        <a href="/twimini/home"> Home </a>
-                    </li>
-                </ul>
-
-                <div class="icon-position">
-                    <i class="twitter-icon-embossed"></i>
-                </div>
-
-                <ul class = "right-pull">
-                    <li class="topbar-button new-tweet-button">
-                        ne
-                    </li>
-                    <li class="topbar-button" id="nav">
-                        <ul >
-                            <li class="profile-button">
-                                <ul>
-                                    <li>
-                                        <a href="/twimini/profile">Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="/twimini/settings">Settings</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <form class="search-box" action="/search">
-                        <span class="search-icon">
-                        </span>
-                        <input class="search-input" type="text" name="q" placeholder=" Search..." autocomplete="off" dir="ltr"/>
-                    </form>
-                </ul>
-            </div>
-		</div>
+		<%@include file="topbar.jsp" %>
 
 		<div class="page-content">
-			<div class="profile-block">
-				<div class="left-pull">
-					<div class="profile-pic"> </div>
-					<div class="username">Hello, ${username} <a href="/logout">Logout</a></div>
-				</div>
-				<div class="right-pull">
-					<div class="profile-details">details</div>
-				</div>
-			</div>
+			<%@include file="profile_block.jsp" %>
 
 			<div class="user-content">
                 <div class="left-container">
@@ -124,6 +79,7 @@
 		</div>
         <script src="/static/js/activatetable.js" type="text/javascript"></script>
         <script src="/static/js/settings_helper.js" type="text/javascript"></script>
+        <script src="/static/js/profile_helper.js" type="text/javascript"></script>
 	</body>
 </html>
 

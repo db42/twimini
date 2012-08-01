@@ -25,6 +25,7 @@
 				<i class="twitter-icon-embossed"></i>
 			</div>
 		</div>
+
 		<div class="front-box">
 			<div class="tweet-img">
 
