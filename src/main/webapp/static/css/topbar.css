@@ -105,8 +105,8 @@ body {
 .new-tweet-button{
 	float: right;
 	display: inline;
-	height: 32px;
-	width: 32px;
+	height: 30px;
+	width: 30px;
 	margin: 4px 35px 4px 5px;
     background-image: url("/static/images/nt.png");
     cursor: pointer;

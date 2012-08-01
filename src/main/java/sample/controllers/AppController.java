@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import sample.model.User;
 import sample.service.Store;
 
 
@@ -48,8 +47,6 @@ public class AppController {
     @RequestMapping("/profile/{userID}")
     ModelAndView ProfilePage(@PathVariable String userID){
         ModelAndView mv = new ModelAndView("profile");
-        User u = tStore.getUser();
-        mv.addObject("username", u.getUsername());
         return mv;
     }
 }

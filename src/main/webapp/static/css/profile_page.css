@@ -137,3 +137,25 @@
 .addpost-form{
     height: 100px;
 }
+
+.username{
+	font: 22px Impact, fantasy;
+	padding: 4px;
+}
+.name{
+	font: 18px Comic Sans, Comic Sans MS, cursive;
+	padding: 4px;
+}
+.email{
+	font: 16px Arial, Helvetica, sans-serif;
+	padding: 4px;
+}
+.description{
+	font: 16px Arial, Helvetica, sans-serif;
+	padding: 4px;
+}
+.details-in-right{
+	float: right;
+	padding: 4px;
+}
+
