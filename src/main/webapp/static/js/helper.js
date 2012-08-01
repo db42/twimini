@@ -41,7 +41,7 @@ BasicView.prototype.populate = function(){
 
 function addOne(listName, ejsName, data) {
     var entity = $(new EJS({url:'/static/ejs/'+ejsName}).render(data));
-    $('.'+listName).prepend(entity);
+    $('.'+listName).prepend($(entity).show("slow"));
 }
 
 function add_tweet(form){
