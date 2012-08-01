@@ -72,4 +72,10 @@ function get_feed(){
     postview.populate();
 }
 
+function callError  (errorMessage){
+    $('#error-message').append(errorMessage);
+    $('#error-wrapper').fadeIn("slow");
+    setTimeout('$("#error-wrapper").fadeOut("slow");', 5000);
+}
+
 
