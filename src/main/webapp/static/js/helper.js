@@ -1,3 +1,7 @@
+var userID = '1';
+var password = '1234';
+
+
 function BasicView(ejsName, listName, url, userID){
     this.ejsName = ejsName
     this.listName = listName
@@ -42,11 +46,11 @@ function addOne(listName, ejsName, data) {
 
 function add_tweet(form){
     $.ajax({
-        url: '/users/1/posts',
+        url: '/users/'+userID+'/posts',
         type: 'POST',
         data: $(form).serialize(),
         headers : {
-            "Authorization" : window.btoa("1234"),
+            "Authorization" : window.btoa(password),
             "Content-Type" : "application/x-www-form-urlencoded"
         },
         success : function(data){
@@ -64,7 +68,7 @@ function get_posts(userID){
 }
 
 function get_feed(){
-    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', '1');
+    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', userID);
     postview.populate();
 }
 
