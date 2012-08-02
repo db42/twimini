@@ -1,5 +1,7 @@
-var userID = '1';
-var password = '1234';
+var userID;
+var password;
+userID = sessionStorage.getItem("userID");
+password = sessionStorage.getItem("password");
 
 
 function BasicView(ejsName, listName, url, userID){
@@ -60,6 +62,16 @@ function add_tweet(form){
     });
 }
 
+function user_login(form){
+    $.post('/login', $(form).serialize(), function(data){
+        if (data.status == "success"){
+            sessionStorage.setItem("userID",data.userID);
+            //TODO get auth_key from server instead of password.
+            sessionStorage.setItem("password",data.password);
+            window.location.replace("http://localhost:8080/twimini/home");
+        }
+    });
+}
 function get_posts(userID){
     postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();

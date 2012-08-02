@@ -39,34 +39,35 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam("email") String email,
+    @ResponseBody
+    Hashtable<String, String> login(@RequestParam("email") String email,
                               @RequestParam("password") String password,
                               HttpSession session) {
 
-        ModelAndView mv = new ModelAndView("/index");
+        Hashtable hs = new Hashtable<String, String>();
         long userID = 0;
-        try {
-            //user can login with email or username
-            User user;
-            if (email.contains("@"))
-                user = tStore.getUserByEmail(email, password);
-            else
-                user = tStore.getUserByUsername(email, password);
 
-            // add md5 function for password check
-            if (user == null) {
-                mv.addObject("message", "Invalid password.");
-                return mv;
-            }
-            userID = (Integer) user.getId();
-            session.setAttribute("email", email);
-            session.setAttribute("userID", userID);
-        } catch (EmptyResultDataAccessException e) {
-            mv.addObject("message", "No such user exists!");
-            return mv;
+        //user can login with email or username
+        User user;
+        if (email.contains("@"))
+            user = tStore.getUserByEmail(email, password);
+        else
+            user = tStore.getUserByUsername(email, password);
+
+        // add md5 function for password check
+        if (user == null) {
+            hs.put("status", "failed");
+            return hs;
         }
-        mv.setViewName("redirect:twimini/profile/"+userID);
-        return mv;
+        userID = (Integer) user.getId();
+
+        session.setAttribute("email", email);
+        session.setAttribute("userID", userID);
+
+        hs.put("status", "success");
+        hs.put("userID", user.getId());
+        hs.put("password", password);
+        return hs;
     }
 
     @RequestMapping(value = "/logout")
