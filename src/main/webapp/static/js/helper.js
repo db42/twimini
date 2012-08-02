@@ -98,3 +98,10 @@ function add_user_info(userID){
     });
 }
 
+function callError  (errorMessage){
+    $('#error-message').append(errorMessage);
+    $('#error-wrapper').fadeIn("slow");
+    setTimeout('$("#error-wrapper").fadeOut("slow");', 5000);
+}
+
+
