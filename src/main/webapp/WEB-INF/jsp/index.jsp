@@ -41,7 +41,7 @@
 			</div>
 			<div class="register-box">
 				<div class="register-message"><strong>New to Twitter?</strong> Register</div>
-				<form class="register-form" action="/register" method="post">
+				<form class="register-form" action="" onsubmit="user_register(this); return false;" method="post">
 				    <input class="form-input" type="text" maxlength="20" name="name" placeholder="Username"><br/>
 				    <input class="form-input" type="text" name="email" autocomplete="on" placeholder="Email"><br/>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>

@@ -75,6 +75,17 @@ function user_login(form){
         }
     });
 }
+
+function user_register(form){
+    $.post('/register', $(form).serialize(), function(data){
+        if (data.status == "success"){
+            callError("User successfully registered.");
+        }
+        else {
+            callError("User registration failed.");
+        }
+    });
+}
 function get_posts(userID){
     postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();
