@@ -1,5 +1,7 @@
-var userID = '1';
-var password = '1234';
+var userID;
+var password;
+userID = sessionStorage.getItem("userID");
+password = sessionStorage.getItem("password");
 
 
 function BasicView(ejsName, listName, url, userID){
@@ -41,7 +43,7 @@ BasicView.prototype.populate = function(){
 
 function addOne(listName, ejsName, data) {
     var entity = $(new EJS({url:'/static/ejs/'+ejsName}).render(data));
-    $('.'+listName).prepend($(entity).show("slow"));
+    $('.'+listName).prepend(entity);
 }
 
 function add_tweet(form){
@@ -60,10 +62,22 @@ function add_tweet(form){
     });
 }
 
+function user_login(form){
+    $.post('/login', $(form).serialize(), function(data){
+        if (data.status == "success"){
+            sessionStorage.setItem("userID",data.userID);
+            //TODO get auth_key from server instead of password.
+            sessionStorage.setItem("password",data.password);
+            window.location.replace("http://localhost:8080/twimini/home");
+        }
+    });
+}
 function get_posts(userID){
     postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();
     followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
+    followersview.populate();
+    followersview = new BasicView('addUser.ejs', 'followinglist', 'followers', userID);
     followersview.populate();
 }
 
@@ -72,10 +86,15 @@ function get_feed(){
     postview.populate();
 }
 
-function callError  (errorMessage){
-    $('#error-message').append(errorMessage);
-    $('#error-wrapper').fadeIn("slow");
-    setTimeout('$("#error-wrapper").fadeOut("slow");', 5000);
+function getProfileUserid(){
+    words = location.pathname.split('/')
+    return words[words.length - 1]
 }
 
+function add_user_info(userID){
+    $.get('/users/'+userID, function(data){
+        var entity = $(new EJS({url:'/static/ejs/UserInfo.ejs'}).render(data));
+        $('.profile-block').append(entity);
+    });
+}
 

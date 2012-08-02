@@ -17,6 +17,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="/static/css/topbar.css" type="text/css"/>
 		<link rel="stylesheet" href="/static/css/login_page.css" type="text/css"/>
+        <script src="/static/js/jquery.min.js"type="text/javascript"></script>
+		<script src="/static/js/helper.js" type="text/javascript"></script>
 		<title>Login - Twimini</title>
 	</head>
 	<body>
@@ -31,7 +33,7 @@
 
 			</div>
 			<div class="login-box">
-				<form class="login-form" action="/login" method="post">
+				<form class="login-form" action="" onsubmit="user_login(this); return false;" method="post">
 				    <input class="form-input" type="text" name="email" autocomplete="on" title="Email" placeholder="Username or Email"> <br/>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
 				    <input class="form-submit-btn" type="submit" value="Login">
