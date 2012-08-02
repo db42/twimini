@@ -65,6 +65,8 @@ function get_posts(userID){
     postview.populate();
     followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
     followersview.populate();
+    followersview = new BasicView('addUser.ejs', 'followinglist', 'followers', userID);
+    followersview.populate();
 }
 
 function get_feed(){
