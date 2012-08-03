@@ -9,7 +9,7 @@ $(function(){
                 $('#fbutton').empty().append('Unollow');
             }
         }
-    )
+    );
     $('#fbutton').mouseleave(
         function(){
             $('#fbutton').toggleClass('follow');
@@ -20,7 +20,7 @@ $(function(){
                 $('#fbutton').empty().append('Unollow');
             }
         }
-    )
+    );
     $('#fbutton').mousedown(
         function(){
             if($('#fbutton').hasClass('follow')){
@@ -33,5 +33,5 @@ $(function(){
                 $('#fbutton').empty().append('Unfollow');
             }
         }
-    )
-})
+    );
+});

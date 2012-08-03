@@ -60,21 +60,23 @@
 	border-radius: 4px;
 
 	font: 16px Courier New, monospace;
-	width: 10px;
+	/*width: 10px;
 	word-wrap: break-word;
 	letter-spacing: 10px;
-	line-height: 80%;
+	line-height: 80%;*/
+    padding: 2px 10px;
+    cursor: pointer;
 }
 
 .unfollow{
 	background: red;
 	color: white;
-	height: 115px;
-	padding: 10px 10px 0 10px;
+	/*height: 115px;
+	padding: 10px 10px 0 10px;*/
 }
 .follow{
 	background: blue;
 	color: white;
-	height: 103px;
-	padding: 22px 10px 0 10px;
+	/*height: 103px;
+	padding: 22px 10px 0 10px;*/
 }
