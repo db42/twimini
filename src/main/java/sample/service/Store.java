@@ -40,10 +40,17 @@ public class Store {
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
 
-    public List<Post> getPosts(String userID){
+    public List<Post> getPosts(String userID, String since_id, String count){
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> posts = (List< Post>) jdbcTemplate.query("SELECT * from posts INNER JOIN users on posts.user_id=users.id where user_id=" + userID,
-                postRowMapper);
+        String query;
+        if (count== null)
+            count = "20";
+        if (since_id == null)
+            query = "SELECT * from posts INNER JOIN users on posts.user_id=users.id where user_id=" +userID + " ORDER BY posts.time DESC LIMIT "+ count;
+        else
+            query = "SELECT * from posts INNER JOIN users on posts.user_id=users.id where user_id=" +userID +" AND posts.id>"+since_id + " ORDER BY posts.time DESC LIMIT "+ count;
+
+        List<Post> posts = (List< Post>) jdbcTemplate.query(query, postRowMapper);
 
         return posts;
 

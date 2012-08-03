@@ -105,6 +105,8 @@ function get_posts(userID){
     followersview.populate();
     followersview = new BasicView('addUser.ejs', 'followinglist', 'followers', userID);
     followersview.populate();
+
+    setInterval(postview.poll.bind(postview), 20000);
 }
 
 function get_feed(){

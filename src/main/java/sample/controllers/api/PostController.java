@@ -49,8 +49,8 @@ public class PostController {
 
    @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getPostsJson(@PathVariable String userID){
-        List<Post> posts = tStore.getPosts(userID);
+    List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count){
+        List<Post> posts = tStore.getPosts(userID, since_id, count);
         if (posts.isEmpty())
             throw new ResourceNotFoundException();
         else
