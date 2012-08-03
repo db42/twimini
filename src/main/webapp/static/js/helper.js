@@ -9,6 +9,7 @@ function BasicView(ejsName, listName, url, userID){
     this.listName = listName
     this.url = url
     this.userID = userID
+    this.since_id = "0"
 }
 
 BasicView.prototype.getUrl = function(){
@@ -22,7 +23,10 @@ BasicView.prototype.addOne = function(data){
     console.log(this.getUrl())
     console.log(data)
     var entity = $(new EJS({url:'/static/ejs/'+this.ejsName}).render(data));
-    $('.'+this.listName).prepend(entity);
+    $('.'+this.listName).append(entity);
+
+    if (this.since_id < data.id)
+        this.since_id = data.id //SET since_id to the id of the latest tweet.
 }
 
 BasicView.prototype.addAll = function(data){
@@ -37,6 +41,15 @@ BasicView.prototype.populate = function(){
     $.get(this.getUrl(), function(data){
         console.log(viewcontext.getUrl())
         viewcontext.addAll(data)
+    })
+}
+
+BasicView.prototype.poll = function() {
+    var viewcontext = this
+    $.get(this.getUrl()+"?since_id="+this.since_id, function(data){
+        $.each(data, function(index, value){
+            viewcontext.addOne(value)
+        });
     })
 }
 
@@ -86,6 +99,7 @@ function user_register(form){
         }
     });
 }
+
 function get_posts(userID){
     postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();
@@ -98,6 +112,10 @@ function get_posts(userID){
 function get_feed(){
     postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', userID);
     postview.populate();
+
+    setInterval(function(){
+            postview.poll();
+            }, 20000);
 }
 
 function getProfileUserid(){
