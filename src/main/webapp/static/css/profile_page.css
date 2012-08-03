@@ -4,41 +4,15 @@
 	margin-top: 50px;
 	width: 800px;
 }
-
-.profile-block{
-	display: block;
-	padding: 5px 5px;
-	margin: 5px 20px;
-	background-color: #837B96;
-	height: 102px;
-	
-	background: #837B96; /* for non-css3 browsers */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#837B96', endColorstr='#3e305d'); 
-	background: -webkit-gradient(linear, center top, center bottom, from(#837B96), to(#3e305d));
-	background: -moz-linear-gradient(top,  #837B96,  #3e305d);
-	box-shadow: 0px 0px 10px #f3f0ff;
-}
-.profile-pic{
-	background-image: url("/static/images/welcome.jpg");
-	display: inline-block;
-	height: 100px;
-	width: 100px;
-}
 .small-pic{
+    background-image: url("/static/images/welcome.jpg");
+	display: inline-block;
 	height: 50px;
 	width: 50px;
-}
-
-.user-text{
-	margin: -100px 0 0 120px;
-}
-.profile-details{
-	display: inline;
 }
 .user-content{
 	display: block;
 	margin: 5px 20px;
-	background-color: blue;
 }
 
 .left-container{
@@ -97,7 +71,6 @@
 	color: #3e305d;
 	border-bottom: 1px solid #292435;
 	padding: 3px 10px;
-	
 }
 .common-block{
 	padding: 4px 6px;
@@ -138,24 +111,4 @@
     height: 100px;
 }
 
-.username{
-	font: 22px Impact, fantasy;
-	padding: 4px;
-}
-.name{
-	font: 18px Comic Sans, Comic Sans MS, cursive;
-	padding: 4px;
-}
-.email{
-	font: 16px Arial, Helvetica, sans-serif;
-	padding: 4px;
-}
-.description{
-	font: 16px Arial, Helvetica, sans-serif;
-	padding: 4px;
-}
-.details-in-right{
-	float: right;
-	padding: 4px;
-}
 

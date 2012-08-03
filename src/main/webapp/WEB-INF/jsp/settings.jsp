@@ -15,6 +15,8 @@
 	<body>
 		<%@include file="topbar.jsp" %>
 
+        <%@include file="error_msg.jsp" %>
+
 		<div class="page-content">
 			<%@include file="profile_block.jsp" %>
 
