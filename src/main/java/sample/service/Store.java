@@ -128,9 +128,19 @@ public class Store {
         return followings;
     }
 
-    public List<Post> getSubscribedPosts(String userID) {
+    public List<Post> getSubscribedPosts(String userID, String since_id, String count) {
         PostRowMapper postRowMapper = new PostRowMapper();
-        List<Post> subscribedPosts = jdbcTemplate.query("select users.username, users.email, posts.id, posts.user_id, posts.post, posts.time from posts, followers, users  where posts.user_id = users.id AND followers.follower=" + userID +" AND posts.user_id=followers.user_id AND posts.time<followers.unfollow_time ORDER BY posts.time DESC", postRowMapper);
+        String query;
+        if (count== null)
+                count = "20";
+        if (since_id == null)
+             query = "select users.username, users.email, posts.id, posts.user_id, posts.post, posts.time from posts, followers, users  where posts.user_id = users.id AND followers.follower=" + userID +
+                                                            " AND posts.user_id=followers.user_id AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT "+ count;
+        else
+            query = "select users.username, users.email, posts.id, posts.user_id, posts.post, posts.time from posts, followers, users  where posts.id >"+since_id +" AND posts.user_id = users.id AND " +
+                    "followers.follower=" + userID +" AND posts.user_id=followers.user_id AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT " + count;
+        System.out.println(query);
+        List<Post> subscribedPosts = jdbcTemplate.query(query, postRowMapper);
         return subscribedPosts;
     }
 
