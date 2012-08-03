@@ -23,7 +23,7 @@ BasicView.prototype.addOne = function(data){
     console.log(this.getUrl())
     console.log(data)
     var entity = $(new EJS({url:'/static/ejs/'+this.ejsName}).render(data));
-    $('.'+this.listName).append(entity);
+    $('.'+this.listName).prepend(entity);
 
     if (this.since_id < data.id)
         this.since_id = data.id //SET since_id to the id of the latest tweet.
@@ -40,16 +40,14 @@ BasicView.prototype.populate = function(){
     var viewcontext = this
     $.get(this.getUrl(), function(data){
         console.log(viewcontext.getUrl())
-        viewcontext.addAll(data)
+        viewcontext.addAll(data.reverse())
     })
 }
 
 BasicView.prototype.poll = function() {
     var viewcontext = this
     $.get(this.getUrl()+"?since_id="+this.since_id, function(data){
-        $.each(data, function(index, value){
-            viewcontext.addOne(value)
-        });
+        viewcontext.addAll(data.reverse())
     })
 }
 
