@@ -71,7 +71,7 @@ public class PostController {
 
     @RequestMapping(value = "/users/{userID}/posts/feed", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getSubscribedPostsJson(@PathVariable String userID){
-        return tStore.getSubscribedPosts(userID);
+    List<Post> getSubscribedPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count){
+        return tStore.getSubscribedPosts(userID, since_id, count);
     }
 }

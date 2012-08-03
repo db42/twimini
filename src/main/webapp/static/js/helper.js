@@ -70,6 +70,20 @@ function user_login(form){
             sessionStorage.setItem("password",data.password);
             window.location.replace("http://localhost:8080/twimini/home");
         }
+        else {
+            callError("Username or Password is not correct.");
+        }
+    });
+}
+
+function user_register(form){
+    $.post('/register', $(form).serialize(), function(data){
+        if (data.status == "success"){
+            callError("User successfully registered.");
+        }
+        else {
+            callError("User registration failed.");
+        }
     });
 }
 function get_posts(userID){
