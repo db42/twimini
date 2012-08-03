@@ -28,6 +28,8 @@
 			</div>
 		</div>
 
+        <%@include file="error_msg.jsp" %>
+
 		<div class="front-box">
 			<div class="tweet-img">
 
