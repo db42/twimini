@@ -113,9 +113,21 @@ function add_user_info(userID){
 }
 
 function callError  (errorMessage){
+    $('#error-message').empty();
     $('#error-message').append(errorMessage);
     $('#error-wrapper').fadeIn("slow");
     setTimeout('$("#error-wrapper").fadeOut("slow");', 5000);
 }
+
+function callNormal  (Message){
+    $('#normal-message').empty();
+    $('#normal-message').append(Message);
+    $('#normal-wrapper').fadeIn("slow");
+    setTimeout('$("#normal-wrapper").fadeOut("slow");', 5000);
+    // todo: check options for animation
+    /*$('#normal-wrapper').slideDown("slow");
+    setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
+}
+
 
 
