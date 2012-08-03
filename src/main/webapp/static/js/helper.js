@@ -113,9 +113,10 @@ function get_feed(){
     postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', userID);
     postview.populate();
 
-    setInterval(function(){
-            postview.poll();
-            }, 20000);
+    setInterval(postview.poll.bind(postview), 20000);
+//    setInterval(function(){
+//            postview.poll();
+//            }, 20000);
 }
 
 function getProfileUserid(){
