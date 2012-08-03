@@ -1,0 +1,37 @@
+$(function(){
+    $('#fbutton').mouseenter(
+        function(){
+            $('#fbutton').toggleClass('follow');
+            if($('#fbutton').hasClass('follow')){
+              $('#fbutton').empty().append('Follow');
+            }
+            else{
+                $('#fbutton').empty().append('Unollow');
+            }
+        }
+    )
+    $('#fbutton').mouseleave(
+        function(){
+            $('#fbutton').toggleClass('follow');
+            if($('#fbutton').hasClass('follow')){
+              $('#fbutton').empty().append('Follow');
+            }
+            else{
+                $('#fbutton').empty().append('Unollow');
+            }
+        }
+    )
+    $('#fbutton').mousedown(
+        function(){
+            if($('#fbutton').hasClass('follow')){
+                //todo:call follow
+                $('#fbutton').toggleClass('follow');
+                $('#fbutton').empty().append('Follow');
+            }
+            else{
+                $('#fbutton').toggleClass('follow');
+                $('#fbutton').empty().append('Unfollow');
+            }
+        }
+    )
+})
