@@ -54,13 +54,21 @@ TODO:
 9. logout
 10. return status from store
 
+3 August:
+1. Follow/unfollow button
+2. JS tweet time
+3. form validation for email id etc.
+5. user profile backend : save
+4. Fill tables with actual data
+6. Photograph
+7. Retweet
+8. Optimizations
+    - caching, backend db structure and all that
 
 
 Other work:
 1. CSS/HTML designing
 2. Javascript
 3. JSON/ REST api
-4. Optimizations
-    - caching, backend db and all that
 
 
