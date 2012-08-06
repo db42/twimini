@@ -11,7 +11,8 @@
 </div>
 <div class="float-in-right details-in-right">
     <div id="fbutton" class="float-in-right unfollow follow" >
-        Follow
+    <%if (followed==true) {%>  Unfollow  <%}%>
+    <%if (followed==false) {%>  Follow  <%}%>
     </div>
     <span class="float-in-right user-det"><b><%=created_at%></b></span>
     </br>
