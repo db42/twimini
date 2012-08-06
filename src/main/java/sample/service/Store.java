@@ -196,6 +196,21 @@ public class Store {
             return null;
         }
     }
+
+    public boolean addFollowing(String followee_id, String follower_id) {
+        try{
+            jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", followee_id, follower_id);
+            return true;
+        }
+        catch (DuplicateKeyException e){
+            jdbcTemplate.update("UPDATE followers SET unfollow_time='2038-01-01 00:00:00' where user_id=? AND follower=?",followee_id ,follower_id);
+            return true;
+        }
+    }
+
+    public void deleteFollowing(String followee_id, String follower_id) {
+            jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?",followee_id ,follower_id);
+    }
 }
 
 class FollowRowMapper implements RowMapper {

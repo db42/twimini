@@ -1,6 +1,7 @@
 package sample.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sample.model.User;
@@ -38,6 +39,26 @@ public class UserContoller {
     @ResponseBody
     List<User> getFollowersJson(@PathVariable String userID){
         return tStore.getFollowers(userID);
+    }
+
+    @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    Hashtable<String, String> addFollowings(@PathVariable String follower_id, @PathVariable String followee_id){
+        Hashtable hs = new Hashtable<String, String>();
+        tStore.addFollowing(followee_id, follower_id);
+        hs.put("status","success");
+        return hs;
+    }
+
+    @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    Hashtable<String, String> deleteFollowings(@PathVariable String follower_id, @PathVariable String followee_id){
+        Hashtable hs = new Hashtable<String, String>();
+        tStore.deleteFollowing(followee_id, follower_id);
+        hs.put("status","success");
+        return hs;
     }
 
     @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)

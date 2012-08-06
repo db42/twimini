@@ -119,16 +119,21 @@ function get_feed(){
 //            }, 20000);
 }
 
-
 function getProfileUserid(){
     words = location.pathname.split('/')
     return words[words.length - 1]
 }
-
 var mouse_pressed=false;
-function activate_follow_button(){
-    $('#fbutton').mouseenter(
+function activate_follow_button(user_id){
+    caller_user_id = userID
+<<<<<<< .minefunction activate_follow_button(){
+=======>>>>>>> .theirs    $('#fbutton').mouseenter(
         function(){
+            $('#fbutton').toggleClass('follow');
+            if($('#fbutton').hasClass('follow')){
+              $('#fbutton').empty().append('Follow');
+            }
+            else{
             if($('#fbutton').html() == 'Following'){
                 $('#fbutton').empty().append('Unfollow');
                 $('#fbutton').addClass('unfollow');
@@ -136,8 +141,12 @@ function activate_follow_button(){
             mouse_pressed=false;
         }
     );
+    $('#fbutton').mouseleave(
     $('#fbutton').mousedown(
         function(){
+            $('#fbutton').toggleClass('follow');
+            if($('#fbutton').hasClass('follow')){
+              $('#fbutton').empty().append('Follow');
             if($('#fbutton').html() == 'Unfollow'){
                 //todo:call unfollow
                 $('#fbutton').removeClass('unfollow').addClass('follow');
@@ -149,6 +158,7 @@ function activate_follow_button(){
                 $('#fbutton').empty().append('Follow');
             }
             else{
+                $('#fbutton').empty().append('Unfollow');
                 //todo:call follow
                 $('#fbutton').removeClass('follow');
                 $('#fbutton').empty().append('Following');
@@ -156,23 +166,66 @@ function activate_follow_button(){
             mouse_pressed=true;
         }
     );
+    $('#fbutton').mousedown(
     $('#fbutton').mouseleave(
         function(){
+            if($('#fbutton').hasClass('follow')){
+                //todo:call follow
+                $('#fbutton').toggleClass('follow');
+                $('#fbutton').empty().append('Follow');
+
             if(!mouse_pressed){
                 if($('#fbutton').html()=='Unfollow'){
                     $('#fbutton').removeClass('follow').removeClass('unfollow');
                     $('#fbutton').empty().append('Following');
                 }
             }
-        }
+            else{
+                $('#fbutton').toggleClass('follow');
+                $('#fbutton').empty().append('Unfollow');
+            }
+<<<<<<< .mine=======            else{
+                unfollow_user(user_id, caller_user_id);
+                $('#fbutton').toggleClass('follow');
+                $('#fbutton').empty().append('Unfollow');
+            }
+>>>>>>> .theirs        }
     );
+}
+
+function follow_user(user_id, caller_user_id){
+     $.ajax({
+         url: '/users/'+caller_user_id+'/followings/'+user_id,
+         type: 'PUT',
+         headers : {
+             "Authorization" : window.btoa(password),
+             "Content-Type" : "application/x-www-form-urlencoded"
+         },
+         success : function(data){
+         //action
+     }
+     });
+}
+
+function unfollow_user(user_id, caller_user_id){
+     $.ajax({
+         url: '/users/'+caller_user_id+'/followings/'+user_id,
+         type: 'DELETE',
+         headers : {
+             "Authorization" : window.btoa(password),
+             "Content-Type" : "application/x-www-form-urlencoded"
+         },
+         success : function(data){
+         //action
+     }
+     });
 }
 
 function add_user_info(user_id){
     $.get('/users/'+user_id+"?callerUserID="+this.userID, function(data){
         var entity = $(new EJS({url:'/static/ejs/UserInfo.ejs'}).render(data));
         $('.profile-block').append(entity);
-        activate_follow_button();
+        activate_follow_button(user_id);
     });
 }
 
