@@ -83,6 +83,13 @@ public class Store {
         }
     }
 
+    public User updateUser(String userID, String username, String email, String name, String description, String old_password, String new_password) {
+        User user = this.getUserByUserID(userID, old_password);
+        if (user!=null)
+            jdbcTemplate.update("UPDATE users SET username=?, email=?, password=?, name=?, description=?",username, email, new_password, name, description);
+        return user;
+    }
+
     public User getUser(String userID){
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
