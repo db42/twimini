@@ -62,15 +62,15 @@
 						<form action="" onsubmit="password_change(this); return false;">
 							<div class="form-block">
 	                    	    <div class="in-text"> Old Password: </div>
-		                        <input type="password" class="addpost-input right-pull pr-input" name="old-pass" placeholder="Old" autocomplete="off" dir="ltr"></br>
+		                        <input type="password" class="addpost-input right-pull pr-input" name="old_password" placeholder="Old" autocomplete="off" dir="ltr"></br>
 	                        </div>
 		                    <div class="form-block">
 		                        <div class="in-text"> New Password: </div>
-		                        <input type="password" class="addpost-input right-pull pr-input" name="new-pass" placeholder="New" autocomplete="off" dir="ltr"></br>
+		                        <input type="password" class="addpost-input right-pull pr-input" name="new_password" placeholder="New" autocomplete="off" dir="ltr"></br>
 	                        </div>
 	                        <div class="form-block">
 		                        <div class="in-text"> Retype Password: </div>
-		                        <input type="password" class="addpost-input right-pull pr-input" name="red-pass" placeholder="Re-type" autocomplete="off" dir="ltr"></br>
+		                        <input type="password" class="addpost-input right-pull pr-input" name="red_password" placeholder="Re-type" autocomplete="off" dir="ltr"></br>
 	                        </div>
 	                        <input type="submit" value="Change Password" class="addpost-btn">
 	                    </form>
