@@ -123,11 +123,49 @@ function getProfileUserid(){
     words = location.pathname.split('/')
     return words[words.length - 1]
 }
+function activate_follow_button(){
+    $('#fbutton').mouseenter(
+        function(){
+            $('#fbutton').toggleClass('follow');
+            if($('#fbutton').hasClass('follow')){
+              $('#fbutton').empty().append('Follow');
+            }
+            else{
+                $('#fbutton').empty().append('Unfollow');
+            }
+        }
+    );
+    $('#fbutton').mouseleave(
+        function(){
+            $('#fbutton').toggleClass('follow');
+            if($('#fbutton').hasClass('follow')){
+              $('#fbutton').empty().append('Follow');
+            }
+            else{
+                $('#fbutton').empty().append('Unfollow');
+            }
+        }
+    );
+    $('#fbutton').mousedown(
+        function(){
+            if($('#fbutton').hasClass('follow')){
+                //todo:call follow
+                $('#fbutton').toggleClass('follow');
+                $('#fbutton').empty().append('Follow');
+            }
+            else{
+                $('#fbutton').toggleClass('follow');
+                $('#fbutton').empty().append('Unfollow');
+            }
+        }
+    );
+}
 
 function add_user_info(user_id){
     $.get('/users/'+user_id+"?callerUserID="+this.userID, function(data){
         var entity = $(new EJS({url:'/static/ejs/UserInfo.ejs'}).render(data));
         $('.profile-block').append(entity);
+        activate_follow_button();
     });
 }
 
