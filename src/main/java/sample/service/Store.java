@@ -43,6 +43,9 @@ public class Store {
     }
 
     public List<Post> getPosts(String userID, String since_id, String count){
+        if (getUser(userID) == null)
+            return null;
+
         PostRowMapper postRowMapper = new PostRowMapper();
         String query;
         if (count== null)

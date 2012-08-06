@@ -51,7 +51,7 @@ public class PostController {
     @ResponseBody
     List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count){
         List<Post> posts = tStore.getPosts(userID, since_id, count);
-        if (posts.isEmpty())
+        if (posts == null)
             throw new ResourceNotFoundException();
         else
             return posts;
