@@ -56,16 +56,19 @@ TODO:
 
 3 August:
 1. Follow/unfollow button
-2. Polling block, do not add tweet with js
+3. user profile backend : save
+3. user profile validation JS
+3. hidden element for feed notes
 2. JS tweet time
-3. form validation for email id etc.
-5. user profile backend : save
+
+2. Polling block, do not add tweet with js
 4. Fill tables with actual data
-5. self name in followers/following -  follow self: at the time of register
 6. Photograph
+
 7. Retweet
 8. Optimizations
     - caching, backend db structure and all that
+5. self name in followers/following -  follow self: at the time of register
 
 
 Other work:
