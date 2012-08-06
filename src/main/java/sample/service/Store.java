@@ -90,6 +90,29 @@ public class Store {
         return user;
     }
 
+    public User updateUserPassword(String userID, String old_password, String new_password) {
+        User user = this.getUserByUserID(userID, old_password);
+        if (user!=null)
+            jdbcTemplate.update("UPDATE users SET password=? where id=?",new_password, userID);
+        return user;
+    }
+
+    public User updateUserAccount(String userID, String username, String email) {
+        User user = this.getUser(userID);
+        try{
+            jdbcTemplate.update("UPDATE users SET username=?, email=? where id=?",username, email, userID);
+            return user;
+        }
+        catch (DuplicateKeyException e){
+            return null;
+        }
+    }
+
+    public User updateUserProfile(String userID, String name, String description) {
+        jdbcTemplate.update("UPDATE users SET name=?, description=? where id=?", name, description, userID);
+        return null;
+    }
+
     public User getUser(String userID){
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
@@ -218,6 +241,7 @@ public class Store {
     public void deleteFollowing(String followee_id, String follower_id) {
             jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?",followee_id ,follower_id);
     }
+
 }
 
 class FollowRowMapper implements RowMapper {
