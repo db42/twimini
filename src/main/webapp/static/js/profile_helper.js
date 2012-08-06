@@ -2,7 +2,7 @@
 
 $(function(){
     activatables('page', ['tweets', 'followers', 'following']);
-    userID = getProfileUserid();
-    add_user_info(userID);
-    get_posts(userID);
+    user_id = getProfileUserid();
+    add_user_info(user_id);
+    get_posts(user_id);
 });
