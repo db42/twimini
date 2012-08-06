@@ -48,8 +48,8 @@ public class UserContoller {
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
     @ResponseBody
-    User getUserJson(@PathVariable String userID){
-        User user = tStore.getUser(userID);
+    User getUserJson(@PathVariable String userID, @RequestParam(required = false) String callerUserID){
+        User user = tStore.getUser(userID, callerUserID);
         if (user == null)
             throw new ResourceNotFoundException();
         else

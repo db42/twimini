@@ -12,6 +12,8 @@ import sample.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,6 +84,26 @@ public class Store {
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
+            return user;
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
+    public User getUser(String userID, String callerUserID){
+        UserRowMapper userRowMapper = new UserRowMapper();
+        FollowRowMapper followRowMapper = new FollowRowMapper();
+        try{
+//            User user = (User) jdbcTemplate.queryForObject("select * from users INNER JOIN followers on users.id=followers.user_id where users.id=" + userID + " AND followers.follower="+callerUserID, userRowMapper);
+            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
+            try{
+                Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+userID +" AND follower="+callerUserID, followRowMapper);
+                user.setFollowed(follow);
+            }
+            catch (EmptyResultDataAccessException e){
+                user.setFollowed(false);
+            }
             return user;
         }
         catch (EmptyResultDataAccessException e){
@@ -170,6 +192,16 @@ public class Store {
         catch (EmptyResultDataAccessException e){
             return null;
         }
+    }
+}
+
+class FollowRowMapper implements RowMapper {
+    Date today = new Date();
+    Timestamp timeStamp = new java.sql.Timestamp(today.getTime());
+
+    @Override
+    public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
+        return (resultSet.getTimestamp("unfollow_time").after(timeStamp));
     }
 }
 

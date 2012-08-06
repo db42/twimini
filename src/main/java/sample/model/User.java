@@ -16,7 +16,15 @@ public class User {
     String email;
     String description;
     Timestamp created_at;
+    boolean followed;
 
+    public boolean isFollowed() {
+        return followed;
+    }
+
+    public void setFollowed(boolean followed) {
+        this.followed = followed;
+    }
     public User(int id, String username, String email){
         this.id = id;
         this.username = username;
