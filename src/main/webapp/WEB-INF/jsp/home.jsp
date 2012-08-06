@@ -30,6 +30,7 @@
 				<div class="right-part">
 					<a class="right-container" id="tweets">
 						<div class="top-message"> Feed </div>
+                        <%@include file="container_message.jsp" %>
                         <div class="tweetlist">
                         </div>
 					</a>

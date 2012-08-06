@@ -35,6 +35,7 @@
 				<div class="right-part">
 					<a class="right-container" id="tweets">
 						<div class="top-message"> Tweets </div>
+                        <%@include file="container_message.jsp" %>
                         <div class="tweetlist">
                         </div>
 					</a>
