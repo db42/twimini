@@ -61,6 +61,7 @@ TODO:
 3. form validation for email id etc.
 5. user profile backend : save
 4. Fill tables with actual data
+5. self name in followers/following -  follow self: at the time of register
 6. Photograph
 7. Retweet
 8. Optimizations
