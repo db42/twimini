@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="/static/css/profile_page.css" type="text/css"/>
         <script src="/static/js/jquery.min.js"type="text/javascript"></script>
         <script src="/static/js/ejs_production.js"type="text/javascript"></script>
+        <script src="/static/js/format_date.js"type="text/javascript"></script>
         <script src="/static/js/helper.js"type="text/javascript"></script>
         <script src="/static/js/home_helper.js"type="text/javascript"></script>
         <title>Profile - Twimini</title>
