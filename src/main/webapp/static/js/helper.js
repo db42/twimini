@@ -207,15 +207,13 @@ function add_user_info(user_id){
 }
 
 function callError  (errorMessage){
-    $('#error-message').empty();
-    $('#error-message').append(errorMessage);
+    $('#error-message').empty().append(errorMessage);
     $('#error-wrapper').fadeIn("slow");
     setTimeout('$("#error-wrapper").fadeOut("slow");', 5000);
 }
 
 function callNormal  (Message){
-    $('#normal-message').empty();
-    $('#normal-message').append(Message);
+    $('#normal-message').empty().append(Message);
     $('#normal-wrapper').fadeIn("slow");
     setTimeout('$("#normal-wrapper").fadeOut("slow");', 5000);
     // todo: check options for animation
@@ -223,5 +221,11 @@ function callNormal  (Message){
     setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
 }
 
+function callMessage (Message){
+    $('#container-message').empty().append(Message);
+    $('#container-message').slideDown("slow");
+    //todo: add click operation
+    setTimeout('$("#container-message").slideUp("slow");', 5000);
+}
 
 
