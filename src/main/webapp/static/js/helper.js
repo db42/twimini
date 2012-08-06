@@ -123,7 +123,8 @@ function getProfileUserid(){
     words = location.pathname.split('/')
     return words[words.length - 1]
 }
-function activate_follow_button(){
+function activate_follow_button(user_id){
+    caller_user_id = userID
     $('#fbutton').mouseenter(
         function(){
             $('#fbutton').toggleClass('follow');
@@ -150,10 +151,12 @@ function activate_follow_button(){
         function(){
             if($('#fbutton').hasClass('follow')){
                 //todo:call follow
+                follow_user(user_id, caller_user_id);
                 $('#fbutton').toggleClass('follow');
                 $('#fbutton').empty().append('Follow');
             }
             else{
+                unfollow_user(user_id, caller_user_id);
                 $('#fbutton').toggleClass('follow');
                 $('#fbutton').empty().append('Unfollow');
             }
@@ -161,11 +164,39 @@ function activate_follow_button(){
     );
 }
 
+function follow_user(user_id, caller_user_id){
+     $.ajax({
+         url: '/users/'+caller_user_id+'/followings/'+user_id,
+         type: 'PUT',
+         headers : {
+             "Authorization" : window.btoa(password),
+             "Content-Type" : "application/x-www-form-urlencoded"
+         },
+         success : function(data){
+         //action
+     }
+     });
+}
+
+function unfollow_user(user_id, caller_user_id){
+     $.ajax({
+         url: '/users/'+caller_user_id+'/followings/'+user_id,
+         type: 'DELETE',
+         headers : {
+             "Authorization" : window.btoa(password),
+             "Content-Type" : "application/x-www-form-urlencoded"
+         },
+         success : function(data){
+         //action
+     }
+     });
+}
+
 function add_user_info(user_id){
     $.get('/users/'+user_id+"?callerUserID="+this.userID, function(data){
         var entity = $(new EJS({url:'/static/ejs/UserInfo.ejs'}).render(data));
         $('.profile-block').append(entity);
-        activate_follow_button();
+        activate_follow_button(user_id);
     });
 }
 
