@@ -79,6 +79,8 @@ BasicView.prototype.addOne = function(data){
     console.log(this.url)
     console.log(this.getUrl())
     console.log(data)
+    if (data['timestamp']!=null)
+        data['timestamp'] = humane_date(data['timestamp']);
     var entity = $(new EJS({url:'/static/ejs/'+this.ejsName}).render(data));
     $('.'+this.listName).prepend(entity);
 
