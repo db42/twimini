@@ -30,8 +30,9 @@ public class Post {
     }
 
     public String getTimestamp() {
-        String dateString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(timestamp);
-        return dateString;
+        String dateString = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss").format(timestamp);
+
+        return dateString.substring(0,10)+'T'+dateString.substring(10)+'Z';
     }
 
     public User getUser() {
