@@ -67,6 +67,7 @@ function BasicView(ejsName, listName, url, userID){
     this.url = url
     this.userID = userID
     this.since_id = "0"
+    this.polled_data = []
 }
 
 BasicView.prototype.getUrl = function(){
@@ -106,11 +107,31 @@ BasicView.prototype.populate = function(){
 BasicView.prototype.poll = function() {
     var viewcontext = this
     $.get(this.getUrl()+"?since_id="+this.since_id, function(data){
-        viewcontext.addAll(data.reverse())
+        $.each(data.reverse(), function(index, value){
+            viewcontext.polled_data.push(value)
+            if (viewcontext.since_id < value.id)
+                viewcontext.since_id = value.id //SET since_id to the id of the latest tweet.
+        });
+        num_msgs = viewcontext.polled_data.length;
+        if (num_msgs >0)
+            viewcontext.callMessage(num_msgs+" new tweets");
+//        viewcontext.addAll(data.reverse())
     })
 }
 
-
+BasicView.prototype.callMessage = function( Message){
+    $('#container-message').empty().append(Message);
+    $('#container-message').slideDown("slow");
+    //todo: add click operation
+    var viewcontext = this
+    $('#container-message').click(function(){
+        setTimeout('$("#container-message").slideUp("slow");', 5000);
+        viewcontext.addAll(viewcontext.polled_data)
+        $.each(viewcontext.polled_data, function(index, value){
+            viewcontext.polled_data.pop(value)
+        });
+    });
+}
 function addOne(listName, ejsName, data) {
     var entity = $(new EJS({url:'/static/ejs/'+ejsName}).render(data));
     $('.'+listName).prepend(entity);
@@ -283,11 +304,6 @@ function callNormal  (Message){
     setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
 }
 
-function callMessage (Message){
-    $('#container-message').empty().append(Message);
-    $('#container-message').slideDown("slow");
-    //todo: add click operation
-    setTimeout('$("#container-message").slideUp("slow");', 5000);
-}
+
 
 
