@@ -4,5 +4,4 @@ $(function(){
     user_id = getProfileUserid();
     add_user_info(user_id);
     get_posts(user_id);
-    follow_button();
 });

@@ -119,43 +119,50 @@ function get_feed(){
 //            }, 20000);
 }
 
+
 function getProfileUserid(){
     words = location.pathname.split('/')
     return words[words.length - 1]
 }
+
+var mouse_pressed=false;
 function activate_follow_button(){
     $('#fbutton').mouseenter(
         function(){
-            $('#fbutton').toggleClass('follow');
-            if($('#fbutton').hasClass('follow')){
-              $('#fbutton').empty().append('Follow');
-            }
-            else{
+            if($('#fbutton').html() == 'Following'){
                 $('#fbutton').empty().append('Unfollow');
+                $('#fbutton').addClass('unfollow');
             }
-        }
-    );
-    $('#fbutton').mouseleave(
-        function(){
-            $('#fbutton').toggleClass('follow');
-            if($('#fbutton').hasClass('follow')){
-              $('#fbutton').empty().append('Follow');
-            }
-            else{
-                $('#fbutton').empty().append('Unfollow');
-            }
+            mouse_pressed=false;
         }
     );
     $('#fbutton').mousedown(
         function(){
-            if($('#fbutton').hasClass('follow')){
-                //todo:call follow
-                $('#fbutton').toggleClass('follow');
+            if($('#fbutton').html() == 'Unfollow'){
+                //todo:call unfollow
+                $('#fbutton').removeClass('unfollow').addClass('follow');
+                $('#fbutton').empty().append('Follow');
+            }
+            else if($('#fbutton').html() == 'Following'){
+                //todo:call unfollow
+                $('#fbutton').addClass('follow');
                 $('#fbutton').empty().append('Follow');
             }
             else{
-                $('#fbutton').toggleClass('follow');
-                $('#fbutton').empty().append('Unfollow');
+                //todo:call follow
+                $('#fbutton').removeClass('follow');
+                $('#fbutton').empty().append('Following');
+            }
+            mouse_pressed=true;
+        }
+    );
+    $('#fbutton').mouseleave(
+        function(){
+            if(!mouse_pressed){
+                if($('#fbutton').html()=='Unfollow'){
+                    $('#fbutton').removeClass('follow').removeClass('unfollow');
+                    $('#fbutton').empty().append('Following');
+                }
             }
         }
     );
