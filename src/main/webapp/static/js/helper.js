@@ -169,7 +169,7 @@ BasicView.prototype.callMessage = function( Message){
     //todo: add click operation
     var viewcontext = this
     $('#container-message').click(function(){
-        setTimeout('$("#container-message").slideUp("slow");', 5000);
+        $("#container-message").slideUp("slow");
         viewcontext.addAll(viewcontext.polled_data)
         $.each(viewcontext.polled_data, function(index, value){
             viewcontext.polled_data.pop(value)
