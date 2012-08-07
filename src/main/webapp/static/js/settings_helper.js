@@ -1,54 +1,15 @@
 var tm = tm || {};
 
 function password_change(form) {
-    $.ajax({
-        url: '/update_password?userID=' + tm.userID,
-        type: 'POST',
-        data: $(form).serialize(),
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            if (data.status === "success") {
-                tm.callNormal("Password updated successfully.");
-            }
-        }
-    });
+    tm.auth_ajax("/update_password?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Password updated successfully."); });
 }
 
 function account_change(form) {
-    $.ajax({
-        url: '/update_account?userID=' + tm.userID,
-        type: 'POST',
-        data: $(form).serialize(),
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            if (data.status === "success") {
-                tm.callNormal("Account updated successfully.");
-            }
-    }
-    });
+    tm.auth_ajax("/update_account?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Account updated successfully."); });
 }
 
 function profile_change(form) {
-    $.ajax({
-        url: '/update_profile?userID=' + tm.userID,
-        type: 'POST',
-        data: $(form).serialize(),
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            if (data.status === "success") {
-                tm.callNormal("Profile updated successfully.");
-            }
-        }
-    });
+    tm.auth_ajax("/update_profile?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Profile updated successfully."); });
 }
 
 $(function () {

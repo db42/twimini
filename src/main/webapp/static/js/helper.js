@@ -3,6 +3,23 @@ var tm = tm || {};
 tm.userID = sessionStorage.getItem("userID");
 tm.password = sessionStorage.getItem("password");
 
+tm.auth_ajax = function (url, form, success_fun) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: $(form).serialize(),
+        headers: {
+            "Authorization": window.btoa(tm.password),
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        success: function (data) {
+            if (data.status === "success") {
+                success_fun(data);
+            }
+        }
+    });
+};
+
 function BasicView(ejsName, listName, url, userID) {
     this.ejsName = ejsName;
     this.listName = listName;
@@ -86,21 +103,14 @@ function addOne(listName, ejsName, data) {
 }
 
 function add_tweet(form) {
-    $.ajax({
-        url: '/users/' + tm.userID + '/posts',
-        type: 'POST',
-        data: $(form).serialize(),
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            console.log(data);
-            data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
-//    $.post('/users/1/posts',$(form).serialize(), function (data) {
-            addOne('tweetlist', 'addTweet.ejs', data);
-        }
-    });
+    var successfun = function (data) {
+        tm.callNormal("Tweet posted successfully.");
+        console.log(data);
+        data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
+        addOne('tweetlist', 'addTweet.ejs', data);
+    };
+
+    tm.auth_ajax("/users/".concat(tm.userID).concat("/posts"), form, successfun);
 }
 
 function callError(errorMessage) {
