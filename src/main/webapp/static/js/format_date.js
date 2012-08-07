@@ -1,4 +1,6 @@
-function humaneDate(date, compareTo){
+var tm = tm || {};
+
+tm.humaneDate = function (date, compareTo){
 
     if(!date) {
         return;
@@ -77,7 +79,7 @@ function humaneDate(date, compareTo){
     }
 };
 
-function parseISO8601(str) {
+tm.parseISO8601 = function (str) {
  // we assume str is a UTC date ending in 'Z'
 
  var parts = str.split('T'),
@@ -98,4 +100,4 @@ function parseISO8601(str) {
 
  // by using setUTC methods the date has already been converted to local time(?)
  return _date;
-}
+};

@@ -1,3 +1,5 @@
+var tm = tm || {};
+
 $(function () {
-    get_feed();
+    tm.get_feed();
 });

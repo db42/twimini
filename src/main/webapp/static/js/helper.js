@@ -1,7 +1,7 @@
-var userID;
-var password;
-userID = sessionStorage.getItem("userID");
-password = sessionStorage.getItem("password");
+var tm = tm || {};
+
+tm.userID = sessionStorage.getItem("userID");
+tm.password = sessionStorage.getItem("password");
 
 function BasicView(ejsName, listName, url, userID) {
     this.ejsName = ejsName;
@@ -24,7 +24,7 @@ BasicView.prototype.addOne = function (data) {
     console.log(this.getUrl());
     console.log(data);
     if (data.timestamp !== undefined) {
-        data.timestamp = humaneDate(parseISO8601(data.timestamp));
+        data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
         if (this.since_id < data.id) {
             this.since_id = data.id; //SET since_id to the id of the latest tweet.
         }
@@ -87,16 +87,16 @@ function addOne(listName, ejsName, data) {
 
 function add_tweet(form) {
     $.ajax({
-        url: '/users/' + userID + '/posts',
+        url: '/users/' + tm.userID + '/posts',
         type: 'POST',
         data: $(form).serialize(),
         headers : {
-            "Authorization" : window.btoa(password),
+            "Authorization" : window.btoa(tm.password),
             "Content-Type" : "application/x-www-form-urlencoded"
         },
         success : function (data) {
             console.log(data);
-            data.timestamp = humaneDate(parseISO8601(data.timestamp));
+            data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
 //    $.post('/users/1/posts',$(form).serialize(), function (data) {
             addOne('tweetlist', 'addTweet.ejs', data);
         }
@@ -132,7 +132,7 @@ function user_register(form) {
     });
 }
 
-function get_posts(userID) {
+tm.get_posts = function (userID) {
     var postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();
     var followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
@@ -141,19 +141,19 @@ function get_posts(userID) {
     followingsview.populate();
 
     setInterval(postview.poll.bind(postview), 20000);
-}
+};
 
-function get_feed() {
-    var postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', userID);
+tm.get_feed = function () {
+    var postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
     postview.populate();
 
     setInterval(postview.poll.bind(postview), 20000);
 //    setInterval(function () {
 //            postview.poll();
 //            }, 20000);
-}
+};
 
-function getProfileUserid() {
+tm.getProfileUserid = function () {
     var words = location.pathname.split('/');
     return words[words.length - 1];
 }
@@ -163,7 +163,7 @@ function follow_user(user_id, caller_user_id) {
         url: '/users/' + caller_user_id + '/followings/' + user_id,
         type: 'PUT',
         headers : {
-            "Authorization" : window.btoa(password),
+            "Authorization" : window.btoa(tm.password),
             "Content-Type" : "application/x-www-form-urlencoded"
         },
         success : function (data) {
@@ -177,7 +177,7 @@ function unfollow_user(user_id, caller_user_id) {
         url: '/users/' + caller_user_id + '/followings/' + user_id,
         type: 'DELETE',
         headers : {
-            "Authorization" : window.btoa(password),
+            "Authorization" : window.btoa(tm.password),
             "Content-Type" : "application/x-www-form-urlencoded"
         },
         success : function (data) {
@@ -188,7 +188,7 @@ function unfollow_user(user_id, caller_user_id) {
 var mouse_pressed = false;
 
 function activate_follow_button(user_id) {
-    var caller_user_id = userID;
+    var caller_user_id = tm.userID;
     $('#fbutton').mouseenter(
         function () {
             if ($('#fbutton').hasClass('follow')) {
@@ -230,19 +230,19 @@ function activate_follow_button(user_id) {
     );
 }
 
-function add_user_info(user_id) {
-    $.get('/users/' + user_id + "?callerUserID=" + this.userID, function (data) {
+tm.add_user_info = function (user_id) {
+    $.get('/users/' + user_id + "?callerUserID=" + tm.userID, function (data) {
         var entity = $(new EJS({url: '/static/ejs/UserInfo.ejs'}).render(data));
         $('.profile-block').append(entity);
         activate_follow_button(user_id);
     });
-}
+};
 
-function callNormal(Message) {
+tm.callNormal = function (Message) {
     $('#normal-message').empty().append(Message);
     $('#normal-wrapper').fadeIn("slow");
     setTimeout('$("#normal-wrapper").fadeOut("slow");', 5000);
     // todo: check options for animation
     /*$('#normal-wrapper').slideDown ("slow");
     setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
-}
+};
