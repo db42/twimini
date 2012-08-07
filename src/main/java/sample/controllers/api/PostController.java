@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sample.model.Post;
 import sample.service.Store;
-import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,23 +22,19 @@ import java.util.List;
 @Controller
 public class PostController {
     Store tStore;
+    RestAuthLayer authLayer;
 
     @Autowired
-    public PostController(Store tStore){
+    public PostController(Store tStore, RestAuthLayer authLayer){
         this.tStore = tStore;
+        this.authLayer = authLayer;
     }
 
     @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     Post newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] decodedBytes = decoder.decodeBuffer(request.getHeader("Authorization"));
-        String password = new String(decodedBytes);
-
-        if (tStore.getUserByUserID(userID, password) == null) {
-            throw new NotAuthorisedException();
-        }
+        authLayer.isAuthorised(userID, request);
 
         Post p = tStore.addPost(userID, post);
         response.setHeader("Location","/posts/"+p.getId());
