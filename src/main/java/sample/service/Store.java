@@ -108,9 +108,9 @@ public class Store {
         }
     }
 
-    public User updateUserProfile(String userID, String name, String description) {
+    public boolean updateUserProfile(String userID, String name, String description) {
         jdbcTemplate.update("UPDATE users SET name=?, description=? where id=?", name, description, userID);
-        return null;
+        return true;
     }
 
     public User getUser(String userID){

@@ -1,5 +1,8 @@
 package sample.model;
 
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 
 /**
@@ -17,6 +20,26 @@ public class User {
     String description;
     Timestamp created_at;
     boolean followed;
+    String image_url;
+
+    public String getImage_url() {
+        byte[] bytesOfMessage = new byte[0];
+        bytesOfMessage = email.getBytes();
+
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] md5_url = md.digest(bytesOfMessage);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < md5_url.length; ++i) {
+            sb.append(Integer.toHexString((md5_url[i] & 0xFF) | 0x100).substring(1, 3));
+        }
+        String baseUrl = "http://www.gravatar.com/avatar/";
+        return baseUrl.concat(sb.toString());
+    }
 
     public boolean isFollowed() {
         return followed;

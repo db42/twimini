@@ -1,10 +1,11 @@
 package sample.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import sample.model.User;
 import sample.service.Store;
 
@@ -71,12 +72,12 @@ public class UserController {
                                                  @RequestParam(required = false) String name,
                                                  @RequestParam(required = false) String description)
     {
-        User user = tStore.updateUserProfile(userID, name, description);
+        boolean status = tStore.updateUserProfile(userID, name, description);
         Hashtable hs = new Hashtable<String, String>();
-        if (user == null)
-            hs.put("status", "failed");
-        else
+        if (status)
             hs.put("status","success");
+        else
+            hs.put("status", "failed");
         return hs;
     }
 

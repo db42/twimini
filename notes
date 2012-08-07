@@ -62,10 +62,10 @@ TODO:
 2. Polling block, do not add tweet with js
 
 6 August
-1. button in followers list
-2. user profile validation JS
+1. button in followers list - TODO
+2. user profile validation JS - TODO
 3. Fill tables with actual data
-4. Photograph
+4. Photograph - DONE
 
 5. Retweet
 6. Optimizations
