@@ -240,6 +240,33 @@ function activate_follow_button(user_id) {
     );
 }
 
+function follow_user_button(user_block){
+    var caller_user_id = tm.userID;
+    var user_id = user_block.getAttribute('userid');
+
+    if(user_block.innerHTML.trim() === "Follow"){
+        follow_user(user_id, caller_user_id);
+        user_block.innerHTML = 'Following';
+        user_block.className = 'fubutton following';
+/*        //add to followings
+        var entity = $(new EJS({url: '/static/ejs/addUser.ejs'}).render(data));
+        $('.' + this.listName).append(entity);
+        var followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
+        followingsview.addOne();*/
+    }
+    else if(user_block.innerHTML.trim() === "Unfollow"){
+        unfollow_user(user_id, caller_user_id);
+        if(user_block.parentElement.parentElement.parentElement.parentElement.parentElement.id === "followers"){
+            user_block.innerHTML = 'Follow';
+            user_block.className = 'fubutton following follow';
+        }
+        else{
+            var parentx = user_block.parentNode.parentNode.parentNode;
+            parentx.parentNode.removeChild(parentx);
+        }
+    }
+}
+
 tm.add_user_info = function (user_id) {
     $.get('/users/' + user_id + "?callerUserID=" + tm.userID, function (data) {
         var entity = $(new EJS({url: '/static/ejs/UserInfo.ejs'}).render(data));

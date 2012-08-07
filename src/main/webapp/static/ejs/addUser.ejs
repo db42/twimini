@@ -5,7 +5,13 @@
     </div>
     <div class="details">
         <a href="/twimini/profile/<%=id%>"><%=username%></a>
-        <div class="right-top">ID: <%=id%></div>
+        <div class="right-top">
+            ID: <%=id%>
+            <div onclick="follow_user_button(this);" userid=<%=id%> class="fubutton following
+                <%if (followed==true) {%> " following="yes"> Unfollow  <%}%>
+                <%if (followed==false) {%>  follow" following="no">  Follow  <%}%>
+            </div>
+        </div>
         <div class="post">
         <%=name%>
         <%=email%>
