@@ -78,3 +78,14 @@
 	background: black;
 	color: white;
 }
+
+.fubutton{
+	border: 1px solid white;
+	border-radius: 4px;
+
+	font: 16px Courier New, monospace;
+    padding: 2px;
+    cursor: pointer;
+    text-align: center;
+	width: 100px;
+}

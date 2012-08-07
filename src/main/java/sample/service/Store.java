@@ -181,12 +181,25 @@ public class Store {
     public List<User> getFollowers(String userID) {
         UserRowMapper userRowMapper = new UserRowMapper();
         List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID +" AND unfollow_time > NOW())", userRowMapper);
+        for(User u:followers){
+            try{
+                FollowRowMapper followRowMapper = new FollowRowMapper();
+                Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+userID, followRowMapper);
+                u.setFollowed(follow);
+            }
+            catch (EmptyResultDataAccessException e){
+                u.setFollowed(false);
+            }
+        }
         return followers;
     }
 
     public List<User> getFollowings(String userID) {
         UserRowMapper userRowMapper = new UserRowMapper();
         List<User> followings = jdbcTemplate.query("select * from users where id in (select user_id from followers where follower="+ userID +" AND unfollow_time > NOW())", userRowMapper);
+        for(User u:followings){
+            u.setFollowed(true);
+        }
         return followings;
     }
 
