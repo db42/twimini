@@ -9,9 +9,3 @@
         ${message}
     </div>
 </div>
-<script type="text/javascript">
-    $(function(){callError("Sample Error Message");})
-    $(function(){callNormal("Sample Normal Message");})
-</script>
-
-        
