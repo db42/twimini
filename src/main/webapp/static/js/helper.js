@@ -13,7 +13,7 @@ tm.auth_ajax = function (url, form, success_fun) {
             "Content-Type": "application/x-www-form-urlencoded"
         },
         success: function (data) {
-            if (data.status === "success") {
+            if (data.status !== "failed") {
                 success_fun(data);
             }
         }
