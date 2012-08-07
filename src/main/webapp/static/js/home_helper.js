@@ -1,3 +1,3 @@
-$(function(){
-get_feed();
-})
+$(function () {
+    get_feed();
+});
