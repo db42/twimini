@@ -30,6 +30,24 @@ function check_email(email){
     return true;
 }
 
+function check_name(name){
+    $('#name-error').empty();
+    var ck_name = /^[A-Za-z]{3,250}$/;
+    if(!ck_name.test(name)){
+        $('#name-error').append("Name can have only Characters<br/> Min-Length : 3").slideDown("slow");
+        return false;
+    }
+    return true;
+}
+function check_description(description){
+    $('#description-error').empty();
+    if(description.length > 250){
+        $('#description-error').append("Description too large!").slideDown("slow");
+        return false;
+    }
+    return true;
+}
+
 function password_change(form) {
     tm.auth_ajax("/update_password?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Password updated successfully."); });
 }
@@ -41,7 +59,9 @@ function account_change(form) {
 }
 
 function profile_change(form) {
-    tm.auth_ajax("/update_profile?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Profile updated successfully."); });
+    if(check_name(form["name"].value) && check_description(form["description"].value)){
+        tm.auth_ajax("/update_profile?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Profile updated successfully."); });
+    }
 }
 
 $(function () {
