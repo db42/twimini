@@ -3,10 +3,11 @@ var tm = tm || {};
 tm.userID = sessionStorage.getItem("userID");
 tm.password = sessionStorage.getItem("password");
 
-tm.auth_ajax = function (url, form, success_fun) {
+tm.auth_ajax = function (url, form, success_fun, type) {
+    type = typeof type !== 'undefined' ? type : 'POST';
     $.ajax({
         url: url,
-        type: 'POST',
+        type: type,
         data: $(form).serialize(),
         headers: {
             "Authorization": window.btoa(tm.password),
@@ -97,6 +98,20 @@ BasicView.prototype.callMessage = function (Message) {
     });
 };
 
+function FeedView(ejsName, listName, url, userID) {
+    BasicView.call(this, ejsName, listName, url, userID);
+}
+FeedView.prototype = new BasicView();
+FeedView.prototype.constructor = FeedView;
+
+FeedView.prototype.populate = function () {
+    var viewcontext = this;
+    tm.auth_ajax(this.getUrl(), null, function (data) {
+        console.log(viewcontext.getUrl());
+        viewcontext.addAll(data.reverse());
+    }, 'GET');
+};
+
 function addOne(listName, ejsName, data) {
     var entity = $(new EJS({url: '/static/ejs/' + ejsName}).render(data));
     $('.' + listName).prepend(entity);
@@ -154,7 +169,7 @@ tm.get_posts = function (userID) {
 };
 
 tm.get_feed = function () {
-    var postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
+    var postview = new FeedView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
     postview.populate();
 
     setInterval(postview.poll.bind(postview), 20000);
