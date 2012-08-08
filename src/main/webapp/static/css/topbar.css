@@ -24,10 +24,8 @@ body {
 	
 	box-shadow: 0px 2px 3px rgba(0,0,0,0.25);
 	
-	background-color: #292435;
-	color: #9D84E9;
-	list-style: none;
-	text-decoration: none;
+	background-color: #2D2D2D;
+    font-weight: bold;
 }
 
 .container{
@@ -37,7 +35,10 @@ body {
 	margin: auto auto;
 }
 .container a{
-	color: #9D84E9;
+	color: #BBBBBB;
+}
+.container a:hover{
+	color: #FFFFFF;
 }
 
 .left-pull{
@@ -56,14 +57,6 @@ body {
 .home-button{
 	padding: 10px 10px;
 	height: 20px;
-}
-.topbar-button{
-    link-decoration: none;
-}
-.topbar-button:hover{
-	color: #DDD2FC;
-	box-shadow: 0px 0px 1px 1px white inset; 
-	background-color: #302941;
 }
 
 .icon-position{
@@ -89,10 +82,14 @@ body {
 	height: 22px;
 }
 .search-input{
+    background: #BBBBBB;
 	color: #5C546F;
 	border-radius: 12px;
 	width: 160px;
 	padding-left: 8px;
+}
+.search-input:focus{
+    background: #FFFFFF;
 }
 .profile-button{
 	float: right;
