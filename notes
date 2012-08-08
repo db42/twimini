@@ -72,11 +72,12 @@ NEW TODO s
 6. Optimizations
     - caching, backend db structure and all that
 
-7. proper usage of auth interceptor
+7. proper usage of auth interceptor, threadlocal userID
 8. authorization token
 9. overall user experience
 10. load older tweets when going down
 11. java, javascript - docs, tests
+12. handle xss using javascript
 
 
 
