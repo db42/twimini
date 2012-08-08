@@ -182,31 +182,17 @@ tm.getProfileUserid = function () {
 }
 
 function follow_user(user_id, caller_user_id) {
-    $.ajax({
-        url: '/users/' + caller_user_id + '/followings/' + user_id,
-        type: 'PUT',
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            //action
-        }
-    });
+    var url = '/users/' + caller_user_id + '/followings/' + user_id;
+    tm.auth_ajax(url, null, function (data) {
+        tm.callNormal("Successfully followed.");
+    }, 'PUT');
 }
 
 function unfollow_user(user_id, caller_user_id) {
-    $.ajax({
-        url: '/users/' + caller_user_id + '/followings/' + user_id,
-        type: 'DELETE',
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            //action
-        }
-    });
+    var url = '/users/' + caller_user_id + '/followings/' + user_id;
+    tm.auth_ajax(url, null, function (data) {
+        tm.callNormal("Successfully unfollowed.");
+    }, 'DELETE');
 }
 var mouse_pressed = false;
 
