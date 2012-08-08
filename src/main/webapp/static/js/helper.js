@@ -117,17 +117,16 @@ FeedView.prototype.populate = function () {
     }, 'GET');
 };
 
-function addOne(listName, ejsName, data) {
-    var entity = $(new EJS({url: '/static/ejs/' + ejsName}).render(data));
-    $('.' + listName).prepend(entity);
-}
-
 function add_tweet(form) {
     var successfun = function (data) {
         tm.callNormal("Tweet posted successfully.");
-        console.log(data);
-        data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
-        addOne('tweetlist', 'addTweet.ejs', data);
+        if (typeof tm.postview === 'undefined') {
+            return;
+        }
+        tm.postview.polled_data.push(data);
+        var num_msgs = tm.postview.polled_data.length;
+        tm.postview.since_id = data.id;
+        tm.postview.callMessage(num_msgs + " new tweets");
     };
     tm.auth_ajax("/users/".concat(tm.userID).concat("/posts"), form, successfun);
 }
@@ -162,9 +161,9 @@ function user_register(form) {
 }
 
 tm.get_posts = function (userID) {
-    var postview, followersview, followingsview;
-    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
-    postview.populate();
+    var followersview, followingsview;
+    tm.postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
+    tm.postview.populate();
     followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
     followersview.populate();
     followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
