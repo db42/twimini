@@ -23,7 +23,7 @@ function check_email(email){
         $('#email-error').append("Email incorrect!").slideDown("slow");
         return false;
     }
-    if(username.length > 125){
+    if(email.length > 125){
         $('#email-error').append("Email Too Large").slideDown("slow");
         return false;
     }
@@ -40,16 +40,25 @@ function check_name(name){
     return true;
 }
 function check_description(description){
-    $('#description-error').empty();
     if(description.length > 250){
-        $('#description-error').append("Description too large!").slideDown("slow");
+        $('#description-error').empty().append("Description too large!").slideDown("slow");
+        return false;
+    }
+    return true;
+}
+
+function check_password(newpassword, retype){
+    if(newpassword !== retype){
+        $('#password-error').empty().append("The retyped Password doesn't match!").slideDown("slow");
         return false;
     }
     return true;
 }
 
 function password_change(form) {
-    tm.auth_ajax("/update_password?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Password updated successfully."); });
+    if(check_password(form["new_password"].value, form["red_password"].value)){
+        tm.auth_ajax("/update_password?userID=".concat(tm.userID), form, function (data) {tm.callNormal("Password updated successfully."); });
+    }
 }
 
 function account_change(form) {
