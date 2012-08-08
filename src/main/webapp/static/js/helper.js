@@ -169,7 +169,7 @@ tm.get_posts = function (userID) {
     followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
     followingsview.populate();
 
-    setInterval(tm.postview.poll.bind(postview), 20000);
+    setInterval(tm.postview.poll.bind(tm.postview), 20000);
 };
 
 tm.get_feed = function () {
@@ -294,6 +294,9 @@ tm.add_user_info = function (user_id) {
     $.get('/users/' + user_id + "?callerUserID=" + tm.userID, function (data) {
         var entity = $(new EJS({url: '/static/ejs/UserInfo.ejs'}).render(data));
         $('.profile-block').append(entity);
+        if (user_id == tm. userID){
+            $('#fbutton').remove();
+        }
         activate_follow_button(user_id);
     });
 };

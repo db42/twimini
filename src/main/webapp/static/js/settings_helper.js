@@ -76,4 +76,5 @@ function profile_change(form) {
 $(function () {
     tm.add_user_info(tm.userID);
     activatables('tab', ['account', 'profile', 'password']);
+    $('fbutton').remove();
 });

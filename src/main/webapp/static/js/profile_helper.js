@@ -5,4 +5,5 @@ $(function () {
     var user_id = tm.getProfileUserid();
     tm.add_user_info(user_id);
     tm.get_posts(user_id);
+
 });
