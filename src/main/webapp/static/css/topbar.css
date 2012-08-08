@@ -122,11 +122,14 @@ body {
 	display: none;
 }
 #nav li ul li{
-	background-color: #292435;
-	color: #9D84E9;
-	width: 60px;
-	padding: 5px;
-	padding-left: 10px;
+	background-color: #EEEEEE;
+	color: #2D2D2D;
+	width: 80px;
+	padding: 10px 0;
+	text-align: center;
+}
+#nav li ul li:hover{
+	background-color: #BBBBBB;
 }
 #nav li:hover ul{
 	display: block;
