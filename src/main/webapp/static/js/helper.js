@@ -61,7 +61,7 @@ BasicView.prototype.addAll = function (data) {
 
 BasicView.prototype.populate = function () {
     var viewcontext = this;
-    $("#"+this.listName).empty();
+    $("#" + this.listName).empty();
     $.get(this.getUrl(), function (data) {
         console.log(viewcontext.getUrl());
         viewcontext.addAll(data.reverse());
@@ -81,7 +81,6 @@ BasicView.prototype.poll = function () {
         if (num_msgs > 0) {
             viewcontext.callMessage(num_msgs + " new tweets");
         }
-//        viewcontext.addAll(data.reverse())
     });
 };
 
@@ -102,6 +101,7 @@ BasicView.prototype.callMessage = function (Message) {
 function FeedView(ejsName, listName, url, userID) {
     BasicView.call(this, ejsName, listName, url, userID);
 }
+
 FeedView.prototype = new BasicView();
 FeedView.prototype.constructor = FeedView;
 
@@ -125,7 +125,6 @@ function add_tweet(form) {
         data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
         addOne('tweetlist', 'addTweet.ejs', data);
     };
-
     tm.auth_ajax("/users/".concat(tm.userID).concat("/posts"), form, successfun);
 }
 
@@ -159,11 +158,12 @@ function user_register(form) {
 }
 
 tm.get_posts = function (userID) {
-    var postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
+    var postview, followersview, followingsview;
+    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();
-    var followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
+    followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
     followersview.populate();
-    var followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
+    followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
     followingsview.populate();
 
     setInterval(postview.poll.bind(postview), 20000);
@@ -174,9 +174,6 @@ tm.get_feed = function () {
     postview.populate();
 
     setInterval(postview.poll.bind(postview), 20000);
-//    setInterval(function () {
-//            postview.poll();
-//            }, 20000);
 };
 
 tm.getProfileUserid = function () {
