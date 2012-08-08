@@ -60,6 +60,7 @@ BasicView.prototype.addAll = function (data) {
 
 BasicView.prototype.populate = function () {
     var viewcontext = this;
+    $("#"+this.listName).empty();
     $.get(this.getUrl(), function (data) {
         console.log(viewcontext.getUrl());
         viewcontext.addAll(data.reverse());
@@ -203,7 +204,7 @@ function activate_follow_button(user_id) {
         function () {
             if ($('#fbutton').hasClass('follow')) {
                 $('#fbutton').empty().append('Follow');
-            } else if ($('#fbutton').html() === 'Following') {
+            } else if ($('#fbutton').html().trim() === 'Following') {
                 $('#fbutton').empty().append('Unfollow');
                 $('#fbutton').addClass('unfollow');
             }
@@ -212,11 +213,11 @@ function activate_follow_button(user_id) {
     );
     $('#fbutton').mousedown(
         function () {
-            if ($('#fbutton').html() === 'Unfollow') {
+            if ($('#fbutton').html().trim() === 'Unfollow') {
                 unfollow_user(user_id, caller_user_id);
                 $('#fbutton').removeClass('unfollow').addClass('follow');
                 $('#fbutton').empty().append('Follow');
-            } else if ($('#fbutton').html() === 'Following') {
+            } else if ($('#fbutton').html().trim() === 'Following') {
                 unfollow_user(user_id, caller_user_id);
                 $('#fbutton').addClass('follow');
                 $('#fbutton').empty().append('Follow');
@@ -231,7 +232,7 @@ function activate_follow_button(user_id) {
     $('#fbutton').mouseleave(
         function () {
             if (!mouse_pressed) {
-                if ($('#fbutton').html() === 'Unfollow') {
+                if ($('#fbutton').html().trim() === 'Unfollow') {
                     $('#fbutton').removeClass('follow').removeClass('unfollow');
                     $('#fbutton').empty().append('Following');
                 }
@@ -264,6 +265,18 @@ function follow_user_button(user_block){
             var parentx = user_block.parentNode.parentNode.parentNode;
             parentx.parentNode.removeChild(parentx);
         }
+    }
+}
+function follow_user_button_hover(user_block){
+    if(user_block.innerHTML.trim() === "Following"){
+        user_block.innerHTML = 'Unfollow';
+        user_block.className = 'fubutton unfollow';
+    }
+}
+function follow_user_button_out(user_block){
+    if(user_block.innerHTML.trim() === "Unfollow"){
+        user_block.innerHTML = 'Following';
+        user_block.className = 'fubutton following';
     }
 }
 
