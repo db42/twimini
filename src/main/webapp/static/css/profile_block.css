@@ -13,13 +13,15 @@
     border-radius: 8px;
 }
 .profile-pic{
-	background-image: url("/static/images/welcome.jpg");
 	display: inline-block;
-	height: 130px;
-	width: 100px;
+	height: 126px;
+	width: 126px;
+    border-radius: 5px;
+    padding: 2px;
+    background: white;
 }
 .user-text{
-	margin: -120px 0 0 120px;
+	margin: -120px 0 0 140px;
     width: 410px;
 	text-overflow: ellipsis;
 	padding: 10px;
