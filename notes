@@ -62,15 +62,20 @@ TODO:
 2. Polling block, do not add tweet with js
 
 6 August
-1. button in followers list - TODO
+1. button in followers list - DONE
 2. user profile validation JS - TODO
 3. Fill tables with actual data
 4. Photograph - DONE
 
+NEW TODO s
 5. Retweet
 6. Optimizations
     - caching, backend db structure and all that
-7. self name in followers/following -  follow self: at the time of register
+
+7. proper usage of auth interceptor
+8. authorization token
+9. overall user experience
+
 
 
 Other work:
