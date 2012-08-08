@@ -1,6 +1,7 @@
 .form-block{
 	display: inline-block;
 	width: 100%;
+    margin-top: 10px;
 }
 
 .in-text{
@@ -12,4 +13,12 @@
 .pr-input{
 	width: 250px;
 	margin-right: 50px;
+}
+
+.error-settings{
+    color: red;
+    text-align: center;;
+    width: 260px;
+    padding: 3px 0px;
+    display: none;
 }
