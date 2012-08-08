@@ -69,8 +69,10 @@ BasicView.prototype.populate = function () {
 };
 
 BasicView.prototype.poll = function () {
-    var viewcontext = this;
-    $.get(this.getUrl() + "?since_id=" + this.since_id, function (data) {
+    var viewcontext, url, poll_success;
+    viewcontext = this;
+    url = this.getUrl() + "?since_id=" + this.since_id;
+    poll_success = function (data) {
         $.each(data.reverse(), function (index, value) {
             viewcontext.polled_data.push(value);
             if (viewcontext.since_id < value.id) {
@@ -81,7 +83,9 @@ BasicView.prototype.poll = function () {
         if (num_msgs > 0) {
             viewcontext.callMessage(num_msgs + " new tweets");
         }
-    });
+    };
+
+    tm.auth_ajax(url, null, poll_success, 'GET');
 };
 
 BasicView.prototype.callMessage = function (Message) {
