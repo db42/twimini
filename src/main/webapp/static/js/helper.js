@@ -3,10 +3,11 @@ var tm = tm || {};
 tm.userID = sessionStorage.getItem("userID");
 tm.password = sessionStorage.getItem("password");
 
-tm.auth_ajax = function (url, form, success_fun) {
+tm.auth_ajax = function (url, form, success_fun, type) {
+    type = typeof type !== 'undefined' ? type : 'POST';
     $.ajax({
         url: url,
-        type: 'POST',
+        type: type,
         data: $(form).serialize(),
         headers: {
             "Authorization": window.btoa(tm.password),
@@ -60,7 +61,7 @@ BasicView.prototype.addAll = function (data) {
 
 BasicView.prototype.populate = function () {
     var viewcontext = this;
-    $("#"+this.listName).empty();
+    $("#" + this.listName).empty();
     $.get(this.getUrl(), function (data) {
         console.log(viewcontext.getUrl());
         viewcontext.addAll(data.reverse());
@@ -80,7 +81,6 @@ BasicView.prototype.poll = function () {
         if (num_msgs > 0) {
             viewcontext.callMessage(num_msgs + " new tweets");
         }
-//        viewcontext.addAll(data.reverse())
     });
 };
 
@@ -98,6 +98,21 @@ BasicView.prototype.callMessage = function (Message) {
     });
 };
 
+function FeedView(ejsName, listName, url, userID) {
+    BasicView.call(this, ejsName, listName, url, userID);
+}
+
+FeedView.prototype = new BasicView();
+FeedView.prototype.constructor = FeedView;
+
+FeedView.prototype.populate = function () {
+    var viewcontext = this;
+    tm.auth_ajax(this.getUrl(), null, function (data) {
+        console.log(viewcontext.getUrl());
+        viewcontext.addAll(data.reverse());
+    }, 'GET');
+};
+
 function addOne(listName, ejsName, data) {
     var entity = $(new EJS({url: '/static/ejs/' + ejsName}).render(data));
     $('.' + listName).prepend(entity);
@@ -110,7 +125,6 @@ function add_tweet(form) {
         data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
         addOne('tweetlist', 'addTweet.ejs', data);
     };
-
     tm.auth_ajax("/users/".concat(tm.userID).concat("/posts"), form, successfun);
 }
 
@@ -144,24 +158,22 @@ function user_register(form) {
 }
 
 tm.get_posts = function (userID) {
-    var postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
+    var postview, followersview, followingsview;
+    postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
     postview.populate();
-    var followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
+    followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
     followersview.populate();
-    var followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
+    followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
     followingsview.populate();
 
     setInterval(postview.poll.bind(postview), 20000);
 };
 
 tm.get_feed = function () {
-    var postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
+    var postview = new FeedView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
     postview.populate();
 
     setInterval(postview.poll.bind(postview), 20000);
-//    setInterval(function () {
-//            postview.poll();
-//            }, 20000);
 };
 
 tm.getProfileUserid = function () {
@@ -170,31 +182,17 @@ tm.getProfileUserid = function () {
 }
 
 function follow_user(user_id, caller_user_id) {
-    $.ajax({
-        url: '/users/' + caller_user_id + '/followings/' + user_id,
-        type: 'PUT',
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            //action
-        }
-    });
+    var url = '/users/' + caller_user_id + '/followings/' + user_id;
+    tm.auth_ajax(url, null, function (data) {
+        tm.callNormal("Successfully followed.");
+    }, 'PUT');
 }
 
 function unfollow_user(user_id, caller_user_id) {
-    $.ajax({
-        url: '/users/' + caller_user_id + '/followings/' + user_id,
-        type: 'DELETE',
-        headers : {
-            "Authorization" : window.btoa(tm.password),
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        success : function (data) {
-            //action
-        }
-    });
+    var url = '/users/' + caller_user_id + '/followings/' + user_id;
+    tm.auth_ajax(url, null, function (data) {
+        tm.callNormal("Successfully unfollowed.");
+    }, 'DELETE');
 }
 var mouse_pressed = false;
 

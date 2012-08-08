@@ -66,7 +66,9 @@ public class PostController {
 
     @RequestMapping(value = "/users/{userID}/posts/feed", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getSubscribedPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count){
+    List<Post> getSubscribedPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, HttpServletRequest request){
+        authLayer.isAuthorised(userID, request);
+
         return tStore.getSubscribedPosts(userID, since_id, count);
     }
 }
