@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sample.model.User;
 import sample.service.Store;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -20,10 +21,12 @@ import java.util.List;
 @Controller
 public class UserContoller {
     Store tStore;
+    RestAuthLayer authLayer;
 
     @Autowired
-    public UserContoller(Store tStore){
+    public UserContoller(Store tStore, RestAuthLayer authLayer){
         this.tStore = tStore;
+        this.authLayer = authLayer;
     }
 
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)
@@ -44,7 +47,9 @@ public class UserContoller {
     @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    Hashtable<String, String> addFollowings(@PathVariable String follower_id, @PathVariable String followee_id){
+    Hashtable<String, String> addFollowings(@PathVariable String follower_id, @PathVariable String followee_id, HttpServletRequest request){
+        authLayer.isAuthorised(follower_id, request);
+
         Hashtable hs = new Hashtable<String, String>();
         tStore.addFollowing(followee_id, follower_id);
         hs.put("status","success");
@@ -54,7 +59,9 @@ public class UserContoller {
     @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    Hashtable<String, String> deleteFollowings(@PathVariable String follower_id, @PathVariable String followee_id){
+    Hashtable<String, String> deleteFollowings(@PathVariable String follower_id, @PathVariable String followee_id, HttpServletRequest request){
+        authLayer.isAuthorised(follower_id, request);
+
         Hashtable hs = new Hashtable<String, String>();
         tStore.deleteFollowing(followee_id, follower_id);
         hs.put("status","success");
