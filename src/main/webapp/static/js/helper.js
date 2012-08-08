@@ -169,7 +169,7 @@ tm.get_posts = function (userID) {
     followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
     followingsview.populate();
 
-    setInterval(postview.poll.bind(postview), 20000);
+    setInterval(tm.postview.poll.bind(postview), 20000);
 };
 
 tm.get_feed = function () {
