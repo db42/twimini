@@ -44,6 +44,12 @@ public class AppController {
         return mv;
     }
 
+    @RequestMapping("/profile")
+    ModelAndView SelfProfilePage(){
+        ModelAndView mv = new ModelAndView("profile");
+        return mv;
+    }
+
     @RequestMapping("/profile/{userID}")
     ModelAndView ProfilePage(@PathVariable String userID){
         ModelAndView mv = new ModelAndView("profile");

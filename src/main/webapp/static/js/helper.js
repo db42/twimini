@@ -180,9 +180,18 @@ tm.get_feed = function () {
 };
 
 tm.getProfileUserid = function () {
-    var words = location.pathname.split('/');
-    return words[words.length - 1];
-}
+    var i, user_id, words = location.pathname.split('/');
+    for (i = 0; i < words.length; i++) {
+        if (words[i].trim() === 'profile') {
+            user_id = words[i + 1];
+        }
+    }
+    if (typeof user_id === 'undefined') {
+        return tm.userID;
+    } else {
+        return words[words.length - 1];
+    }
+};
 
 function follow_user(user_id, caller_user_id) {
     var url = '/users/' + caller_user_id + '/followings/' + user_id;
