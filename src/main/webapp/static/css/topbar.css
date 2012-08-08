@@ -52,6 +52,7 @@ body {
 	margin: 0px;
 	width: 300px;
     padding: 0px;
+    padding-right: 40px;
 }
 
 .home-button{
@@ -83,13 +84,23 @@ body {
 }
 .search-input{
     background: #BBBBBB;
-	color: #5C546F;
+    color: #2D2D2D;
 	border-radius: 12px;
+    border-style: none;
 	width: 160px;
-	padding-left: 8px;
+    padding: 3px 8px;
 }
 .search-input:focus{
     background: #FFFFFF;
+    color: #5C546F;
+    outline: none;
+}
+#search-icon{
+    background-image: url("/static/images/search_icon.png");
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    margin: 3px 0 0 153px;
 }
 .profile-button{
 	float: right;
@@ -99,15 +110,10 @@ body {
     cursor: pointer;
     background-image: url("/static/images/pr_icon.png");
 }
-.new-tweet-button{
-	float: right;
-	display: inline;
-	height: 30px;
-	width: 30px;
-	margin: 4px 35px 4px 5px;
-    background-image: url("/static/images/nt.png");
-    cursor: pointer;
+.profile-button:hover{
+    background-image: url("/static/images/pr_icon_white.png");
 }
+
 #nav ul li{
 	display: block;
 	position: relative;
