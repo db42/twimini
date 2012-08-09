@@ -42,7 +42,7 @@ public class Store {
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
 
-    public List<Post> getPosts(String userID, String since_id, String count){
+    public List<Post> getPosts(String userID, String since_id, String count, String max_id){
         if (getUser(userID) == null)
             return null;
 
@@ -50,10 +50,12 @@ public class Store {
         String query;
         if (count== null)
             count = "20";
-        if (since_id == null)
+        if (since_id == null && max_id == null)
             query = "SELECT * from posts where user_id=" +userID + " ORDER BY posts.time DESC LIMIT "+ count;
-        else
+        else if (max_id == null)
             query = "SELECT * from posts where user_id=" +userID +" AND posts.id>"+since_id + " ORDER BY posts.time DESC LIMIT "+ count;
+        else
+            query = "SELECT * from posts where user_id=" +userID +" AND posts.id<"+max_id + " ORDER BY posts.time DESC LIMIT "+ count;
 
         List<Post> posts = (List< Post>) jdbcTemplate.query(query, postRowMapper);
 
@@ -203,17 +205,22 @@ public class Store {
         return followings;
     }
 
-    public List<Post> getSubscribedPosts(String userID, String since_id, String count) {
+    public List<Post> getSubscribedPosts(String userID, String since_id, String count, String max_id) {
         PostRowMapper postRowMapper = new PostRowMapper();
         String query;
         if (count== null)
                 count = "20";
-        if (since_id == null)
+
+        if (since_id == null && max_id == null)
              query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
                                                             " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT "+ count;
-        else
+        else if (max_id == null)
             query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
                     " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id >" + since_id +" ORDER BY posts.time DESC LIMIT "+ count;
+        else
+            query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
+                    " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id <" + max_id +" ORDER BY posts.time DESC LIMIT "+ count;
+
         System.out.println(query);
         List<Post> subscribedPosts = jdbcTemplate.query(query, postRowMapper);
         return subscribedPosts;

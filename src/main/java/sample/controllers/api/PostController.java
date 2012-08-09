@@ -44,8 +44,8 @@ public class PostController {
 
    @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count){
-        List<Post> posts = tStore.getPosts(userID, since_id, count);
+    List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
+        List<Post> posts = tStore.getPosts(userID, since_id, count, max_id);
         if (posts == null)
             throw new ResourceNotFoundException();
         else
@@ -66,9 +66,9 @@ public class PostController {
 
     @RequestMapping(value = "/users/{userID}/posts/feed", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getSubscribedPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, HttpServletRequest request){
+    List<Post> getSubscribedPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, HttpServletRequest request){
         authLayer.isAuthorised(userID, request);
 
-        return tStore.getSubscribedPosts(userID, since_id, count);
+        return tStore.getSubscribedPosts(userID, since_id, count, max_id);
     }
 }
