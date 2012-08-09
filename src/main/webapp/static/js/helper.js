@@ -315,8 +315,11 @@ tm.callNormal = function (Message) {
     setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
 };
 
-tm.fill_topbar = function(){
-    $.get('/users/'+tm.userID, function(data){
-        $('#profile-image').append('<img src='+data["image_url"]+'?s=30></img>');
-    })
+tm.fill_topbar = function () {
+    if (typeof tm.image_url !== 'undefined') {
+        $.get('/users/' + tm.userID, function (data) {
+            tm.image_url = data.image_url;
+        });
+    }
+    $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
 };
