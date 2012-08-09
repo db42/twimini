@@ -95,6 +95,10 @@ body {
     color: #5C546F;
     outline: none;
 }
+.search-input::-webkit-input-placeholder {
+    color: inherit;
+}
+
 #search-icon{
     background-image: url("/static/images/search_icon.png");
     height: 16px;
