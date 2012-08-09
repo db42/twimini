@@ -38,7 +38,7 @@ public class Store {
     public Post addPost(String userID, String post) {
         PostRowMapper postRowMapper = new PostRowMapper();
         jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID, post);
-        return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts INNER JOIN users on posts.user_id=users.id WHERE user_id=" + userID +
+        return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID +
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
 
@@ -51,9 +51,9 @@ public class Store {
         if (count== null)
             count = "20";
         if (since_id == null)
-            query = "SELECT * from posts INNER JOIN users on posts.user_id=users.id where user_id=" +userID + " ORDER BY posts.time DESC LIMIT "+ count;
+            query = "SELECT * from posts where user_id=" +userID + " ORDER BY posts.time DESC LIMIT "+ count;
         else
-            query = "SELECT * from posts INNER JOIN users on posts.user_id=users.id where user_id=" +userID +" AND posts.id>"+since_id + " ORDER BY posts.time DESC LIMIT "+ count;
+            query = "SELECT * from posts where user_id=" +userID +" AND posts.id>"+since_id + " ORDER BY posts.time DESC LIMIT "+ count;
 
         List<Post> posts = (List< Post>) jdbcTemplate.query(query, postRowMapper);
 
@@ -209,11 +209,11 @@ public class Store {
         if (count== null)
                 count = "20";
         if (since_id == null)
-             query = "select users.username, users.email, posts.id, posts.user_id, posts.post, posts.time from posts, followers, users  where posts.user_id = users.id AND followers.follower=" + userID +
-                                                            " AND posts.user_id=followers.user_id AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT "+ count;
+             query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
+                                                            " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT "+ count;
         else
-            query = "select users.username, users.email, posts.id, posts.user_id, posts.post, posts.time from posts, followers, users  where posts.id >"+since_id +" AND posts.user_id = users.id AND " +
-                    "followers.follower=" + userID +" AND posts.user_id=followers.user_id AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT " + count;
+            query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
+                    " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id >" + since_id +" ORDER BY posts.time DESC LIMIT "+ count;
         System.out.println(query);
         List<Post> subscribedPosts = jdbcTemplate.query(query, postRowMapper);
         return subscribedPosts;
@@ -222,7 +222,7 @@ public class Store {
     public Post getPost(String postID) {
         PostRowMapper postRowMapper = new PostRowMapper();
         try{
-            Post post = (Post) jdbcTemplate.queryForObject("select * from posts INNER JOIN users on posts.user_id=users.id where posts.id=" + postID, postRowMapper);
+            Post post = (Post) jdbcTemplate.queryForObject("select * from posts where posts.id=" + postID, postRowMapper);
             return post;
         }
         catch (EmptyResultDataAccessException e){
@@ -283,8 +283,7 @@ class PostRowMapper implements RowMapper {
 
     @Override
     public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-        User user = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("email"));
-        Post post = new Post(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("post"), resultSet.getTimestamp("time"), user);
+        Post post = new Post(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("post"), resultSet.getTimestamp("time"));
         return post;
     }
 }

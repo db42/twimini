@@ -15,7 +15,6 @@ public class Post {
     int user_id;
     String post;
     Timestamp timestamp;
-    User user;
 
     public int getId() {
         return id;
@@ -35,16 +34,13 @@ public class Post {
         return dateString.substring(0,10)+'T'+dateString.substring(10)+'Z';
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public Post(int id, int user_id, String post, Timestamp time, User user){
+
+    public Post(int id, int user_id, String post, Timestamp time){
         this.id = id;
         this.user_id = user_id;
         this.post = post;
         this.timestamp = time;
-        this.user = user;
     }
 
 }
