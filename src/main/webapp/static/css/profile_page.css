@@ -13,7 +13,7 @@
 }
 .user-content{
 	display: block;
-	margin: 5px 20px;
+	margin: 5px 0px;
     position: relative;
 }
 
@@ -39,13 +39,13 @@
 }
 .right-part{
 	padding: 0px 10px;
-	width: 63%;
+	width: 67%;
 	border-radius: 8px; 
 	box-shadow: 0px 0px 10px #f3f0ff;
     bottom: 0;
     position: absolute;
     top: 10px;
-    right: 20px;
+    right: 10px;
 }
 .link-to-tab{
 	margin: 5px 4px;
@@ -67,12 +67,15 @@
 	color: #3e305d;
 	border-bottom: 2px solid #292435;
 	padding: 3px 10px;
+    background: white;
+    border-radius: 2px;
 }
 .common-block{
 	padding: 6px 6px;
 	position: relative;
 	border-bottom: 1px solid #292435;
     min-height: 52px;
+    background: #FFFFFF;
 }
 .user-details{
 	margin: -50px 0 0 55px;
