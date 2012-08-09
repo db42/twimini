@@ -77,4 +77,5 @@ $(function () {
     tm.add_user_info(tm.userID);
     activatables('tab', ['account', 'profile', 'password']);
     $('fbutton').remove();
+    tm.fill_topbar();
 });
