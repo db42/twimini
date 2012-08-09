@@ -32,7 +32,7 @@ function check_email(email){
 
 function check_name(name){
     $('#name-error').empty();
-    var ck_name = /^[A-Za-z]{3,250}$/;
+    var ck_name = /^.{3,250}$/;
     if(!ck_name.test(name)){
         $('#name-error').append("Name can have only Characters<br/> Min-Length : 3").slideDown("slow");
         return false;
