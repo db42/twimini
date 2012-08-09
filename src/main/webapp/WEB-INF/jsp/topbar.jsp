@@ -11,13 +11,10 @@
         </div>
 
         <ul class = "right-pull">
-            <li class="topbar-button" id="nav">
+            <li id="nav">
                 <ul >
-                    <li class="profile-button">
+                    <li class="menu-button down-pic">
                         <ul>
-                            <li>
-                                <a href="/twimini/profile">Profile</a>
-                            </li>
                             <li>
                                 <a href="/twimini/settings">Settings</a>
                             </li>
@@ -27,6 +24,9 @@
                         </ul>
                     </li>
                 </ul>
+            </li>
+            <li class="menu-button">
+                <a href="/twimini/profile" id="profile-image"></a>
             </li>
             <form class="search-box" action="/search">
                 <span id="search-icon">

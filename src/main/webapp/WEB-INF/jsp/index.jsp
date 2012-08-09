@@ -34,20 +34,20 @@
 			<div class="tweet-img">
 
 			</div>
-			<div class="login-box">
+			<div class="ask-box login-box">
 				<form class="login-form" action="" onsubmit="user_login(this); return false;" method="post">
 				    <input class="form-input" type="text" name="email" autocomplete="on" title="Email" placeholder="Username or Email"> <br/>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
-				    <input class="form-submit-btn" type="submit" value="Login">
+				    <input class="form-submit-btn login-btn" type="submit" value="Login">
 				</form>
 			</div>
-			<div class="register-box">
+			<div class="ask-box register-box">
 				<div class="register-message"><strong>New to Twitter?</strong> Register</div>
 				<form class="register-form" action="" onsubmit="user_register(this); return false;" method="post">
 				    <input class="form-input" type="text" maxlength="20" name="name" placeholder="Username"><br/>
 				    <input class="form-input" type="text" name="email" autocomplete="on" placeholder="Email"><br/>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
-				    <input class="form-submit-btn" type="submit" value="Register">
+				    <input class="form-submit-btn sign-up" type="submit" value="Register">
 				</form>
 			</div>
 		</div>

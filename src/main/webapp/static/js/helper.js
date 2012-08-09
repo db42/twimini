@@ -314,3 +314,9 @@ tm.callNormal = function (Message) {
     /*$('#normal-wrapper').slideDown ("slow");
     setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
 };
+
+tm.fill_topbar = function(){
+    $.get('/users/'+tm.userID, function(data){
+        $('#profile-image').append('<img src='+data["image_url"]+'?s=30></img>');
+    })
+};

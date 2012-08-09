@@ -9,7 +9,7 @@ A:visited{
 }
 
 body {
-	background-color: #ce696e;
+	background-color: #FBFBFB;
 }
 
 .topbar-permanant{
@@ -106,17 +106,24 @@ body {
     position: absolute;
     margin: 3px 0 0 153px;
 }
-.profile-button{
+.menu-button{
 	float: right;
 	height: 30px;
 	width: 30px;
 	margin: 5px 2px;
     cursor: pointer;
-    background-image: url("/static/images/pr_icon.png");
+    background-image: url("/static/images/menu.png");
 }
-.profile-button:hover{
+.down-pic{
+    height: 40px;
+    width: 16px;
+    margin: 0px 5px;
+}
+/*
+.menu-button:hover{
     background-image: url("/static/images/pr_icon_white.png");
 }
+*/
 
 #nav ul li{
 	display: block;
@@ -124,22 +131,23 @@ body {
 }
 #nav li ul {
 	display: none;
+    position: relative;
+	margin-top: 40px;
+    padding-top: 2px;
 }
 #nav li ul li{
-	background-color: #EEEEEE;
-	color: #2D2D2D;
-	width: 80px;
-	padding: 10px 0;
+	background-color: #FFFFFF;
+	width: 100px;
+	padding: 5px 0;
 	text-align: center;
 }
+#nav li ul li a{
+    color: #2D2D2D;
+}
 #nav li ul li:hover{
-	background-color: #BBBBBB;
+	background-color: #CCCCCC;
 }
 #nav li:hover ul{
 	display: block;
-	position: relative;
-	margin-top: 30px;
-}
-#nav li:hover li{
-	float: right;
+    float: right;
 }
