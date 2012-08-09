@@ -48,7 +48,16 @@ BasicView.prototype.addOne = function (data) {
         }
     }
     var entity = $(new EJS({url: '/static/ejs/' + this.ejsName}).render(data));
+    var tweet_id = data.id;
+
     $('.' + this.listName).prepend(entity);
+
+    if (typeof data.post !== 'undefined') {
+        $.get('/users/' + data.user_id, function (data) {
+            var entity = $(new EJS({url: '/static/ejs/tweet_user_info.ejs'}).render(data));
+            $('#tweet_id_' + tweet_id).prepend(entity);
+        });
+    }
 
 };
 
@@ -56,11 +65,6 @@ BasicView.prototype.addAll = function (data) {
     var viewcontext = this;
     $.each(data, function (index, value) {
         viewcontext.addOne(value);
-        if (typeof value.post !== 'undefined') {
-            $.get('/users/' + value.user.id);
-            var entity = $(new EJS({url: '/static/ejs/tweet_user_info.ejs'}).render(data));
-            $('.' + this.listName).prepend(entity);
-        }
     });
 };
 
