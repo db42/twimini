@@ -149,7 +149,5 @@ body {
 }
 #nav li:hover ul{
 	display: block;
-}
-#nav li:hover li{
-	float: right;
+    float: right;
 }
