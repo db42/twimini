@@ -24,10 +24,8 @@ body {
 	
 	box-shadow: 0px 2px 3px rgba(0,0,0,0.25);
 	
-	background-color: #292435;
-	color: #9D84E9;
-	list-style: none;
-	text-decoration: none;
+	background-color: #2D2D2D;
+    font-weight: bold;
 }
 
 .container{
@@ -37,7 +35,10 @@ body {
 	margin: auto auto;
 }
 .container a{
-	color: #9D84E9;
+	color: #BBBBBB;
+}
+.container a:hover{
+	color: #FFFFFF;
 }
 
 .left-pull{
@@ -51,19 +52,12 @@ body {
 	margin: 0px;
 	width: 300px;
     padding: 0px;
+    padding-right: 40px;
 }
 
 .home-button{
 	padding: 10px 10px;
 	height: 20px;
-}
-.topbar-button{
-    link-decoration: none;
-}
-.topbar-button:hover{
-	color: #DDD2FC;
-	box-shadow: 0px 0px 1px 1px white inset; 
-	background-color: #302941;
 }
 
 .icon-position{
@@ -89,10 +83,24 @@ body {
 	height: 22px;
 }
 .search-input{
-	color: #5C546F;
+    background: #BBBBBB;
+    color: #2D2D2D;
 	border-radius: 12px;
+    border-style: none;
 	width: 160px;
-	padding-left: 8px;
+    padding: 3px 8px;
+}
+.search-input:focus{
+    background: #FFFFFF;
+    color: #5C546F;
+    outline: none;
+}
+#search-icon{
+    background-image: url("/static/images/search_icon.png");
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    margin: 3px 0 0 153px;
 }
 .profile-button{
 	float: right;
@@ -102,15 +110,10 @@ body {
     cursor: pointer;
     background-image: url("/static/images/pr_icon.png");
 }
-.new-tweet-button{
-	float: right;
-	display: inline;
-	height: 30px;
-	width: 30px;
-	margin: 4px 35px 4px 5px;
-    background-image: url("/static/images/nt.png");
-    cursor: pointer;
+.profile-button:hover{
+    background-image: url("/static/images/pr_icon_white.png");
 }
+
 #nav ul li{
 	display: block;
 	position: relative;
@@ -119,11 +122,14 @@ body {
 	display: none;
 }
 #nav li ul li{
-	background-color: #292435;
-	color: #9D84E9;
-	width: 60px;
-	padding: 5px;
-	padding-left: 10px;
+	background-color: #EEEEEE;
+	color: #2D2D2D;
+	width: 80px;
+	padding: 10px 0;
+	text-align: center;
+}
+#nav li ul li:hover{
+	background-color: #BBBBBB;
 }
 #nav li:hover ul{
 	display: block;
