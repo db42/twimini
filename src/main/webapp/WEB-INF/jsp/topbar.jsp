@@ -33,6 +33,7 @@
                 </span>
                 <input class="search-input" type="text" name="q" placeholder=" Search..." autocomplete="off" dir="ltr"/>
             </form>
+
         </ul>
     </div>
 </div>

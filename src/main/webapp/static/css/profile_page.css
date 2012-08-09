@@ -1,8 +1,14 @@
 .page-content{
-	position: relative;
-	margin: auto auto;
-	margin-top: 50px;
+    top: 40px;
+    bottom: 0;
+    position: absolute;
 	width: 800px;
+    overflow: hidden;
+
+    min-height: 100%;
+
+    background-image: url("/static/images/backAll.jpg");
+    background-repeat: repeat;
 }
 .small-pic{
     background-image: url("/static/images/welcome.jpg");
@@ -13,6 +19,7 @@
 .user-content{
 	display: block;
 	margin: 5px 20px;
+    position: relative;
 }
 
 .left-container{
@@ -24,53 +31,64 @@
 	padding: 5px 10px;
 	border-radius: 8px;
 	
-	background: #e6f7ff; /* for non-css3 browsers */
+/*
+	background: #e6f7ff; */
+/* for non-css3 browsers *//*
+
 
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6f7ff', endColorstr='#8673a6'); 
 	background: -webkit-gradient(linear, center top, center bottom, from(#e6f7ff), to(#8673a6));
 	background: -moz-linear-gradient(top,  #e6f7ff,  #8673a6);
+*/
 	box-shadow: 0px 0px 10px #f3f0ff;
+}
+.right-part{
+	padding: 5px 10px;
+	width: 63%;
+	border-radius: 8px; 
+	
+/*
+	background: #e6f7ff; */
+/* for non-css3 browsers *//*
+
+
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6f7ff', endColorstr='#8673a6'); 
+	background: -webkit-gradient(linear, center top, center bottom, from(#e6f7ff), to(#8673a6));
+	background: -moz-linear-gradient(top,  #e6f7ff,  #8673a6);
+*/
+	box-shadow: 0px 0px 10px #f3f0ff;
+
+    bottom: 0;
+    position: absolute;
+    top: 10px;
+    right: 20px;
 }
 .link-to-tab{
 	margin: 5px 4px;
 	padding: 3px 10px;
+/*
 	background-image: url('/static/images/back3.png');
-	background-repeat: repeat; 
+	background-repeat: repeat;
+*/
 	border-radius: 5px;
     list-style: none;
 }
 .link-to-tab a{
-	color: white;
 	text-decoration: none;
 }
 .link-to-tab:hover{
-	padding-left: 11px;	 
+	padding-left: 11px;
+/*
 	background-image: url('/static/images/back2.png');
+*/
     cursor: pointer;
 	/*font-style: oblique;*/
 }
 
-.right-part{
-	float: right;
-	background-color: pink;
-	margin: 5px 0px 0px 5px;
-	padding: 5px 10px;
-	width: 65%;
-	border-radius: 8px; 
-	
-	background: #e6f7ff; /* for non-css3 browsers */
-
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6f7ff', endColorstr='#8673a6'); 
-	background: -webkit-gradient(linear, center top, center bottom, from(#e6f7ff), to(#8673a6));
-	background: -moz-linear-gradient(top,  #e6f7ff,  #8673a6);
-	
-	box-shadow: 0px 0px 10px #f3f0ff;
-    min-height: 300px;
-}
 .top-message{
 	font: 20px Arial, Helvetica, sans-serif;
 	color: #3e305d;
-	border-bottom: 1px solid #292435;
+	border-bottom: 2px solid #292435;
 	padding: 3px 10px;
 }
 .common-block{
@@ -79,10 +97,10 @@
 	border-bottom: 1px solid #292435;
     min-height: 52px;
 }
-.user-details{
+.details{
 	margin: -50px 0 0 55px;
 }
-.post-data{
+post-data{
     margin: 0 0 0 55px;
 }
 .post{

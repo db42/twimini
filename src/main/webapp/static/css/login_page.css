@@ -67,6 +67,7 @@
     font-size: 13px;
     text-align: center;
     cursor: pointer;
+    font-weight: bold;
 }
 .login-btn{
     background-color: #4D90FE;
@@ -76,13 +77,11 @@
 .login-btn:hover{
     background-color: #266DE0;
     background-image: -moz-linear-gradient(center top , #2770E5, #266DE0);
-
 }
 .sign-up{
     background-color: #D14836;
     background-image: -moz-linear-gradient(center top , #DD4B39, #D14836);
     border: 1px solid transparent;
-    font-weight: bold;
 }
 .sign-up:hover{
     background-color: #C92D1C;
