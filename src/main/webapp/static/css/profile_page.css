@@ -97,10 +97,10 @@
 	border-bottom: 1px solid #292435;
     min-height: 52px;
 }
-.details{
+.user-details{
 	margin: -50px 0 0 55px;
 }
-post-data{
+.post-data{
     margin: 0 0 0 55px;
 }
 .post{
