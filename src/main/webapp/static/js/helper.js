@@ -48,7 +48,16 @@ BasicView.prototype.addOne = function (data) {
         }
     }
     var entity = $(new EJS({url: '/static/ejs/' + this.ejsName}).render(data));
+    var tweet_id = data.id;
+
     $('.' + this.listName).prepend(entity);
+
+    if (typeof data.post !== 'undefined') {
+        $.get('/users/' + data.user_id, function (data) {
+            var entity = $(new EJS({url: '/static/ejs/tweet_user_info.ejs'}).render(data));
+            $('#tweet_id_' + tweet_id).prepend(entity);
+        });
+    }
 
 };
 
@@ -310,8 +319,11 @@ tm.callNormal = function (Message) {
     setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
 };
 
-tm.fill_topbar = function(){
-    $.get('/users/'+tm.userID, function(data){
-        $('#profile-image').append('<img src='+data["image_url"]+'?s=30></img>');
-    })
+tm.fill_topbar = function () {
+    if (typeof tm.image_url !== 'undefined') {
+        $.get('/users/' + tm.userID, function (data) {
+            tm.image_url = data.image_url;
+        });
+    }
+    $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
 };

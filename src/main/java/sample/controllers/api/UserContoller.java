@@ -8,6 +8,7 @@ import sample.model.User;
 import sample.service.Store;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -76,12 +77,14 @@ public class UserContoller {
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
     @ResponseBody
-    User getUserJson(@PathVariable String userID, @RequestParam(required = false) String callerUserID){
+    User getUserJson(@PathVariable String userID, @RequestParam(required = false) String callerUserID, HttpServletResponse response){
         User user = tStore.getUser(userID, callerUserID);
         if (user == null)
             throw new ResourceNotFoundException();
-        else
+        else {
+            response.setHeader("Cache-Control", "public, max-age=36000"); // HTTP 1.1
             return user;
+        }
     }
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.PUT)
