@@ -3,12 +3,7 @@
     bottom: 0;
     position: absolute;
 	width: 800px;
-    overflow: hidden;
-
     min-height: 100%;
-
-    background-image: url("/static/images/backAll.jpg");
-    background-repeat: repeat;
 }
 .small-pic{
     background-image: url("/static/images/welcome.jpg");
@@ -43,21 +38,10 @@
 	box-shadow: 0px 0px 10px #f3f0ff;
 }
 .right-part{
-	padding: 5px 10px;
+	padding: 0px 10px;
 	width: 63%;
 	border-radius: 8px; 
-	
-/*
-	background: #e6f7ff; */
-/* for non-css3 browsers *//*
-
-
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6f7ff', endColorstr='#8673a6'); 
-	background: -webkit-gradient(linear, center top, center bottom, from(#e6f7ff), to(#8673a6));
-	background: -moz-linear-gradient(top,  #e6f7ff,  #8673a6);
-*/
 	box-shadow: 0px 0px 10px #f3f0ff;
-
     bottom: 0;
     position: absolute;
     top: 10px;
@@ -66,10 +50,6 @@
 .link-to-tab{
 	margin: 5px 4px;
 	padding: 3px 10px;
-/*
-	background-image: url('/static/images/back3.png');
-	background-repeat: repeat;
-*/
 	border-radius: 5px;
     list-style: none;
 }
@@ -78,9 +58,6 @@
 }
 .link-to-tab:hover{
 	padding-left: 11px;
-/*
-	background-image: url('/static/images/back2.png');
-*/
     cursor: pointer;
 	/*font-style: oblique;*/
 }
@@ -92,7 +69,7 @@
 	padding: 3px 10px;
 }
 .common-block{
-	padding: 4px 6px;
+	padding: 6px 6px;
 	position: relative;
 	border-bottom: 1px solid #292435;
     min-height: 52px;
@@ -104,7 +81,6 @@
     margin: 0 0 0 55px;
 }
 .post{
-	/*text-overflow: ellipsis;*/
 	word-wrap: break-word;
 }
 .right-top{
@@ -129,9 +105,8 @@
 	padding-left: 8px;
 	height: 25px;
 	margin-top: 5px;
+    border: 1px solid #D9D9D9;
 }
 .addpost-form{
     height: 100px;
 }
-
-
