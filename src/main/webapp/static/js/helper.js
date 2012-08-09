@@ -56,6 +56,11 @@ BasicView.prototype.addAll = function (data) {
     var viewcontext = this;
     $.each(data, function (index, value) {
         viewcontext.addOne(value);
+        if (typeof value.post !== 'undefined') {
+            $.get('/users/' + value.user.id);
+            var entity = $(new EJS({url: '/static/ejs/tweet_user_info.ejs'}).render(data));
+            $('.' + this.listName).prepend(entity);
+        }
     });
 };
 
