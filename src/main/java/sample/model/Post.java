@@ -13,8 +13,26 @@ import java.text.SimpleDateFormat;
 public class Post {
     int id;
     int user_id;
+    int rtwt_id;
+    int author_id;
     String post;
     Timestamp timestamp;
+
+    public int getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(int author_id) {
+        this.author_id = author_id;
+    }
+
+    public int getRtwt_id() {
+        return rtwt_id;
+    }
+
+    public void setRtwt_id(int rtwt_id) {
+        this.rtwt_id = rtwt_id;
+    }
 
     public int getId() {
         return id;

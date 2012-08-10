@@ -36,6 +36,7 @@ public class AppConfig {
                 "post varchar(140) NOT NULL," +
                 "time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL," +
                 "rtwt_id INTEGER," +
+                "author_id INTEGER," +
                 "UNIQUE (user_id, rtwt_id)"+
                 ")");
 
