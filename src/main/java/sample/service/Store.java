@@ -35,9 +35,19 @@ public class Store {
         this.userID = userID;
     }
 
-    public Post addPost(String userID, String post) {
+    public Post addPost(String userID, String post, String postID) {
         PostRowMapper postRowMapper = new PostRowMapper();
-        jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID, post);
+        if (postID == null)
+            jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID, post);
+        else
+            try{
+                jdbcTemplate.update("INSERT INTO posts (user_id, post, rtwt_id) VALUES (?,?,?)", userID, post, postID);
+            }
+            catch (DuplicateKeyException e){
+                return null;
+            }
+
+
         return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID +
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
