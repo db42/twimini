@@ -226,11 +226,11 @@ tm.get_posts = function (userID) {
 };
 
 tm.get_feed = function () {
-    tm.postview = new FeedView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
-    tm.postview.populate();
+    tm.feedview = new FeedView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
+    tm.feedview.populate();
 
-    setInterval(tm.postview.poll.bind(tm.postview), 20000);
-    tm.scrollview = tm.postview;
+    setInterval(tm.feedview.poll.bind(tm.feedview), 20000);
+    tm.scrollview = tm.feedview;
 };
 
 tm.getProfileUserid = function () {
