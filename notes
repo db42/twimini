@@ -69,9 +69,11 @@ TODO:
 
 10. load older tweets when going down DONE
 NEW TODO s
-5. Retweet
+5. Retweet - frontend
 6. Optimizations
     - caching, backend db structure and all that
+7. validation - using tab
+8. profile image
 
 7. proper usage of auth interceptor, threadlocal userID
 8. authorization token
