@@ -41,8 +41,8 @@ public class UserContoller {
 
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
     @ResponseBody
-    List<User> getFollowersJson(@PathVariable String userID){
-        return tStore.getFollowers(userID);
+    List<User> getFollowersJson(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
+        return tStore.getFollowers(userID, count, max_id);
     }
 
     @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.PUT)
@@ -71,8 +71,8 @@ public class UserContoller {
 
     @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
     @ResponseBody
-    List<User> getFollowings(@PathVariable String userID){
-        return tStore.getFollowings(userID);
+    List<User> getFollowings(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
+        return tStore.getFollowings(userID, count, max_id);
     }
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)

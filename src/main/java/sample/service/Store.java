@@ -190,9 +190,17 @@ public class Store {
         }
     }
 
-    public List<User> getFollowers(String userID) {
+    public List<User> getFollowers(String userID, String count, String max_id) {
         UserRowMapper userRowMapper = new UserRowMapper();
-        List<User> followers = jdbcTemplate.query("select * from users where id in (select follower from followers where user_id="+ userID +" AND unfollow_time > NOW())", userRowMapper);
+        count = (count == null) ? "20" : count;
+        String query;
+
+        if (max_id == null)
+            query = "select * from users where id in (select follower from followers where user_id="+ userID +" AND unfollow_time > NOW()) ORDER BY id DESC LIMIT "+count;
+        else
+            query = "select * from users where id in (select follower from followers where user_id="+ userID +" AND unfollow_time > NOW() AND follower<" + max_id+" ) ORDER BY id DESC LIMIT "+count;
+
+        List<User> followers = jdbcTemplate.query(query, userRowMapper);
         for(User u:followers){
             try{
                 FollowRowMapper followRowMapper = new FollowRowMapper();
@@ -206,9 +214,17 @@ public class Store {
         return followers;
     }
 
-    public List<User> getFollowings(String userID) {
+    public List<User> getFollowings(String userID, String count, String max_id) {
         UserRowMapper userRowMapper = new UserRowMapper();
-        List<User> followings = jdbcTemplate.query("select * from users where id in (select user_id from followers where follower="+ userID +" AND unfollow_time > NOW())", userRowMapper);
+        count = (count == null) ? "20" : count;
+        String query;
+
+        if (max_id == null)
+            query = "select * from users where id in (select user_id from followers where follower="+ userID +" AND unfollow_time > NOW()) ORDER BY id DESC LIMIT "+count;
+        else
+            query = "select * from users where id in (select user_id from followers where follower="+ userID +" AND unfollow_time > NOW() AND user_id<" + max_id+" ) ORDER BY id DESC LIMIT "+count;
+
+        List<User> followings = jdbcTemplate.query(query, userRowMapper);
         for(User u:followings){
             u.setFollowed(true);
         }
@@ -222,13 +238,13 @@ public class Store {
                 count = "20";
 
         if (since_id == null && max_id == null)
-             query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
+             query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
                                                             " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT "+ count;
         else if (max_id == null)
-            query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
+            query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
                     " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id >" + since_id +" ORDER BY posts.time DESC LIMIT "+ count;
         else
-            query = "select posts.id, posts.user_id, posts.post, posts.time from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
+            query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
                     " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id <" + max_id +" ORDER BY posts.time DESC LIMIT "+ count;
 
         System.out.println(query);

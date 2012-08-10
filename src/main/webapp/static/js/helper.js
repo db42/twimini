@@ -34,7 +34,7 @@ BasicView.prototype.getUrl = function () {
     return '/users/' + this.userID + '/' + this.url;
 };
 
-BasicView.prototype.addOne = function (data) {
+BasicView.prototype.addOne = function (data, append) {
     console.log("addOne");
     console.log(this.ejsName);
     console.log(this.listName);
@@ -47,10 +47,20 @@ BasicView.prototype.addOne = function (data) {
             this.since_id = data.id; //SET since_id to the id of the latest tweet.
         }
     }
+
+    if (this.max_id > data.id || typeof this.max_id === 'undefined') {
+        this.max_id = data.id; //SET since_id to the id of the oldest tweet.
+    }
+
     var entity = $(new EJS({url: '/static/ejs/' + this.ejsName}).render(data));
     var tweet_id = data.id;
 
-    $('.' + this.listName).prepend(entity);
+    if (typeof append === 'undefined') {
+        $('.' + this.listName).prepend(entity);
+    } else {
+        $('.' + this.listName).append(entity);
+    }
+
 
     if (typeof data.post !== 'undefined') {
         $.get('/users/' + data.user_id, function (data) {
@@ -77,7 +87,46 @@ BasicView.prototype.populate = function () {
     });
 };
 
-BasicView.prototype.poll = function () {
+
+BasicView.prototype.callMessage = function (Message) {
+    $('#container-message').empty().append(Message);
+    $('#container-message').slideDown("slow");
+    //todo: add click operation
+    var viewcontext = this;
+    $('#container-message').click(function () {
+        $("#container-message").slideUp("slow");
+        viewcontext.addAll(viewcontext.polled_data);
+        $.each(viewcontext.polled_data, function (index, value) {
+            viewcontext.polled_data.pop(value);
+        });
+    });
+};
+
+BasicView.prototype.load_new_data = function () {
+    var viewcontext, url;
+    if (typeof this.max_id === 'undefined') {
+        return;
+    }
+    url = this.getUrl() + "?max_id=" + this.max_id;
+    viewcontext = this;
+
+    $.get(url, function (data) {
+        $.each(data, function (index, value) {
+            viewcontext.addOne(value, 'append');
+        });
+    });
+};
+
+
+function PostView(ejsName, listName, url, userID) {
+    BasicView.call(this, ejsName, listName, url, userID);
+}
+
+PostView.prototype = new BasicView();
+PostView.prototype.constructor = PostView;
+
+
+PostView.prototype.poll = function () {
     var viewcontext, url, poll_success;
     viewcontext = this;
     url = this.getUrl() + "?since_id=" + this.since_id;
@@ -97,25 +146,11 @@ BasicView.prototype.poll = function () {
     tm.auth_ajax(url, null, poll_success, 'GET');
 };
 
-BasicView.prototype.callMessage = function (Message) {
-    $('#container-message').empty().append(Message);
-    $('#container-message').slideDown("slow");
-    //todo: add click operation
-    var viewcontext = this;
-    $('#container-message').click(function () {
-        $("#container-message").slideUp("slow");
-        viewcontext.addAll(viewcontext.polled_data);
-        $.each(viewcontext.polled_data, function (index, value) {
-            viewcontext.polled_data.pop(value);
-        });
-    });
-};
-
 function FeedView(ejsName, listName, url, userID) {
-    BasicView.call(this, ejsName, listName, url, userID);
+    PostView.call(this, ejsName, listName, url, userID);
 }
 
-FeedView.prototype = new BasicView();
+FeedView.prototype = new PostView();
 FeedView.prototype.constructor = FeedView;
 
 FeedView.prototype.populate = function () {
@@ -124,6 +159,19 @@ FeedView.prototype.populate = function () {
         console.log(viewcontext.getUrl());
         viewcontext.addAll(data.reverse());
     }, 'GET');
+};
+
+FeedView.prototype.load_new_data = function () {
+    var viewcontext, url, success_load;
+    url = this.getUrl() + "?max_id=" + this.max_id;
+    viewcontext = this;
+    success_load = function (data) {
+        $.each(data, function (index, value) {
+            viewcontext.addOne(value, 'append');
+        });
+    };
+
+    tm.auth_ajax(url, null, success_load, 'GET');
 };
 
 function add_tweet(form) {
@@ -170,22 +218,19 @@ function user_register(form) {
 }
 
 tm.get_posts = function (userID) {
-    var followersview, followingsview;
-    tm.postview = new BasicView('addTweet.ejs', 'tweetlist', 'posts', userID);
+    tm.postview = new PostView('addTweet.ejs', 'tweetlist', 'posts', userID);
     tm.postview.populate();
-    followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', userID);
-    followersview.populate();
-    followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
-    followingsview.populate();
 
     setInterval(tm.postview.poll.bind(tm.postview), 20000);
+    tm.scrollview = tm.postview;
 };
 
 tm.get_feed = function () {
-    var postview = new FeedView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
-    postview.populate();
+    tm.postview = new FeedView('addTweet.ejs', 'tweetlist', 'posts/feed', tm.userID);
+    tm.postview.populate();
 
-    setInterval(postview.poll.bind(postview), 20000);
+    setInterval(tm.postview.poll.bind(tm.postview), 20000);
+    tm.scrollview = tm.postview;
 };
 
 tm.getProfileUserid = function () {
@@ -324,6 +369,12 @@ tm.fill_topbar = function () {
         $.get('/users/' + tm.userID, function (data) {
             tm.image_url = data.image_url;
         });
-    }
-    $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
+    } $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
 };
+
+var canLoad = true;
+$(window).scroll(function () {
+    if (1.06 * $(window).scrollTop() >= $(document).height() - $(window).height() && canLoad) {
+        tm.scrollview.load_new_data();
+    }
+});
