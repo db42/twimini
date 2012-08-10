@@ -21,9 +21,9 @@
 			<div class="user-content">
                 <div class="left-container">
                     <ol class="left-part">
-                        <li class="link-to-tab"> <a href="#tweets"> Tweets -></a></li>
-                        <li class="link-to-tab"> <a href="#followers"> Followers -> </a></li>
-                        <li class="link-to-tab"> <a href="#following"> Following -> </a></li>
+                        <li class="link-to-tab"> <a href="#tweets"> Tweets </a></li>
+                        <li class="link-to-tab"> <a href="#followers"> Followers </a></li>
+                        <li class="link-to-tab"> <a href="#following"> Following </a></li>
                     </ol>
                 </div>
 				<div class="right-part">

@@ -1,9 +1,26 @@
 a.right-container.inactive {
 	display: none;
 }
+a.tab-container.inactive {
+	display: none;
+}
 .active{
 	display: block;
+    background: #E0E0E0;
 }
 a.inactive{
 	display: block;
 }
+
+.link-to-tab{
+}
+
+.link-to-tab a{
+	text-decoration: none;
+    padding: 3px 5px;
+}
+.link-to-tab a:hover{
+	padding-left: 7px;
+	/*font-style: oblique;*/
+}
+

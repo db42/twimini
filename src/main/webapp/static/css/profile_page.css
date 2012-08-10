@@ -16,6 +16,7 @@
 	display: block;
 	margin: 5px 0px;
     position: relative;
+    background: #E0E0E0;
 }
 
 .left-container{
@@ -25,7 +26,7 @@
 .left-part{
 	margin: 10px 0 10px 20px;
 	padding: 5px 10px;
-    border-radius: 8px;
+    border-radius: 2px;
     background: white;
 
 	
@@ -38,38 +39,13 @@
 	background: -webkit-gradient(linear, center top, center bottom, from(#e6f7ff), to(#8673a6));
 	background: -moz-linear-gradient(top,  #e6f7ff,  #8673a6);
 */
-	box-shadow: 0px 0px 10px #f3f0ff;
 }
 .right-part{
 	padding: 0px 10px;
-	width: 67%;
-	border-radius: 8px; 
-	box-shadow: 0px 0px 10px #f3f0ff;
-    bottom: 0;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.right-container{
-    height: 250px;
-    background: white;
-    border-radius: 8px;
-    position: relative;
-}
-
-.link-to-tab{
-	margin: 5px 4px;
-	padding: 3px 10px;
-	border-radius: 5px;
-    list-style: none;
-}
-.link-to-tab a{
-	text-decoration: none;
-}
-.link-to-tab:hover{
-	padding-left: 11px;
-    cursor: pointer;
-	/*font-style: oblique;*/
+	width: 530px;
+	border-radius: 8px;
+    margin-left: 250px;
+    margin-top: 10px;
 }
 
 .top-message{

@@ -23,13 +23,13 @@
 			<div class="user-content">
                 <div class="left-container">
                 <ol class="left-part">
-					<li class="link-to-tab"> <a href="#account"> Account -></a></li>
-					<li class="link-to-tab"> <a href="#profile"> Profile -> </a></li>
-					<li class="link-to-tab"> <a href="#password"> Password -> </a></li>
+					<li class="link-to-tab"> <a href="#account"> Account </a></li>
+					<li class="link-to-tab"> <a href="#profile"> Profile  </a></li>
+					<li class="link-to-tab"> <a href="#password"> Password  </a></li>
                 </ol>
                 </div>
 				<div class="right-part">
-					<a class="right-container" id="account">
+					<a class="tab-container" id="account">
 						<div class="top-message"> Account </div>
 						<form class="top-balance" onsubmit="account_change(this); return false;">
 	                        <div class="form-block">
@@ -51,7 +51,7 @@
 	                        <input type="submit" value="Save Changes" class="setting-btn">
 	                    </form>
 					</a>
-					<a class="right-container" id="profile">
+					<a class="tab-container" id="profile">
 						<div class="top-message"> Profile </div>
 						<form class="top-balance" onsubmit="profile_change(this); return false;">
 							<div class="form-block">
@@ -73,7 +73,7 @@
 	                        <input type="submit" value="Save Changes" class="setting-btn">
 	                    </form>
 					</a>
-					<a class="right-container" id="password">
+					<a class="tab-container" id="password">
 						<div class="top-message"> Password </div>
 						<form action="" onsubmit="password_change(this); return false;">
 							<div class="form-block">

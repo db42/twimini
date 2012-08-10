@@ -26,7 +26,12 @@
 .top-balance{
     margin-top: 20px;
 }
-
+.tab-container{
+    height: 250px;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+}
 .setting-btn{
     border-radius: 1px;
 	color: white;
