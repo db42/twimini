@@ -31,7 +31,7 @@
 				<div class="right-part">
 					<a class="right-container" id="account">
 						<div class="top-message"> Account </div>
-						<form onsubmit="account_change(this); return false;">
+						<form class="top-balance" onsubmit="account_change(this); return false;">
 	                        <div class="form-block">
 	                        	<div class="in-text"> User Name:</div>
 	                        	<div class = "right-top">
@@ -48,12 +48,12 @@
                                     <div class="error-settings" id="email-error"> Email is incorrect! </div>
                                 </div>
                         	</div>
-	                        <input type="submit" value="Save Changes" class="addpost-btn">
+	                        <input type="submit" value="Save Changes" class="setting-btn">
 	                    </form>
 					</a>
 					<a class="right-container" id="profile">
 						<div class="top-message"> Profile </div>
-						<form onsubmit="profile_change(this); return false;">
+						<form class="top-balance" onsubmit="profile_change(this); return false;">
 							<div class="form-block">
 	                    	    <div class="in-text"> Name: </div>
                                 <div class = "right-top">
@@ -70,7 +70,7 @@
                                     <div class="error-settings" id="description-error"> description exceeds (limit=250)! </div>
                                 </div>
 	                        </div>
-	                        <input type="submit" value="Save Changes" class="addpost-btn">
+	                        <input type="submit" value="Save Changes" class="setting-btn">
 	                    </form>
 					</a>
 					<a class="right-container" id="password">
@@ -92,7 +92,7 @@
                                     <div class="error-settings" id="password-error"> Password doesn't match </div>
                                 </div>
 	                        </div>
-	                        <input type="submit" value="Change Password" class="addpost-btn">
+	                        <input type="submit" value="Change Password" class="setting-btn">
 	                    </form>
 					</a>
 				</div>
