@@ -34,7 +34,9 @@ public class AppConfig {
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
                 "user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT," +
                 "post varchar(140) NOT NULL," +
-                "time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL" +
+                "time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "rtwt_id INTEGER," +
+                "UNIQUE (user_id, rtwt_id)"+
                 ")");
 
         db.update("CREATE TABLE IF NOT EXISTS followers (" +

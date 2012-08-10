@@ -86,4 +86,8 @@ Other work:
 2. Javascript
 3. JSON/ REST api
 
+DB queries:
+1. alter table posts ADD COLUMN rtwt_id INTEGER;
+2. alter table posts add constraint uc_rtwt_id UNIQUE(user_id, rtwt_id);
+
 
