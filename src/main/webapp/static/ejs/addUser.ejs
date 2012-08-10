@@ -1,10 +1,9 @@
 <div class="common-block">
     <div class="small-pic">
-    <img src=<%=image_url%>?s=50>
-    </img>
+        <img src=<%=image_url%>?s=50></img>
     </div>
-    <div class="details">
-        <a href="/twimini/profile/<%=id%>"><%=username%></a>
+    <div class="user-details">
+        <a href="/twimini/profile/<%=id%>">@<%=username%></a>
         <div class="right-top">
             ID: <%=id%>
             <div onclick="follow_user_button(this);" onmousemove="follow_user_button_hover(this);" onmouseout="follow_user_button_out(this);" userid=<%=id%> class="fubutton following
@@ -13,7 +12,7 @@
             </div>
         </div>
         <div class="post">
-        <%=name%>
+            <%=name%>
         </div>
     </div>
 </div>

@@ -2,13 +2,13 @@
 	display: block;
 	padding: 5px 5px;
 	margin: 5px 20px;
-	background-color: #837B96;
+	background: #FFFFFF;
 	height: 130px;
 	
-	background: #837B96; /* for non-css3 browsers */
+	/*background: #837B96; *//* for non-css3 browsers *//*
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#837B96', endColorstr='#3e305d'); 
 	background: -webkit-gradient(linear, center top, center bottom, from(#837B96), to(#3e305d));
-	background: -moz-linear-gradient(top,  #837B96,  #3e305d);
+	background: -moz-linear-gradient(top,  #837B96,  #3e305d);*/
 	box-shadow: 0px 0px 10px #f3f0ff;
     border-radius: 8px;
 }

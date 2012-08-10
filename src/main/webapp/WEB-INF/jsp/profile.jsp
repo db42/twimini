@@ -20,17 +20,11 @@
 
 			<div class="user-content">
                 <div class="left-container">
-                <div class="left-part">
-                    <form action="" onsubmit="add_tweet(this); return false;" class="addpost-form">
-                        <input type="text" class="addpost-input" name="post" placeholder="Tweet" autocomplete="off" dir="ltr"></br>
-                        <input type="submit" value="Tweet" class="addpost-btn">
-                    </form>
-                </div>
-				<ol class="left-part">
-					<li class="link-to-tab"> <a href="#tweets"> Tweets -></a></li>
-					<li class="link-to-tab"> <a href="#followers"> Followers -> </a></li>
-					<li class="link-to-tab"> <a href="#following"> Following -> </a></li>
-                </ol>
+                    <ol class="left-part">
+                        <li class="link-to-tab"> <a href="#tweets"> Tweets -></a></li>
+                        <li class="link-to-tab"> <a href="#followers"> Followers -> </a></li>
+                        <li class="link-to-tab"> <a href="#following"> Following -> </a></li>
+                    </ol>
                 </div>
 				<div class="right-part">
 					<a class="right-container" id="tweets">
