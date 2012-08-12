@@ -183,8 +183,8 @@ function add_tweet(form) {
 
 function callError(errorMessage) {
     $('#error-message').empty().append(errorMessage);
-    $('#error-wrapper').fadeIn("slow");
-    setTimeout('$("#error-wrapper").fadeOut("slow");', 5000);
+    $('#message-wrapper').fadeIn("slow");
+    setTimeout('$("#message-wrapper").fadeOut("slow");', 5000);
 }
 
 function user_login(form) {

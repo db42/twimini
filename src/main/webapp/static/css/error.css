@@ -1,30 +1,20 @@
-#error-wrapper{
+#message-wrapper{
     display: none;
 	position: fixed;
 	left: 50%;
-	top: 45px;
+	top: 42px;
 	z-index: 10000;
+}
+.message{
+    float: left;
+    margin: 3px auto;
+    margin-left: -50%;
+    padding: 3px;
+    background: #F9EDBE;
+    border: 1px solid #F0C36D;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 #error-message{
-	float: left;
-	color: white;
-	background: black;
-	margin: 3px auto;
-	margin-left: -50%;
-	padding: 3px;
-}
-#normal-wrapper{
-    display: none;
-	position: fixed;
-	left: 50%;
-	top: 45px;
-	z-index: 10000;
-}
-#normal-message{
-    float: left;
-	color: #9acd32;
-	background: red;
-	margin: 3px auto;
-	margin-left: -50%;
-	padding: 3px;
+	color: #111111;
 }
