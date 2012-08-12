@@ -186,6 +186,13 @@ function callError(errorMessage) {
     $('#message-wrapper').fadeIn("slow");
     setTimeout('$("#message-wrapper").fadeOut("slow");', 5000);
 }
+tm.callNormal = function (Message) {
+    callError(Message);
+    // todo: check options for animation
+    /*$('#normal-wrapper').slideDown ("slow");
+    setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
+};
+
 
 function user_login(form) {
     $.post('/login', $(form).serialize(), function (data) {
@@ -346,15 +353,6 @@ tm.add_user_info = function (user_id) {
         }
         activate_follow_button(user_id);
     });
-};
-
-tm.callNormal = function (Message) {
-    $('#normal-message').empty().append(Message);
-    $('#normal-wrapper').fadeIn("slow");
-    setTimeout('$("#normal-wrapper").fadeOut("slow");', 5000);
-    // todo: check options for animation
-    /*$('#normal-wrapper').slideDown ("slow");
-    setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
 };
 
 tm.fill_topbar = function () {
