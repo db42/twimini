@@ -121,11 +121,6 @@ body {
     width: 16px;
     margin: 0px 5px;
 }
-/*
-.menu-button:hover{
-    background-image: url("/static/images/pr_icon_white.png");
-}
-*/
 
 #nav ul li{
 	display: block;
