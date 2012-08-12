@@ -177,13 +177,6 @@ FeedView.prototype.load_new_data = function () {
 function add_tweet(form) {
     var successfun = function (data) {
         tm.callNormal("Tweet posted successfully.");
-        if (typeof tm.postview === 'undefined') {
-            return;
-        }
-        tm.postview.polled_data.push(data);
-        var num_msgs = tm.postview.polled_data.length;
-        tm.postview.since_id = data.id;
-        tm.postview.callMessage(num_msgs + " new tweets");
     };
     tm.auth_ajax("/users/".concat(tm.userID).concat("/posts"), form, successfun);
 }
