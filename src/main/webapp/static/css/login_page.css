@@ -69,22 +69,34 @@
     font-weight: bold;
 }
 .login-btn{
-    background-color: #4D90FE;
-    background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED);
+    background: #4D90FE;
+    background: -moz-linear-gradient(center top , #4D90FE, #4D90FE);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4D90FE', endColorstr='#4D90FE');
+    background: -webkit-gradient(linear, center top, center bottom, from(#4D90FE), to(#4D90FE));
+
     border: 1px solid #3079ED;
 }
 .login-btn:hover{
-    background-color: #266DE0;
-    background-image: -moz-linear-gradient(center top , #2770E5, #266DE0);
+    background: #266DE0;
+    background: -moz-linear-gradient(center top , #2770E5, #266DE0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2770E5', endColorstr='#266DE0');
+    background: -webkit-gradient(linear, center top, center bottom, from(#2770E5), to(#266DE0));
+
 }
 .sign-up{
-    background-color: #D14836;
-    background-image: -moz-linear-gradient(center top , #DD4B39, #D14836);
+    background: #D14836;
+    background: -moz-linear-gradient(center top , #DD4B39, #D14836);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DD4B39', endColorstr='#D14836');
+    background: -webkit-gradient(linear, center top, center bottom, from(#DD4B39), to(#D14836));
+
     border: 1px solid transparent;
 }
 .sign-up:hover{
-    background-color: #C92D1C;
-    background-image: -moz-linear-gradient(center top , #C92D1C, #C62715);
+    background: #C92D1C;
+    background: -moz-linear-gradient(center top , #C92D1C, #C62715);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#C92D1C', endColorstr='#C62715');
+    background: -webkit-gradient(linear, center top, center bottom, from(#C92D1C), to(#C62715));
+
 }
 
 .register-form{

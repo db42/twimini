@@ -63,21 +63,8 @@
     cursor: pointer;
     text-align: center;
 	width: 100px;
+    font-weight: bold;
 }
-
-.following{
-	background: red;
-	color: white;
-}
-.follow{
-	background: blue;
-	color: white;
-}
-.unfollow{
-	background: black;
-	color: white;
-}
-
 .fubutton{
 	border: 1px solid white;
 	border-radius: 4px;
@@ -87,4 +74,31 @@
     cursor: pointer;
     text-align: center;
 	width: 100px;
+    font-weight: bold;
 }
+
+.following{
+	color: white;
+    background: #4D90FE;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4D90FE', endColorstr='#4787ED');
+    background: -webkit-gradient(linear, center top, center bottom, from(#4D90FE), to(#4787ED));
+    background: -moz-linear-gradient(center top , #4D90FE, #4787ED);
+
+    border: 1px solid #3079ED;
+}
+.follow{
+    color: #444444;
+	background: #F8F8F8;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F8F8F8', endColorstr='#ECECEC');
+    background: -webkit-gradient(linear, center top, center bottom, from(#F8F8F8), to(#ECECEC));
+    background: -moz-linear-gradient(top,  #F8F8F8,  #ECECEC);
+    border: 1px solid #D6D6D6;
+}
+.unfollow{
+    color: white;
+    background: #D14836;
+    background: -moz-linear-gradient(center top , #DD4B39, #D14836);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DD4B39', endColorstr='#D14836');
+    background: -webkit-gradient(linear, center top, center bottom, from(#DD4B39), to(#D14836));
+}
+
