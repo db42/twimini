@@ -365,11 +365,14 @@ tm.callNormal = function (Message) {
 };
 
 tm.fill_topbar = function () {
-    if (typeof tm.image_url !== 'undefined') {
+    if (typeof tm.image_url === 'undefined') {
         $.get('/users/' + tm.userID, function (data) {
             tm.image_url = data.image_url;
+            $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
         });
-    } $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
+    } else {
+        $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
+    }
 };
 
 var canLoad = true;
