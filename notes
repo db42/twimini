@@ -68,17 +68,19 @@ TODO:
 4. Photograph - DONE
 
 10. load older tweets when going down DONE
+8. profile image
+
 NEW TODO s
 5. Retweet - frontend
 6. Optimizations
     - caching, backend db structure and all that
 7. validation - using tab
-8. profile image
 9. add fields in user table and update queries correspondingly
 
 7. proper usage of auth interceptor, threadlocal userID
 8. authorization token
 9. overall user experience
+10. search
 11. java, javascript - docs, tests
 12. handle xss using javascript
 
@@ -94,4 +96,4 @@ DB queries:
 2. alter table posts ADD COLUMN author_id INTEGER;
 3. alter table posts add constraint uc_rtwt_id UNIQUE(user_id, rtwt_id);
 
-
+http://www.quora.com/How-does-Facebooks-News-Feed-work
