@@ -65,15 +65,30 @@
 }
 .user-details{
 	margin: -50px 0 0 55px;
+    font-weight: bold;
+    font-size: 17px;
+    color: #424E59;
+}
+.user-details a{
+    font: 14px italic Comic Sans, Comic Sans MS, cursive;
+    color: #AB61CE;
 }
 .post-data{
-    margin: 0 0 0 55px;
+    margin: 5px 0 5px 55px;
 }
 .post{
 	word-wrap: break-word;
 }
+.repost{
+    color: gray;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
 .right-top{
 	float: right;
+    font: 13px Courier New, monospace;
+    color: #544D4E;
+    margin-top: -20px;
 }
 .addpost-btn{
 	margin: 10px;
