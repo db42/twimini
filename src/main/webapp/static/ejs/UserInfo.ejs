@@ -5,8 +5,10 @@
     <div class="user-text">
         <span class="username"><a href="/twimini/profile/<%=id%>">@<%=username%></a></span>
         <span class="name"><%=name%></span>
-        </br>
-        <span class="description"><%=description%></span>
+        <br/>
+        <span class="description"><%=description%>
+            <%if (description=="") {%> <i>No description</i>  <%}%>
+        </span>
     </div>
 </div>
 <div class="float-in-right details-in-right">
@@ -15,10 +17,10 @@
     <%if (followed==false) {%>  follow">  Follow  <%}%>
     </div>
     <span class="float-in-right user-det"><b><%=created_at%></b></span>
-    </br>
-    <span class="float-in-right user-det"><b><%=12321%></b> tweets</span>
-    </br>
-    <span class="float-in-right user-det"><b><%=221%></b> followers</span>
-    </br>
-    <span class="float-in-right user-det"><b><%=12%></b> following</span>
+    <br/>
+    <span class="float-in-right user-det"><b><%=num_tweets%></b> tweets</span>
+    <br/>
+    <span class="float-in-right user-det"><b><%=num_followers%></b> followers</span>
+    <br/>
+    <span class="float-in-right user-det"><b><%=num_following%></b> following</span>
 </div>
