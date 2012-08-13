@@ -214,7 +214,7 @@ function add_tweet(tweet) {
             }
         },
         error: function (){
-            callError('Not Connected!');
+            callError('Error Occured!');
         }
     });
 }
@@ -397,6 +397,13 @@ tm.fill_topbar = function () {
     } else {
         $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
     }
+
+    $("#settings-block").click(function(){
+        document.location.href='/twimini/settings';
+    });
+    $("#logout-block").click(function(){
+        document.location.href='/logout';
+    });
 };
 
 var repost = function (postID) {
@@ -414,3 +421,4 @@ $(window).scroll(function () {
         tm.scrollview.load_new_data();
     }
 });
+

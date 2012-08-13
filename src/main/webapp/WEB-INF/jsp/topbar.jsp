@@ -15,10 +15,10 @@
                 <ul >
                     <li class="menu-button down-pic">
                         <ul>
-                            <li>
+                            <li id="settings-block">
                                 <a href="/twimini/settings">Settings</a>
                             </li>
-                            <li>
+                            <li id="logout-block">
                                 <a href="/logout">Logout</a>
                             </li>
                         </ul>
