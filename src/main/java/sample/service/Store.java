@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
 import sample.model.Post;
 import sample.model.User;
+import sample.utilities.MD5Encoder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +29,9 @@ import java.util.List;
 public class Store {
     SimpleJdbcTemplate jdbcTemplate;
     private final ThreadLocal<Long> userID;
+
+    @Autowired
+    MD5Encoder md5Encoder;
 
     @Autowired
     public Store(SimpleJdbcTemplate jdbcTemplate, @Qualifier("userID") ThreadLocal<Long> userID){
@@ -264,16 +268,6 @@ public class Store {
         try{
             Post post = (Post) jdbcTemplate.queryForObject("select * from posts where posts.id=" + postID, postRowMapper);
             return post;
-        }
-        catch (EmptyResultDataAccessException e){
-            return null;
-        }
-    }
-    public User getUser() {
-        UserRowMapper userRowMapper = new UserRowMapper();
-        try{
-            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + String.valueOf(userID.get()), userRowMapper);
-            return user;
         }
         catch (EmptyResultDataAccessException e){
             return null;
