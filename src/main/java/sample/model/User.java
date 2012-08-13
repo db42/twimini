@@ -2,6 +2,7 @@ package sample.model;
 
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * Created with IntelliJ IDEA.
@@ -59,8 +60,8 @@ public class User  extends MiniUser{
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
-    public Timestamp getCreated_at() {
-        return created_at;
+    public String getCreated_at() {
+        return new SimpleDateFormat("HH:mm dd-MM-yyyy").format(created_at);
     }
 
     public String getDescription() {
