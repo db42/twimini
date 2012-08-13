@@ -108,7 +108,6 @@ public class UserController {
         session.setAttribute("userID", userID);
 
         hs.put("status", "success");
-        hs.put("password", hs.get("auth_key") );
         System.out.print("auth"+hs.get("userID"));
 
         return hs;
