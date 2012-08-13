@@ -17,6 +17,9 @@ tm.auth_ajax = function (url, form, success_fun, type) {
             if (data.status !== "failed") {
                 success_fun(data);
             }
+        },
+        error: function (){
+            callError('Not Connected!');
         }
     });
 };
@@ -193,6 +196,7 @@ FeedView.prototype.load_new_data = function () {
 };
 
 function add_tweet(form) {
+    callError("Tweeting...");
     var successfun = function (data) {
         tm.callNormal("Tweet posted successfully.");
     };
