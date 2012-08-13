@@ -115,6 +115,7 @@ public class UserController {
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
+        tStore.invalidateAuthKey((String) session.getAttribute("userID"));
         session.invalidate();
         return "redirect:/";
     }

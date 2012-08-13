@@ -232,6 +232,11 @@ public class Store {
         return auth_key;
     }
 
+    public void invalidateAuthKey(String userID) {
+        jdbcTemplate.update("UPDATE users SET auth_key=? where id=?","", userID);
+        System.out.println("authorisation key destroyed");
+    }
+
     public List<User> getFollowers(String userID, String count, String max_id) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         count = (count == null) ? "20" : count;
