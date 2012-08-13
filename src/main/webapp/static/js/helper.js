@@ -52,6 +52,7 @@ BasicView.prototype.addOne = function (data, append) {
         this.max_id = data.id; //SET since_id to the id of the oldest tweet.
     }
 
+
     var entity = $(new EJS({url: '/static/ejs/' + this.ejsName}).render(data));
     var tweet_id = data.id;
 
@@ -63,6 +64,13 @@ BasicView.prototype.addOne = function (data, append) {
 
 
     if (typeof data.post !== 'undefined') {
+
+        if (data.author_id !== 0) {
+            $.get('/users/' + data.author_id, function (user_data) {
+                $('#tweet_id_' + tweet_id + ' .author_username').html = user_data.name;
+            });
+        }
+
         $.get('/users/' + data.user_id, function (data) {
             var entity = $(new EJS({url: '/static/ejs/tweet_user_info.ejs'}).render(data));
             $('#tweet_id_' + tweet_id).prepend(entity);

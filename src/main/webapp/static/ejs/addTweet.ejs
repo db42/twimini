@@ -6,6 +6,10 @@
         <div class="post">
             <%=post%>
         </div>
-        <div class="repost">Retweeted by: @@</div>
+        <%if (author_id!=0) {%>
+        <div class="repost">Retweeted by: @
+            <div class="author_username"></div>
+        </div>
+        <%}%>
     </div>
 </div>
