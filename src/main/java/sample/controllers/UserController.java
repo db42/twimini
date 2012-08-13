@@ -87,34 +87,35 @@ public class UserController {
                               @RequestParam("password") String password,
                               HttpSession session) {
 
-        Hashtable hs = new Hashtable<String, String>();
-        long userID = 0;
+        Hashtable hs;
+        String userID;
 
         //user can login with email or username
-        User user;
         if (email.contains("@"))
-            user = tStore.getUserByEmail(email, password);
+            hs = tStore.getUserByEmail(email, password);
         else
-            user = tStore.getUserByUsername(email, password);
+            hs = tStore.getUserByUsername(email, password);
 
         // add md5 function for password check
-        if (user == null) {
+        if (hs == null) {
+            hs = new Hashtable<String, String>();
             hs.put("status", "failed");
             return hs;
         }
-        userID = (Integer) user.getId();
+        userID = (String) hs.get("userID");
 
         session.setAttribute("email", email);
         session.setAttribute("userID", userID);
 
         hs.put("status", "success");
-        hs.put("userID", user.getId());
-        hs.put("password", password);
+        System.out.print("auth"+hs.get("userID"));
+
         return hs;
     }
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
+        tStore.invalidateAuthKey((String) session.getAttribute("userID"));
         session.invalidate();
         return "redirect:/";
     }

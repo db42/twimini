@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
-    private final ThreadLocal<Long> userID;
+    private final ThreadLocal<String> userID;
 
     @Autowired
-    public AuthInterceptor(@Qualifier("userID") ThreadLocal<Long> userID) {
+    public AuthInterceptor(@Qualifier("userID") ThreadLocal<String> userID) {
         this.userID = userID;
     }
 
@@ -23,7 +23,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         if (session != null) {
             String email = (String) session.getAttribute("email");
             if (email != null) {
-                userID.set((Long) session.getAttribute("userID"));
+                userID.set((String) session.getAttribute("userID"));
                 return true;
             }
         }

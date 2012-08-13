@@ -26,6 +26,7 @@ public class AppConfig {
                 "name varchar(255)," +
                 "description varchar(255)," +
                 "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "auth_key varchar(40)," +
                 "UNIQUE (username)," +
                 "UNIQUE (email)" +
                 ")");
