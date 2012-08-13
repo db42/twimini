@@ -1,7 +1,5 @@
 package sample.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import sample.utilities.MD5Encoder;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,21 +8,13 @@ import sample.utilities.MD5Encoder;
  * Time: 5:45 PM
  * To change this template use File | Settings | File Templates.
  */
+
 public class MiniUser{
     int id;
     String username;
     String name;
     String email;
     String image_url;
-
-    @Autowired
-    static MD5Encoder md5Encoder;
-
-    private static String convertToURL(String email) {
-        String baseUrl = "http://www.gravatar.com/avatar/";
-        return baseUrl.concat(md5Encoder.encodeString(email));
-    }
-
     public int getId() {
         return id;
     }
@@ -50,7 +40,7 @@ public class MiniUser{
     }
 
     public String getImage_url() {
-        return convertToURL(this.email);
+        return this.image_url;
     }
 
     public void setImage_url(String image_url) {
