@@ -23,8 +23,7 @@
                 <div class="left-container">
                     <div class="left-part">
                         <div class="addpost-form">
-                            <textarea rows="2" cols="20" class="addpost-input" placeholder="Tweet" autocomplete="off" dir="ltr">
-                            </textarea>
+                            <textarea class="addpost-input" rows="2" cols="20" placeholder="Tweet..." dir="ltr"></textarea>
                             <button class="addpost-btn"> Tweet </button>
                         </div>
                         <%--<form action="" onsubmit="add_tweet(this); return false;" class="addpost-form">
