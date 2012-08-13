@@ -22,10 +22,15 @@
 			<div class="user-content">
                 <div class="left-container">
                     <div class="left-part">
-                        <form action="" onsubmit="add_tweet(this); return false;" class="addpost-form">
+                        <div class="addpost-form">
+                            <textarea rows="2" cols="20" class="addpost-input" placeholder="Tweet" autocomplete="off" dir="ltr">
+                            </textarea>
+                            <button class="addpost-btn"> Tweet </button>
+                        </div>
+                        <%--<form action="" onsubmit="add_tweet(this); return false;" class="addpost-form">
                             <input type="text" class="addpost-input" name="post" placeholder="Tweet" autocomplete="off" dir="ltr"></br>
                             <input type="submit" value="Tweet" class="addpost-btn">
-                        </form>
+                        </form>--%>
                     </div>
                 </div>
 				<div class="right-part">

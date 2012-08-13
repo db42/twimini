@@ -198,7 +198,7 @@ FeedView.prototype.load_new_data = function () {
 function add_tweet(form) {
     callError("Tweeting...");
     var successfun = function (data) {
-        tm.callNormal("Tweet posted successfully.");
+        callError("Tweet posted successfully.");
     };
     tm.auth_ajax("/users/".concat(tm.userID).concat("/posts"), form, successfun);
 }
@@ -208,13 +208,6 @@ function callError(errorMessage) {
     $('#message-wrapper').fadeIn("slow");
     setTimeout('$("#message-wrapper").fadeOut("slow");', 5000);
 }
-tm.callNormal = function (Message) {
-    callError(Message);
-    // todo: check options for animation
-    /*$('#normal-wrapper').slideDown ("slow");
-    setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
-};
-
 
 function user_login(form) {
     $.post('/login', $(form).serialize(), function (data) {
@@ -272,14 +265,14 @@ tm.getProfileUserid = function () {
 function follow_user(user_id, caller_user_id) {
     var url = '/users/' + caller_user_id + '/followings/' + user_id;
     tm.auth_ajax(url, null, function (data) {
-        tm.callNormal("Successfully followed.");
+        callError("Successfully followed.");
     }, 'PUT');
 }
 
 function unfollow_user(user_id, caller_user_id) {
     var url = '/users/' + caller_user_id + '/followings/' + user_id;
     tm.auth_ajax(url, null, function (data) {
-        tm.callNormal("Successfully unfollowed.");
+        callError("Successfully unfollowed.");
     }, 'DELETE');
 }
 var mouse_pressed = false;
@@ -373,7 +366,9 @@ tm.add_user_info = function (user_id) {
         if (user_id == tm. userID){
             $('#fbutton').remove();
         }
-        activate_follow_button(user_id);
+        else{
+            activate_follow_button(user_id);
+        }
     });
 };
 
@@ -392,7 +387,7 @@ var repost = function (postID) {
     var url, repost_success;
     url = '/users/' + tm.userID + '/posts/repost/' + postID;
     repost_success = function (data) {
-        tm.callNormal("Retweet posted successfully.");
+        callError("Retweet posted successfully.");
     };
     tm.auth_ajax(url, null, repost_success, 'POST');
 };
