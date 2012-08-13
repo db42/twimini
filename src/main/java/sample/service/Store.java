@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.Hashtable;
 
 /**
  * Created on IntelliJ IDEA.
@@ -175,24 +177,45 @@ public class Store {
             return null;
         }
     }
-    public User getUserByEmail(String email, String password) {
-        UserRowMapper userRowMapper = new UserRowMapper();
+    public Hashtable<String, String> getUserByEmail(String email, String password) {
+        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         try{
+            Hashtable<String, String> hs = new Hashtable<String, String>();
             System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
             User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=\""+ password + "\"", userRowMapper);
 
-            return user;
+            String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
+            hs.put("userID", Integer.toString(user.getId()));
+            hs.put("auth_key", auth_key);
+            return hs;
         }
         catch (EmptyResultDataAccessException e){
             return null;
         }
     }
 
-    public User getUserByUsername(String username, String password) {
-        UserRowMapper userRowMapper = new UserRowMapper();
+    public Hashtable<String, String> getUserByUsername(String username, String password) {
+        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         try{
+            Hashtable<String, String> hs = new Hashtable<String, String>();
             System.out.println("select * from users where username=\"" + username + "\" and password=\""+ password + "\"");
             User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=\""+ password + "\"", userRowMapper);
+
+            String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
+            hs.put("userID", Integer.toString(user.getId()));
+            hs.put("auth_key", auth_key);
+            return hs;
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
+    public User getUserByAuthKey(String userID, String auth_key) {
+        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        try{
+            System.out.println("authorisation key from user: " + auth_key);
+            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and auth_key=\""+ auth_key + "\"", userRowMapper);
             return user;
         }
         catch (EmptyResultDataAccessException e){

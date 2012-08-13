@@ -37,9 +37,9 @@ public class RestAuthLayer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String password = new String(decodedBytes);
+        String auth_key = new String(decodedBytes);
 
-        if (tStore.getUserByUserID(userID, password) == null) {
+        if (tStore.getUserByAuthKey(userID, auth_key) == null) {
             throw new NotAuthorisedException();
         }
 
