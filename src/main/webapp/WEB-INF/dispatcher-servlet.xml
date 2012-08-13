@@ -22,6 +22,7 @@
     </mvc:interceptors>
 
     <context:component-scan base-package="sample"/>
+    <bean class="sample.utilities.MD5Encoder" id="md5Encoder" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
