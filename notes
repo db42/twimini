@@ -69,20 +69,20 @@ TODO:
 
 10. load older tweets when going down DONE
 8. profile image
+5. Retweet - frontend
 
 NEW TODO s
-5. Retweet - frontend
-6. Optimizations
+- authorization token
+- proper usage of auth interceptor, threadlocal userID
+- search
+- donot show retweet on already retweeted tweets
+- add fields in user table and update queries correspondingly
+- Optimizations
     - caching, backend db structure and all that
-7. validation - using tab
-9. add fields in user table and update queries correspondingly
-
-7. proper usage of auth interceptor, threadlocal userID
-8. authorization token
-9. overall user experience
-10. search
-11. java, javascript - docs, tests
-12. handle xss using javascript
+- validation - using tab
+- java, javascript - docs, tests
+- overall user experience
+- handle xss using javascript
 
 
 

@@ -177,6 +177,7 @@ public class Store {
         try{
             System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
             User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=\""+ password + "\"", userRowMapper);
+
             return user;
         }
         catch (EmptyResultDataAccessException e){

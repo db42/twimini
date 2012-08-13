@@ -1,7 +1,7 @@
 package sample.model;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.springframework.beans.factory.annotation.Autowired;
+import sample.utilities.MD5Encoder;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,23 +17,12 @@ public class MiniUser{
     String email;
     String image_url;
 
-    private static String convertToURL(String email) {
-        byte[] bytesOfMessage = new byte[0];
-        bytesOfMessage = email.getBytes();
+    @Autowired
+    static MD5Encoder md5Encoder;
 
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        byte[] md5_url = md.digest(bytesOfMessage);
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < md5_url.length; ++i) {
-            sb.append(Integer.toHexString((md5_url[i] & 0xFF) | 0x100).substring(1, 3));
-        }
+    private static String convertToURL(String email) {
         String baseUrl = "http://www.gravatar.com/avatar/";
-        return baseUrl.concat(sb.toString());
+        return baseUrl.concat(md5Encoder.encodeString(email));
     }
 
     public int getId() {
