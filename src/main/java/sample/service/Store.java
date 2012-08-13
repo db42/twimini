@@ -366,9 +366,12 @@ class UserRowMapper implements RowMapper {
         user.setDescription(resultSet.getString("description"));
         user.setName(resultSet.getString("name"));
 
-
         String baseUrl = "http://www.gravatar.com/avatar/";
         user.setImage_url(baseUrl.concat(md5Encoder.encodeString(email)));
+
+        user.setNum_tweets(resultSet.getString("num_tweets"));
+        user.setNum_followers(resultSet.getString("num_followers"));
+        user.setNum_followings(resultSet.getString("num_followings"));
 
         return user;
     }

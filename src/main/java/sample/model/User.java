@@ -16,6 +16,33 @@ public class User  extends MiniUser{
     String description;
     Timestamp created_at;
     boolean followed;
+    String num_tweets;
+    String num_followers;
+    String num_followings;
+
+    public void setNum_followers(String num_followers) {
+        this.num_followers = num_followers;
+    }
+
+    public void setNum_followings(String num_followings) {
+        this.num_followings = num_followings;
+    }
+
+    public void setNum_tweets(String num_tweets) {
+        this.num_tweets = num_tweets;
+    }
+
+    public String getNum_tweets() {
+        return num_tweets;
+    }
+
+    public String getNum_followers() {
+        return num_followers;
+    }
+
+    public String getNum_followings() {
+        return num_followings;
+    }
 
     public boolean isFollowed() {
         return followed;
@@ -39,5 +66,4 @@ public class User  extends MiniUser{
     public String getDescription() {
         return description;
     }
-
 }
