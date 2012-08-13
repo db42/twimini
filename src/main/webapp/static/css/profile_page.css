@@ -87,6 +87,8 @@
 }
 .right-top{
 	float: right;
+}
+.tweet-time{
     font: 13px Courier New, monospace;
     color: #544D4E;
     margin-top: -20px;
