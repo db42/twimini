@@ -78,6 +78,7 @@
 }
 .post{
 	word-wrap: break-word;
+    width: 380px
 }
 .repost{
     color: gray;
@@ -89,6 +90,15 @@
     font: 13px Courier New, monospace;
     color: #544D4E;
     margin-top: -20px;
+}
+.retweet{
+    color: #AB61CE;
+    cursor: pointer;
+    margin: -16px 0 0 390px;
+    font: 13px Helvetica, sans-serif;
+}
+.retweet:hover{
+    color: #4D90FE;
 }
 .addpost-btn{
 	margin: 10px;

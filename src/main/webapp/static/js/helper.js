@@ -67,8 +67,9 @@ BasicView.prototype.addOne = function (data, append) {
 
         //Retweet button
         if (tm.userID != data.user_id && tm.userID != data.author_id) {
-            var retweet_button = $("<button class=\"retweet\" onclick=\"repost(" + tm.userID + ")\">Retweet</button>");
+            var retweet_button = $("<div class=\"retweet\" onclick=\"repost(" + tm.userID + ")\">Re-Tweet</div>");
             $('#tweet_id_' + tweet_id + ' .post-data').append(retweet_button);
+            // <img src='/static/images/retweet.png' />
         }
 
         //Retweet by
