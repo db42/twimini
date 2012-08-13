@@ -35,7 +35,7 @@
 	                        <div class="form-block">
 	                        	<div class="in-text"> User Name:</div>
 	                        	<div class = "right-top">
-                                    <input type="text" class="addpost-input right-pull pr-input" name="username" placeholder="UserName" autocomplete="off" dir="ltr">
+                                    <input type="text" class="right-pull pr-input" name="username" placeholder="UserName" autocomplete="off" dir="ltr">
                                     <br/>
                                     <div class="error-settings" id="username-error"> User Name is incorrect! </div>
                                 </div>
@@ -43,7 +43,7 @@
 	                        <div class="form-block">
 	                        	<div class="in-text">Email: </div>
                                 <div class = "right-top">
-                                    <input type="text" class="addpost-input right-pull pr-input" name="email" placeholder="Email" autocomplete="off" dir="ltr">
+                                    <input type="text" class="right-pull pr-input" name="email" placeholder="Email" autocomplete="off" dir="ltr">
                                     <br/>
                                     <div class="error-settings" id="email-error"> Email is incorrect! </div>
                                 </div>
@@ -57,7 +57,7 @@
 							<div class="form-block">
 	                    	    <div class="in-text"> Name: </div>
                                 <div class = "right-top">
-                                    <input type="text" class="addpost-input right-pull pr-input" name="name" placeholder="Name" autocomplete="off" dir="ltr">
+                                    <input type="text" class="right-pull pr-input" name="name" placeholder="Name" autocomplete="off" dir="ltr">
                                     <br/>
                                     <div class="error-settings" id="name-error"> Name exceeds (limit=250)! </div>
                                 </div>
@@ -65,7 +65,7 @@
 		                    <div class="form-block">
 		                        <div class="in-text"> Description: </div>
                                 <div class = "right-top">
-                                    <input type="text" class="addpost-input right-pull pr-input" name="description" placeholder="Description" autocomplete="off" dir="ltr">
+                                    <input type="text" class="right-pull pr-input" name="description" placeholder="Description" autocomplete="off" dir="ltr">
                                     <br/>
                                     <div class="error-settings" id="description-error"> description exceeds (limit=250)! </div>
                                 </div>
@@ -78,16 +78,16 @@
 						<form action="" onsubmit="password_change(this); return false;">
 							<div class="form-block">
 	                    	    <div class="in-text"> Old Password: </div>
-		                        <input type="password" class="addpost-input right-pull pr-input" name="old_password" placeholder="Old" autocomplete="off" dir="ltr">
+		                        <input type="password" class="right-pull pr-input" name="old_password" placeholder="Old" autocomplete="off" dir="ltr">
 	                        </div>
 		                    <div class="form-block">
 		                        <div class="in-text"> New Password: </div>
-		                        <input type="password" class="addpost-input right-pull pr-input" name="new_password" placeholder="New" autocomplete="off" dir="ltr">
+		                        <input type="password" class="right-pull pr-input" name="new_password" placeholder="New" autocomplete="off" dir="ltr">
 	                        </div>
 	                        <div class="form-block">
 		                        <div class="in-text"> Retype Password: </div>
 		                        <div class = "right-top">
-                                    <input type="password" class="addpost-input right-pull pr-input" name="red_password" placeholder="Re-type" autocomplete="off" dir="ltr">
+                                    <input type="password" class="right-pull pr-input" name="red_password" placeholder="Re-type" autocomplete="off" dir="ltr">
                                     <br/>
                                     <div class="error-settings" id="password-error"> Password doesn't match </div>
                                 </div>
