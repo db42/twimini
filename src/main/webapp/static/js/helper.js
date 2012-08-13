@@ -215,7 +215,6 @@ tm.callNormal = function (Message) {
     setTimeout('$("#normal-wrapper").slideUp("slow");', 5000);*/
 };
 
-
 function user_login(form) {
     $.post('/login', $(form).serialize(), function (data) {
         if (data.status === "success") {
@@ -373,7 +372,9 @@ tm.add_user_info = function (user_id) {
         if (user_id == tm. userID){
             $('#fbutton').remove();
         }
-        activate_follow_button(user_id);
+        else{
+            activate_follow_button(user_id);
+        }
     });
 };
 
