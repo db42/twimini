@@ -84,7 +84,7 @@ NEW TODO s
 - overall user experience
 - handle xss using javascript
 
-- store.jaba line 316: is the method required?
+- store.java line 316: is the method required?
 
 
 
@@ -98,5 +98,9 @@ DB queries:
 2. alter table posts ADD COLUMN author_id INTEGER;
 3. alter table posts add constraint uc_rtwt_id UNIQUE(user_id, rtwt_id);
 4. alter table users add COLUMN auth_key varchar(40);
+
+alter table users add column num_tweets int(10) default 0;
+alter table users add column num_followers int(10) default 0;
+alter table users add column num_followings int(10) default 0;
 
 http://www.quora.com/How-does-Facebooks-News-Feed-work
