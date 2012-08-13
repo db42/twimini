@@ -66,9 +66,11 @@ BasicView.prototype.addOne = function (data, append) {
     if (typeof data.post !== 'undefined') {
 
         if (data.author_id !== 0) {
-            $.get('/users/' + data.author_id, function (user_data) {
-                $('#tweet_id_' + tweet_id + ' .author_username').html = user_data.name;
+            $.get('/users/' + data.user_id, function (user_data) {
+                console.log("extra " + user_data);
+                $('#tweet_id_' + tweet_id + ' .author_name').html(user_data.name);
             });
+            data.user_id = data.author_id;
         }
 
         $.get('/users/' + data.user_id, function (data) {
@@ -372,6 +374,15 @@ tm.fill_topbar = function () {
     } else {
         $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
     }
+};
+
+var repost = function (postID) {
+    var url, repost_success;
+    url = '/users/' + tm.userID + '/posts/repost/' + postID;
+    repost_success = function (data) {
+        tm.callNormal("Retweet posted successfully.");
+    };
+    tm.auth_ajax(url, null, repost_success, 'POST');
 };
 
 var canLoad = true;
