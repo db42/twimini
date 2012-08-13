@@ -84,6 +84,8 @@ NEW TODO s
 - overall user experience
 - handle xss using javascript
 
+- store.jaba line 316: is the method required?
+
 
 
 Other work:
