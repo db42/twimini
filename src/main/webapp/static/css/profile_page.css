@@ -102,9 +102,8 @@
 .retweet:hover{
     color: #4D90FE;
 }
-.addpost-btn{
-    cursor: pointer;
-
+#addpost-btn{
+    cursor:pointer;
     border-radius: 1px;
 	color: white;
 	box-shadow: 0 1px 0 #292435;
@@ -118,9 +117,9 @@
 
     background-color: #4D90FE;
     background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED);
-    border: 1px solid #3079ED;
+    border: 1px solid #3079ED
 }
-.addpost-btn:hover{
+addpost-btn-btn:hover{
     background-color: #266DE0;
     background-image: -moz-linear-gradient(center top , #2770E5, #266DE0);
 }
@@ -129,11 +128,11 @@
 	width: 190px;
 	border-radius: 5px;
 	padding: 8px 2px 2px 8px;
-	height: 50px;
+	height: 80px;
 	margin-top: 5px;
     border: 1px solid #D9D9D9;
 }
 .addpost-form{
-    height: 100px;
+    height: 130px;
     position: relative;
 }

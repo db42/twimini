@@ -23,13 +23,9 @@
                 <div class="left-container">
                     <div class="left-part">
                         <div class="addpost-form">
-                            <textarea class="addpost-input" rows="2" cols="20" placeholder="Tweet..." dir="ltr"></textarea>
-                            <button class="addpost-btn"> Tweet </button>
+                            <textarea id="tweet-text" class="addpost-input" rows="2" cols="20" placeholder="Tweet..." dir="ltr"></textarea>
+                            <button id="addpost-btn"> Tweet </button>
                         </div>
-                        <%--<form action="" onsubmit="add_tweet(this); return false;" class="addpost-form">
-                            <input type="text" class="addpost-input" name="post" placeholder="Tweet" autocomplete="off" dir="ltr"></br>
-                            <input type="submit" value="Tweet" class="addpost-btn">
-                        </form>--%>
                     </div>
                 </div>
 				<div class="right-part">

@@ -195,12 +195,28 @@ FeedView.prototype.load_new_data = function () {
     tm.auth_ajax(url, null, success_load, 'GET');
 };
 
-function add_tweet(form) {
+function add_tweet(tweet) {
     callError("Tweeting...");
     var successfun = function (data) {
         callError("Tweet posted successfully.");
     };
-    tm.auth_ajax("/users/".concat(tm.userID).concat("/posts"), form, successfun);
+    $.ajax({
+        url: "/users/".concat(tm.userID).concat("/posts"),
+        type: 'POST',
+        data: tweet,
+        headers: {
+            "Authorization": window.btoa(tm.auth_key),
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        success: function (data) {
+            if (data.status !== "failed") {
+                successfun(data);
+            }
+        },
+        error: function (){
+            callError('Not Connected!');
+        }
+    });
 }
 
 function callError(errorMessage) {
