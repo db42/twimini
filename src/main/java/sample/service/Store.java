@@ -35,13 +35,13 @@ public class Store {
         this.userID = userID;
     }
 
-    public Post addPost(String userID, String post, String postID) {
+    public Post addPost(String userID, String post, String postID, String authorID) {
         PostRowMapper postRowMapper = new PostRowMapper();
         if (postID == null)
             jdbcTemplate.update("INSERT INTO posts (user_id, post) VALUES (?,?)", userID, post);
         else
             try{
-                jdbcTemplate.update("INSERT INTO posts (user_id, post, rtwt_id) VALUES (?,?,?)", userID, post, postID);
+                jdbcTemplate.update("INSERT INTO posts (user_id, post, rtwt_id, author_id) VALUES (?,?,?,?)", userID, post, postID, authorID);
             }
             catch (DuplicateKeyException e){
                 return null;
@@ -51,6 +51,12 @@ public class Store {
         return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID +
                 " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
     }
+
+    public Post rePost(String userID, String postID) {
+        Post post = getPost(postID);
+        return addPost(userID, post.getPost(), postID, Integer.toString(post.getUser_id()));
+    }
+
 
     public List<Post> getPosts(String userID, String since_id, String count, String max_id){
         if (getUser(userID) == null)

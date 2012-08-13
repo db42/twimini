@@ -36,7 +36,7 @@ public class PostController {
     Post newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
         authLayer.isAuthorised(userID, request);
 
-        Post p = tStore.addPost(userID, post, null);
+        Post p = tStore.addPost(userID, post, null, null);
         response.setHeader("Location","/posts/"+p.getId());
 
         return p;
@@ -45,10 +45,10 @@ public class PostController {
     @RequestMapping(value = "/users/{userID}/posts/repost/{postID}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    Post rePostJson(@PathVariable String userID, @PathVariable String postID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Post rePostJson(@PathVariable String userID, @PathVariable String postID, HttpServletRequest request, HttpServletResponse response) throws IOException {
         authLayer.isAuthorised(userID, request);
 
-        Post p = tStore.addPost(userID, post, postID);
+        Post p = tStore.rePost(userID, postID);
         response.setHeader("Location","/posts/"+p.getId());
 
         return p;
