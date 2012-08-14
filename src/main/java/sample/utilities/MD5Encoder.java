@@ -23,7 +23,7 @@ public class MD5Encoder {
     }
 
     public String encodeString(String input_str){
-        byte[] bytesOfMessage = new byte[0];
+        byte[] bytesOfMessage;
         bytesOfMessage = input_str.getBytes();
 
         byte[] md5_url = md.digest(bytesOfMessage);
