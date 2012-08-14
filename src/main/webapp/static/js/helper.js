@@ -254,7 +254,10 @@ function user_login(form) {
 function user_register(form) {
     $.post('/register', $(form).serialize(), function (data) {
         if (data.status === "success") {
-            callError("User successfully registered.");
+            callError("User successfully registered. Redirecting... ");
+            setTimeout(function () {
+                user_login(form);
+            }, 2000);
         } else {
             callError("User registration failed.");
         }
