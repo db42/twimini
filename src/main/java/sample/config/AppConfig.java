@@ -27,6 +27,9 @@ public class AppConfig {
                 "description varchar(255)," +
                 "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL," +
                 "auth_key varchar(40)," +
+                "num_tweets int(10) default 0," +
+                "num_followers int(10) default 0," +
+                "num_followings int(10) default 0," +
                 "UNIQUE (username)," +
                 "UNIQUE (email)" +
                 ")");
