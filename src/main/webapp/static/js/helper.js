@@ -4,6 +4,14 @@ tm.userID = sessionStorage.getItem("userID");
 tm.auth_key = sessionStorage.getItem("auth_key");
 
 tm.auth_ajax = function (url, form, success_fun, type) {
+    if (tm.userID === null) {
+        callError("This action requires user log-in. Redirecting to login-page..");
+        setTimeout(function () {
+            document.location.href = "/";
+        }, 3000);
+        return;
+    }
+
     type = typeof type !== 'undefined' ? type : 'POST';
     $.ajax({
         url: url,
@@ -151,7 +159,7 @@ PostView.prototype.poll = function () {
     var viewcontext, url, poll_success;
     viewcontext = this;
     url = this.getUrl() + "?since_id=" + this.since_id;
-    poll_success = function (data) {
+    $.get(url, function (data) {
         $.each(data.reverse(), function (index, value) {
             viewcontext.polled_data.push(value);
             if (viewcontext.since_id < value.id) {
@@ -162,9 +170,7 @@ PostView.prototype.poll = function () {
         if (num_msgs > 0) {
             viewcontext.callMessage(num_msgs + " new tweets");
         }
-    };
-
-    tm.auth_ajax(url, null, poll_success, 'GET');
+    });
 };
 
 function FeedView(ejsName, listName, url, userID) {
@@ -180,6 +186,26 @@ FeedView.prototype.populate = function () {
         console.log(viewcontext.getUrl());
         viewcontext.addAll(data.reverse());
     }, 'GET');
+};
+
+FeedView.prototype.poll = function () {
+    var viewcontext, url, poll_success;
+    viewcontext = this;
+    url = this.getUrl() + "?since_id=" + this.since_id;
+    poll_success = function (data) {
+        $.each(data.reverse(), function (index, value) {
+            viewcontext.polled_data.push(value);
+            if (viewcontext.since_id < value.id) {
+                viewcontext.since_id = value.id;
+            }
+        });
+        var num_msgs = viewcontext.polled_data.length;
+        if (num_msgs > 0) {
+            viewcontext.callMessage(num_msgs + " new tweets");
+        }
+    };
+
+    tm.auth_ajax(url, null, poll_success, 'GET');
 };
 
 FeedView.prototype.load_new_data = function () {
