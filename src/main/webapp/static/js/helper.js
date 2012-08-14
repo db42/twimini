@@ -195,7 +195,9 @@ FeedView.prototype.load_new_data = function () {
     tm.auth_ajax(url, null, success_load, 'GET');
 };
 
-function add_tweet(form) {
+function add_tweet(tweet) {
+    var form=$("<form><input type=\"text\" name=\"post\" value=\""+tweet+"\"></form>");
+    console.log(form);
     callError("Tweeting...");
     var url, successfun;
     successfun = function (data) {
