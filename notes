@@ -72,9 +72,10 @@ TODO:
 5. Retweet - frontend -DONE
 - authorization token
 - add fields in user table and update queries correspondingly
+- proper usage of auth interceptor, threadlocal userID
+- major refactoring
 
 NEW TODO s
-- proper usage of auth interceptor, threadlocal userID
 - search
 - donot show retweet on already retweeted tweets
 - Optimizations
