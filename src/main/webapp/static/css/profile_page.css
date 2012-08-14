@@ -119,7 +119,7 @@
     background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED);
     border: 1px solid #3079ED
 }
-addpost-btn-btn:hover{
+addpost-btn:hover{
     background-color: #266DE0;
     background-image: -moz-linear-gradient(center top , #2770E5, #266DE0);
 }
@@ -135,4 +135,16 @@ addpost-btn-btn:hover{
 .addpost-form{
     height: 100px;
     position: relative;
+}
+.color-red{
+    color: red;
+}
+.lcolor{
+    color: #AB61CE;
+}
+#tweet-length{
+    bottom: 5px;
+    font-size: 14px;
+    position: absolute;
+    right: 70px;
 }
