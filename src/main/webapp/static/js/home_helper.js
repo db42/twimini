@@ -5,7 +5,11 @@ $(function () {
     tm.fill_topbar();
     $('#addpost-btn').click(function(){
         tweet_text = $('#tweet-text').val().trim();
-        console.log(tweet_text);
-        add_tweet(tweet_text);
+        if(tweet_text.length > 140){
+            callError("Tweet too long!");
+        }
+        else{
+            add_tweet(tweet_text);
+        }
     })
 });
