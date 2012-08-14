@@ -108,12 +108,15 @@ public class UserStore {
         try{
 //            User user = (User) jdbcTemplate.queryForObject("select * from users INNER JOIN followers on users.id=followers.user_id where users.id=" + userID + " AND followers.follower="+callerUserID, userRowMapper);
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
-            try{
-                Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+userID +" AND follower="+callerUserID, followRowMapper);
-                user.setFollowed(follow);
-            }
-            catch (EmptyResultDataAccessException e){
-                user.setFollowed(false);
+            user.setFollowed(false);
+
+            if (callerUserID != null) {
+                try{
+                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+userID +" AND follower="+callerUserID, followRowMapper);
+                    user.setFollowed(follow);
+                }
+                catch (EmptyResultDataAccessException e){
+                }
             }
             return user;
         }
