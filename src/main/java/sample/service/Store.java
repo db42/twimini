@@ -3,16 +3,11 @@ package sample.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
-import sample.model.Post;
-import sample.model.User;
+import sample.model.*;
 import sample.utilities.MD5Encoder;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -338,54 +333,3 @@ public class Store {
 
 }
 
-class FollowRowMapper implements org.springframework.jdbc.core.RowMapper {
-    Date today = new Date();
-
-    @Override
-    public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
-        Timestamp timeStamp = new Timestamp(today.getTime());
-        return (resultSet.getTimestamp("unfollow_time").after(timeStamp));
-    }
-}
-class UserRowMapper implements RowMapper {
-    MD5Encoder md5Encoder;
-
-    public UserRowMapper(MD5Encoder md5Encoder){
-        this.md5Encoder = md5Encoder;
-    }
-
-    @Override
-    public User mapRow(ResultSet resultSet, int i) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getInt("id"));
-        user.setUsername(resultSet.getString("username"));
-        String email = resultSet.getString("email");
-        String image_url = resultSet.getString("image_url");
-        user.setCreated_at(resultSet.getTimestamp("created_at"));
-        user.setDescription(resultSet.getString("description"));
-        user.setName(resultSet.getString("name"));
-
-        if (image_url == null){
-            String baseUrl = "http://www.gravatar.com/avatar/";
-            image_url = baseUrl.concat(md5Encoder.encodeString(email));
-        }
-        user.setImage_url(image_url);
-
-        user.setNum_tweets(resultSet.getString("num_tweets"));
-        user.setNum_followers(resultSet.getString("num_followers"));
-        user.setNum_followings(resultSet.getString("num_followings"));
-
-        return user;
-    }
-}
-
-class PostRowMapper implements RowMapper {
-
-    @Override
-    public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-        Post post = new Post(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("post"), resultSet.getTimestamp("time"));
-        post.setAuthor_id(resultSet.getInt("author_id"));
-        post.setRtwt_id(resultSet.getInt("rtwt_id"));
-        return post;
-    }
-}
