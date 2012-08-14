@@ -374,6 +374,13 @@ tm.add_user_info = function (user_id) {
     });
 };
 
+var logout = function() {
+    sessionStorage.clear();
+    $.get('/logout', function(data){
+        document.location.href = '/';
+    })
+
+}
 tm.fill_topbar = function () {
     if (typeof tm.image_url === 'undefined') {
         $.get('/users/' + tm.userID, function (data) {
