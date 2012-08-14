@@ -28,9 +28,8 @@
             <li class="menu-button">
                 <a href="/profile" id="profile-image"></a>
             </li>
-            <form class="search-box" action="/search">
-                <span id="search-icon">
-                </span>
+            <form class="search-box" onsubmit="searchresult(this); return false;">
+                <span id="search-icon"></span>
                 <input class="search-input" type="text" name="q" placeholder=" Search..." autocomplete="off" dir="ltr"/>
             </form>
 

@@ -255,8 +255,6 @@ public class UserStore {
         return followings;
     }
 
-
-
     public boolean addFollowing(String followee_id, String follower_id) {
         try{
             jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", followee_id, follower_id);
@@ -278,6 +276,28 @@ public class UserStore {
         jdbcTemplate.update("UPDATE users SET num_followers=num_followers-1 where id=?", followee_id);
 
     }
+
+    public List<User> getSearchResults(String query, String callerUserID) {
+        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        query = "\"%"+query+"%\"";
+        String db_query = "select * from users where name LIKE "+query+" OR username LIKE "+query;
+
+        List<User> followers = jdbcTemplate.query(db_query, userRowMapper);
+        if (callerUserID != null) {
+            for(User u:followers){
+                try{
+                    FollowRowMapper followRowMapper = new FollowRowMapper();
+                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
+                    u.setFollowed(follow);
+                }
+                catch (EmptyResultDataAccessException e){
+                    u.setFollowed(false);
+                }
+            }
+        }
+        return followers;
+    }
+
 
 }
 

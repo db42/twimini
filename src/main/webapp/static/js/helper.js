@@ -97,7 +97,6 @@ BasicView.prototype.addOne = function (data, append) {
             $('#tweet_id_' + tweet_id).prepend(entity);
         });
     }
-
 };
 
 BasicView.prototype.addAll = function (data) {
@@ -115,7 +114,6 @@ BasicView.prototype.populate = function () {
         viewcontext.addAll(data.reverse());
     });
 };
-
 
 BasicView.prototype.callMessage = function (Message) {
     $('#container-message').empty().append(Message);
@@ -153,7 +151,6 @@ function PostView(ejsName, listName, url, userID) {
 
 PostView.prototype = new BasicView();
 PostView.prototype.constructor = PostView;
-
 
 PostView.prototype.poll = function () {
     var viewcontext, url, poll_success;
@@ -441,4 +438,15 @@ $(window).scroll(function () {
         tm.scrollview.load_new_data();
     }
 });
+
+searchresult = function(form){
+    searchterm = form["q"].value.trim();
+    //todo:include spaces
+    if (searchterm.search(' ')!==-1)
+        callError("No spaces allowed for search");
+
+    tm.searchview = new BasicView('addUser.ejs', 'resultlist', 'search' + "?q="+searchterm, tm.userID);
+    tm.searchview.populate();
+};
+
 

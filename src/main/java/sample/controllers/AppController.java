@@ -42,4 +42,11 @@ public class AppController {
         ModelAndView mv = new ModelAndView("settings");
         return mv;
     }
+
+    @RequestMapping("/search")
+    ModelAndView SearchPage(){
+        ModelAndView mv = new ModelAndView("search");
+        mv.addObject("searchTerm", "");
+        return mv;
+    }
 }

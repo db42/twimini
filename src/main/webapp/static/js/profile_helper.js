@@ -1,18 +1,18 @@
 var tm = tm || {};
 
 var get_followings = function (user_id) {
-        if (typeof tm.follwingsview === 'undefined') {
-            tm.follwingsview = new BasicView('addUser.ejs', 'followinglist', 'followings' + "?callerUserID=" + tm.userID, user_id);
-            tm.follwingsview.populate();
-        }
+    if (typeof tm.follwingsview === 'undefined') {
+        tm.follwingsview = new BasicView('addUser.ejs', 'followinglist', 'followings' + "?callerUserID=" + tm.userID, user_id);
+        tm.follwingsview.populate();
+    }
 };
 
 
 var get_followers = function (user_id) {
-        if (typeof tm.followersview === 'undefined') {
-            tm.followersview = new BasicView('addUser.ejs', 'followerlist', 'followers' + "?callerUserID=" + tm.userID, user_id);
-            tm.followersview.populate();
-        }
+    if (typeof tm.followersview === 'undefined') {
+        tm.followersview = new BasicView('addUser.ejs', 'followerlist', 'followers' + "?callerUserID=" + tm.userID, user_id);
+        tm.followersview.populate();
+    }
 };
 
 var activate_profile_links = function (user_id) {

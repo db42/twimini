@@ -30,6 +30,12 @@ public class UserContoller {
         this.authLayer = authLayer;
     }
 
+    @RequestMapping(value = "/users/{userID}/search", method = RequestMethod.GET)
+    @ResponseBody
+    List<User> getSearchJson(@RequestParam String q, @PathVariable String userID){
+        return tUserStore.getSearchResults(q, userID);
+    }
+
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@PathVariable String userID,@RequestParam int following){
