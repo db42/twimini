@@ -17,6 +17,20 @@ public class Post {
     int author_id;
     String post;
     Timestamp timestamp;
+    boolean reposted;
+
+    public boolean isReposted() {
+        return reposted;
+    }
+
+    public void setReposted(boolean reposted) {
+        this.reposted = reposted;
+    }
+
+
+    public void Post(){
+        reposted = false;
+    }
 
     public int getAuthor_id() {
         return author_id;
