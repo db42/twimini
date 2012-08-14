@@ -338,16 +338,15 @@ public class Store {
 
 }
 
-class FollowRowMapper implements RowMapper {
+class FollowRowMapper implements org.springframework.jdbc.core.RowMapper {
     Date today = new Date();
-    Timestamp timeStamp = new java.sql.Timestamp(today.getTime());
 
     @Override
     public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
+        Timestamp timeStamp = new Timestamp(today.getTime());
         return (resultSet.getTimestamp("unfollow_time").after(timeStamp));
     }
 }
-
 class UserRowMapper implements RowMapper {
     MD5Encoder md5Encoder;
 
