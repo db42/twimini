@@ -1,7 +1,6 @@
 package sample.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,9 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-import java.util.Hashtable;
 
 /**
  * Created on IntelliJ IDEA.
@@ -30,13 +29,11 @@ import java.util.Hashtable;
 @Service
 public class Store {
     SimpleJdbcTemplate jdbcTemplate;
-    private final ThreadLocal<Long> userID;
     MD5Encoder md5Encoder;
 
     @Autowired
-    public Store(SimpleJdbcTemplate jdbcTemplate, @Qualifier("userID") ThreadLocal<Long> userID, MD5Encoder md5Encoder){
+    public Store(SimpleJdbcTemplate jdbcTemplate, MD5Encoder md5Encoder){
         this.jdbcTemplate = jdbcTemplate;
-        this.userID = userID;
         this.md5Encoder = md5Encoder;
     }
 
