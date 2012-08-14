@@ -46,7 +46,7 @@ public class PostStore {
         jdbcTemplate.update("UPDATE users SET num_tweets=num_tweets+1 where id=?", userID);
 
         return (Post) jdbcTemplate.queryForObject("SELECT * FROM posts WHERE user_id=" + userID +
-                " AND post=\""+post+"\" order by time desc limit 1", postRowMapper);
+                " AND post=\""+post+"\" order by id desc limit 1", postRowMapper);
     }
 
     public Post rePost(String userID, String postID) {
@@ -74,11 +74,11 @@ public class PostStore {
         if (count== null)
             count = "20";
         if (since_id == null && max_id == null)
-            query = "SELECT * from posts where user_id=" +userID + " ORDER BY posts.time DESC LIMIT "+ count;
+            query = "SELECT * from posts where user_id=" +userID + " ORDER BY posts.id DESC LIMIT "+ count;
         else if (max_id == null)
-            query = "SELECT * from posts where user_id=" +userID +" AND posts.id>"+since_id + " ORDER BY posts.time DESC LIMIT "+ count;
+            query = "SELECT * from posts where user_id=" +userID +" AND posts.id>"+since_id + " ORDER BY posts.id DESC LIMIT "+ count;
         else
-            query = "SELECT * from posts where user_id=" +userID +" AND posts.id<"+max_id + " ORDER BY posts.time DESC LIMIT "+ count;
+            query = "SELECT * from posts where user_id=" +userID +" AND posts.id<"+max_id + " ORDER BY posts.id DESC LIMIT "+ count;
 
         List<Post> posts = (List< Post>) jdbcTemplate.query(query, postRowMapper);
 
@@ -94,16 +94,25 @@ public class PostStore {
 
         if (since_id == null && max_id == null)
              query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
-                                                            " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time ORDER BY posts.time DESC LIMIT "+ count;
+                                                            " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time ORDER BY posts.id DESC LIMIT "+ count;
         else if (max_id == null)
             query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
-                    " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id >" + since_id +" ORDER BY posts.time DESC LIMIT "+ count;
+                    " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id >" + since_id +" ORDER BY posts.id DESC LIMIT "+ count;
         else
             query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
-                    " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id <" + max_id +" ORDER BY posts.time DESC LIMIT "+ count;
+                    " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id <" + max_id +" ORDER BY posts.id DESC LIMIT "+ count;
 
         System.out.println(query);
         List<Post> subscribedPosts = jdbcTemplate.query(query, postRowMapper);
+        for (Post post: subscribedPosts){
+            try{
+                query = "select posts.id from posts where posts.rtwt_id="+post.getId()+" AND posts.user_id="+userID;
+                jdbcTemplate.queryForInt(query);
+                post.setReposted(true);
+            }
+            catch (EmptyResultDataAccessException e){
+            }
+        }
         return subscribedPosts;
     }
 
