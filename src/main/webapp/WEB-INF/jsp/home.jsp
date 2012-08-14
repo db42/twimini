@@ -24,7 +24,7 @@
                     <div class="left-part">
                         <div class="addpost-form">
                             <textarea id="tweet-text" class="addpost-input" rows="2" cols="20" placeholder="Tweet..." dir="ltr" name="tweets"></textarea>
-                            <button id="addpost-btn"> Tweet </button>
+                            <button id="addpost-btn">Tweet</button>
                         </div>
                     </div>
                 </div>
