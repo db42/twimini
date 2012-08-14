@@ -101,7 +101,9 @@ public class Store {
     public User addUser(String username, String email, String password) {
         //todo : make sure username and password are unique
         try {
-            jdbcTemplate.update("INSERT INTO users (username, email, password) VALUES (?,?,?)",username, email, password);
+            String baseUrl = "http://www.gravatar.com/avatar/";
+            String image_url = baseUrl.concat(md5Encoder.encodeString(email));
+            jdbcTemplate.update("INSERT INTO users (username, email, password, image_url) VALUES (?,?,?,?)",username, email, password, image_url);
             UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
             User user = (User)jdbcTemplate.queryForObject("SELECT * from users where username=\"" + username + "\"", userRowMapper);
             return user;
@@ -362,12 +364,16 @@ class UserRowMapper implements RowMapper {
         user.setId(resultSet.getInt("id"));
         user.setUsername(resultSet.getString("username"));
         String email = resultSet.getString("email");
+        String image_url = resultSet.getString("image_url");
         user.setCreated_at(resultSet.getTimestamp("created_at"));
         user.setDescription(resultSet.getString("description"));
         user.setName(resultSet.getString("name"));
 
-        String baseUrl = "http://www.gravatar.com/avatar/";
-        user.setImage_url(baseUrl.concat(md5Encoder.encodeString(email)));
+        if (image_url == null){
+            String baseUrl = "http://www.gravatar.com/avatar/";
+            image_url = baseUrl.concat(md5Encoder.encodeString(email));
+        }
+        user.setImage_url(image_url);
 
         user.setNum_tweets(resultSet.getString("num_tweets"));
         user.setNum_followers(resultSet.getString("num_followers"));

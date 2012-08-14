@@ -71,12 +71,12 @@ TODO:
 8. profile image
 5. Retweet - frontend -DONE
 - authorization token
+- add fields in user table and update queries correspondingly
 
 NEW TODO s
 - proper usage of auth interceptor, threadlocal userID
 - search
 - donot show retweet on already retweeted tweets
-- add fields in user table and update queries correspondingly
 - Optimizations
     - caching, backend db structure and all that
 - validation - using tab
@@ -102,5 +102,6 @@ DB queries:
 alter table users add column num_tweets int(10) default 0;
 alter table users add column num_followers int(10) default 0;
 alter table users add column num_followings int(10) default 0;
+alter table users add column image_url varchar(255);
 
 http://www.quora.com/How-does-Facebooks-News-Feed-work

@@ -30,6 +30,7 @@ public class AppConfig {
                 "num_tweets int(10) default 0," +
                 "num_followers int(10) default 0," +
                 "num_followings int(10) default 0," +
+                "image_url varchar(255)," +
                 "UNIQUE (username)," +
                 "UNIQUE (email)" +
                 ")");
