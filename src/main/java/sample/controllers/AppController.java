@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import sample.service.Store;
+import sample.service.UserStore;
 
 
 /**
@@ -19,11 +19,11 @@ import sample.service.Store;
 @Controller
 @RequestMapping("/twimini") //TODO: need to remove this prefix
 public class AppController {
-    Store tStore;
+    UserStore tUserStore;
 
     @Autowired
-    public AppController(Store tStore){
-        this.tStore = tStore;
+    public AppController(UserStore tUserStore){
+        this.tUserStore = tUserStore;
     }
 
     @RequestMapping("/index")

@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sample.model.User;
-import sample.service.Store;
+import sample.service.UserStore;
 
 import javax.servlet.http.HttpSession;
 import java.util.Hashtable;
 
 @Controller
 public class UserController {
-    Store tStore;
+    UserStore tUserStore;
 
     @Autowired
-    public UserController(Store tStore) {this.tStore = tStore;}
+    public UserController(UserStore tUserStore) {this.tUserStore = tUserStore;}
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginForm() {
@@ -27,7 +27,7 @@ public class UserController {
    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> registerJson(@RequestParam String name, @RequestParam String email, @RequestParam String password){
-        User user = tStore.addUser(name, email, password);
+        User user = tUserStore.addUser(name, email, password);
         Hashtable hs = new Hashtable<String, String>();
         if (user == null)
             hs.put("status", "failed");
@@ -42,7 +42,7 @@ public class UserController {
                                          @RequestParam(required = false) String old_password,
                                          @RequestParam(required = false) String new_password)
     {
-        User user = tStore.updateUserPassword(userID, old_password, new_password);
+        User user = tUserStore.updateUserPassword(userID, old_password, new_password);
         Hashtable hs = new Hashtable<String, String>();
         if (user == null)
             hs.put("status", "failed");
@@ -57,7 +57,7 @@ public class UserController {
                                                  @RequestParam(required = false) String username,
                                                  @RequestParam(required = false) String email)
     {
-        User user = tStore.updateUserAccount(userID, username, email);
+        User user = tUserStore.updateUserAccount(userID, username, email);
         Hashtable hs = new Hashtable<String, String>();
         if (user == null)
             hs.put("status", "failed");
@@ -72,7 +72,7 @@ public class UserController {
                                                  @RequestParam(required = false) String name,
                                                  @RequestParam(required = false) String description)
     {
-        boolean status = tStore.updateUserProfile(userID, name, description);
+        boolean status = tUserStore.updateUserProfile(userID, name, description);
         Hashtable hs = new Hashtable<String, String>();
         if (status)
             hs.put("status","success");
@@ -92,9 +92,9 @@ public class UserController {
 
         //user can login with email or username
         if (email.contains("@"))
-            hs = tStore.getUserByEmail(email, password);
+            hs = tUserStore.getUserByEmail(email, password);
         else
-            hs = tStore.getUserByUsername(email, password);
+            hs = tUserStore.getUserByUsername(email, password);
 
         // add md5 function for password check
         if (hs == null) {
@@ -115,7 +115,7 @@ public class UserController {
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
-        tStore.invalidateAuthKey((String) session.getAttribute("userID"));
+        tUserStore.invalidateAuthKey((String) session.getAttribute("userID"));
         session.invalidate();
         return "redirect:/";
     }

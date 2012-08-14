@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sample.model.Post;
-import sample.service.Store;
+import sample.service.PostStore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +21,12 @@ import java.util.List;
  */
 @Controller
 public class PostController {
-    Store tStore;
+    PostStore tPostStore;
     RestAuthLayer authLayer;
 
     @Autowired
-    public PostController(Store tStore, RestAuthLayer authLayer){
-        this.tStore = tStore;
+    public PostController(PostStore tPostStore, RestAuthLayer authLayer){
+        this.tPostStore = tPostStore;
         this.authLayer = authLayer;
     }
 
@@ -36,7 +36,7 @@ public class PostController {
     Post newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
         authLayer.isAuthorised(userID, request);
 
-        Post p = tStore.addPost(userID, post, null, null);
+        Post p = tPostStore.addPost(userID, post, null, null);
         response.setHeader("Location","/posts/"+p.getId());
 
         return p;
@@ -48,7 +48,7 @@ public class PostController {
     Post rePostJson(@PathVariable String userID, @PathVariable String postID, HttpServletRequest request, HttpServletResponse response) throws IOException {
         authLayer.isAuthorised(userID, request);
 
-        Post p = tStore.rePost(userID, postID);
+        Post p = tPostStore.rePost(userID, postID);
         response.setHeader("Location","/posts/"+p.getId());
 
         return p;
@@ -57,7 +57,7 @@ public class PostController {
    @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
     @ResponseBody
     List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
-        List<Post> posts = tStore.getPosts(userID, since_id, count, max_id);
+        List<Post> posts = tPostStore.getPosts(userID, since_id, count, max_id);
         if (posts == null)
             throw new ResourceNotFoundException();
         else
@@ -68,7 +68,7 @@ public class PostController {
     @RequestMapping(value = "/posts/{postID}", method = RequestMethod.GET)
     @ResponseBody
     Post getPostJson(@PathVariable String postID){
-        Post post = tStore.getPost(postID);
+        Post post = tPostStore.getPost(postID);
         if (post == null)
             throw new ResourceNotFoundException();
         else
@@ -81,6 +81,6 @@ public class PostController {
     List<Post> getSubscribedPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, HttpServletRequest request){
         authLayer.isAuthorised(userID, request);
 
-        return tStore.getSubscribedPosts(userID, since_id, count, max_id);
+        return tPostStore.getSubscribedPosts(userID, since_id, count, max_id);
     }
 }

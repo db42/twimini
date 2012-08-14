@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sample.model.User;
-import sample.service.Store;
+import sample.service.UserStore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +21,12 @@ import java.util.List;
  */
 @Controller
 public class UserContoller {
-    Store tStore;
+    UserStore tUserStore;
     RestAuthLayer authLayer;
 
     @Autowired
-    public UserContoller(Store tStore, RestAuthLayer authLayer){
-        this.tStore = tStore;
+    public UserContoller(UserStore tUserStore, RestAuthLayer authLayer){
+        this.tUserStore = tUserStore;
         this.authLayer = authLayer;
     }
 
@@ -34,7 +34,7 @@ public class UserContoller {
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@PathVariable String userID,@RequestParam int following){
         Hashtable hs = new Hashtable<String, String>();
-        tStore.addFollower(following, userID);
+        tUserStore.addFollower(following, userID);
         hs.put("status","success");
         return hs;
     }
@@ -42,7 +42,7 @@ public class UserContoller {
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
     @ResponseBody
     List<User> getFollowersJson(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
-        return tStore.getFollowers(userID, count, max_id);
+        return tUserStore.getFollowers(userID, count, max_id);
     }
 
     @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.PUT)
@@ -52,7 +52,7 @@ public class UserContoller {
         authLayer.isAuthorised(follower_id, request);
 
         Hashtable hs = new Hashtable<String, String>();
-        tStore.addFollowing(followee_id, follower_id);
+        tUserStore.addFollowing(followee_id, follower_id);
         hs.put("status","success");
         return hs;
     }
@@ -64,7 +64,7 @@ public class UserContoller {
         authLayer.isAuthorised(follower_id, request);
 
         Hashtable hs = new Hashtable<String, String>();
-        tStore.deleteFollowing(followee_id, follower_id);
+        tUserStore.deleteFollowing(followee_id, follower_id);
         hs.put("status","success");
         return hs;
     }
@@ -72,13 +72,13 @@ public class UserContoller {
     @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
     @ResponseBody
     List<User> getFollowings(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
-        return tStore.getFollowings(userID, count, max_id);
+        return tUserStore.getFollowings(userID, count, max_id);
     }
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
     @ResponseBody
     User getUserJson(@PathVariable String userID, @RequestParam(required = false) String callerUserID, HttpServletResponse response){
-        User user = tStore.getUser(userID, callerUserID);
+        User user = tUserStore.getUser(userID, callerUserID);
         if (user == null)
             throw new ResourceNotFoundException();
         else {
@@ -98,7 +98,7 @@ public class UserContoller {
                                          @RequestParam(required = false) String old_password,
                                          @RequestParam(required = false) String new_password)
     {
-        User user = tStore.updateUser(userID,username, email, name, description, old_password, new_password);
+        User user = tUserStore.updateUser(userID,username, email, name, description, old_password, new_password);
         Hashtable hs = new Hashtable<String, String>();
         if (user == null)
             hs.put("status", "failed");
