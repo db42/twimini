@@ -429,8 +429,10 @@ tm.fill_topbar = function () {
 var repost = function (postID) {
     var url, repost_success;
     url = '/users/' + tm.userID + '/posts/repost/' + postID;
+    var element = event.target;
     repost_success = function (data) {
         callError("Retweet posted successfully.");
+        $(element).hide();
     };
     tm.auth_ajax(url, null, repost_success, 'POST');
 };
