@@ -26,7 +26,7 @@
                 </ul>
             </li>
             <li class="menu-button">
-                <a href="/twimini/profile" id="profile-image"></a>
+                <a href="/profile" id="profile-image"></a>
             </li>
             <form class="search-box" action="/search">
                 <span id="search-icon">

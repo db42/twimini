@@ -2,10 +2,8 @@ package sample.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import sample.model.User;
 import sample.service.UserStore;
 
@@ -22,6 +20,18 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginForm() {
         return "index";
+    }
+
+    @RequestMapping("/profile")
+    ModelAndView SelfProfilePage(){
+        ModelAndView mv = new ModelAndView("profile");
+        return mv;
+    }
+
+    @RequestMapping("/profile/{userID}")
+    ModelAndView ProfilePage(@PathVariable String userID){
+        ModelAndView mv = new ModelAndView("profile");
+        return mv;
     }
 
    @RequestMapping(value = "/register", method = RequestMethod.POST)
