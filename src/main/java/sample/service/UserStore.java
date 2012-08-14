@@ -195,7 +195,7 @@ public class UserStore {
         System.out.println("authorisation key destroyed");
     }
 
-    public List<User> getFollowers(String userID, String count, String max_id) {
+    public List<User> getFollowers(String userID, String count, String max_id, String callerUserID ) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         count = (count == null) ? "20" : count;
         String query;
@@ -206,20 +206,22 @@ public class UserStore {
             query = "select * from users where id in (select follower from followers where user_id="+ userID +" AND unfollow_time > NOW() AND follower<" + max_id+" ) ORDER BY id DESC LIMIT "+count;
 
         List<User> followers = jdbcTemplate.query(query, userRowMapper);
-        for(User u:followers){
-            try{
-                FollowRowMapper followRowMapper = new FollowRowMapper();
-                Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+userID, followRowMapper);
-                u.setFollowed(follow);
-            }
-            catch (EmptyResultDataAccessException e){
-                u.setFollowed(false);
+        if (callerUserID != null) {
+            for(User u:followers){
+                try{
+                    FollowRowMapper followRowMapper = new FollowRowMapper();
+                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
+                    u.setFollowed(follow);
+                }
+                catch (EmptyResultDataAccessException e){
+                    u.setFollowed(false);
+                }
             }
         }
         return followers;
     }
 
-    public List<User> getFollowings(String userID, String count, String max_id) {
+    public List<User> getFollowings(String userID, String count, String max_id, String callerUserID) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         count = (count == null) ? "20" : count;
         String query;
@@ -230,9 +232,26 @@ public class UserStore {
             query = "select * from users where id in (select user_id from followers where follower="+ userID +" AND unfollow_time > NOW() AND user_id<" + max_id+" ) ORDER BY id DESC LIMIT "+count;
 
         List<User> followings = jdbcTemplate.query(query, userRowMapper);
-        for(User u:followings){
-            u.setFollowed(true);
+        if (callerUserID!=null) {
+            if (userID == callerUserID)
+                for(User u:followings){
+                    u.setFollowed(true);
+                }
+            else {
+                for(User u:followings){
+                    try{
+                        FollowRowMapper followRowMapper = new FollowRowMapper();
+                        Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
+                        u.setFollowed(follow);
+                    }
+                    catch (EmptyResultDataAccessException e){
+                        u.setFollowed(false);
+                    }
+                }
+
+            }
         }
+
         return followings;
     }
 

@@ -41,8 +41,8 @@ public class UserContoller {
 
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
     @ResponseBody
-    List<User> getFollowersJson(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
-        return tUserStore.getFollowers(userID, count, max_id);
+    List<User> getFollowersJson(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, @RequestParam(required = false) String callerUserID){
+        return tUserStore.getFollowers(userID, count, max_id, callerUserID);
     }
 
     @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.PUT)
@@ -71,8 +71,8 @@ public class UserContoller {
 
     @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
     @ResponseBody
-    List<User> getFollowings(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
-        return tUserStore.getFollowings(userID, count, max_id);
+    List<User> getFollowings(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, @RequestParam(required = false) String callerUserID){
+        return tUserStore.getFollowings(userID, count, max_id, callerUserID);
     }
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)

@@ -40,6 +40,7 @@ public class UserRowMapper implements RowMapper {
         user.setNum_tweets(resultSet.getString("num_tweets"));
         user.setNum_followers(resultSet.getString("num_followers"));
         user.setNum_followings(resultSet.getString("num_followings"));
+        user.setFollowed(false);
 
         return user;
     }
