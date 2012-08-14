@@ -2,7 +2,7 @@ var tm = tm || {};
 
 var get_followings = function (user_id) {
         if (typeof tm.follwingsview === 'undefined') {
-            tm.follwingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', user_id);
+            tm.follwingsview = new BasicView('addUser.ejs', 'followinglist', 'followings' + "?callerUserID=" + tm.userID, user_id);
             tm.follwingsview.populate();
         }
 };
@@ -10,7 +10,7 @@ var get_followings = function (user_id) {
 
 var get_followers = function (user_id) {
         if (typeof tm.followersview === 'undefined') {
-            tm.followersview = new BasicView('addUser.ejs', 'followerlist', 'followers', user_id);
+            tm.followersview = new BasicView('addUser.ejs', 'followerlist', 'followers' + "?callerUserID=" + tm.userID, user_id);
             tm.followersview.populate();
         }
 };
