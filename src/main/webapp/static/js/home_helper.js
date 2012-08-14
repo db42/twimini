@@ -11,5 +11,18 @@ $(function () {
         else{
             add_tweet(tweet_text);
         }
+    });
+
+    $('#tweet-text').keyup(function(){
+        t_length = $('#tweet-text').val().trim().length
+        $('#tweet-length').empty().append(140-t_length);
+        if (t_length > 140){
+            $('#tweet-length').addClass("color-red");
+            $('#tweet-length').removeClass("lcolor");
+        }
+        else{
+            $('#tweet-length').addClass("lcolor");
+            $('#tweet-length').removeClass("color-red");
+        }
     })
 });
