@@ -1,9 +1,10 @@
 var tm = tm || {};
 
+var profile_user_id;
 function follow_user(user_id, caller_user_id) {
     var url = '/users/' + caller_user_id + '/followings/' + user_id;
     tm.auth_ajax(url, null, function (data) {
-        tm.callError("Successfully followed.");
+        callError("Successfully followed.");
     }, 'PUT');
 }
 
@@ -93,8 +94,14 @@ function follow_user_button(user_block){
             user_block.className = 'fubutton following follow';
         }
         else{
-            var parentx = user_block.parentNode.parentNode.parentNode;
-            parentx.parentNode.removeChild(parentx);
+            if (tm.userID === profile_user_id) {
+                var parentx = user_block.parentNode.parentNode.parentNode;
+                parentx.parentNode.removeChild(parentx);
+            }
+            else {
+                user_block.innerHTML = 'Follow';
+                user_block.className = 'fubutton following follow';
+            }
         }
     }
 }
@@ -144,7 +151,7 @@ var activate_profile_links = function (user_id) {
 
 $(function () {
     activatables('page', ['tweets', 'followers', 'following']);
-    var profile_user_id = tm.getProfileUserid();
+    profile_user_id = tm.getProfileUserid();
     tm.add_user_info(profile_user_id);
     tm.get_posts(profile_user_id);
     tm.fill_topbar();
