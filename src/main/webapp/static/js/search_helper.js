@@ -1,7 +1,18 @@
 var tm = tm || {};
 
+searchresult = function(searchterm){
+    //todo:include spaces
+    if (searchterm.search(' ')!==-1)
+        callError("No spaces allowed for search");
+
+    tm.searchview = new BasicView('addUser.ejs', 'resultlist', 'search' + "?q="+searchterm, tm.userID);
+    tm.searchview.populate();
+};
+
 $(function () {
     tm.fill_topbar();
+
+    searchresult("dushyant");
     $('#addpost-btn').click(function(){
         tweet_text = $('#tweet-text').val().trim();
         if(tweet_text.length > 140){

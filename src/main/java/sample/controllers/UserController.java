@@ -129,4 +129,11 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+
+    @RequestMapping("/search")
+    ModelAndView SearchPage(){
+        ModelAndView mv = new ModelAndView("search");
+        mv.addObject("searchTerm", "");
+        return mv;
+    }
 }
