@@ -66,7 +66,7 @@ public class PostStore {
     }
 
     public List<Post> getPosts(String userID, String since_id, String count, String max_id){
-        if (userStore.getUser(userID) == null)
+        if (!userStore.validateUserById(userID))
             return null;
 
         PostRowMapper postRowMapper = new PostRowMapper();

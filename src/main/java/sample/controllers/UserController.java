@@ -53,12 +53,7 @@ public class UserController {
                                                  @RequestParam(required = false) String username,
                                                  @RequestParam(required = false) String email){
 
-        User user = userStore.updateUserAccount(userID, username, email);
-        Hashtable hs = new Hashtable<String, String>();
-        if (user == null)
-            hs.put("status", "failed");
-        else
-            hs.put("status","success");
+        Hashtable hs = userStore.updateUserAccount(userID, username, email);
         return hs;
     }
 

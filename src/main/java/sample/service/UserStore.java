@@ -75,15 +75,21 @@ public class UserStore {
         return user;
     }
 
-    public User updateUserAccount(String userID, String username, String email) {
-        User user = this.getUser(userID);
-        try{
-            jdbcTemplate.update("UPDATE users SET username=?, email=? where id=?",username, email, userID);
-            return user;
-        }
-        catch (DuplicateKeyException e){
-            return null;
-        }
+    public Hashtable<String, String> updateUserAccount(String userID, String username, String email) {
+        Hashtable<String, String> hs = new Hashtable();
+        hs.put("status", "failed");
+
+        if (validateUserById(userID))
+            try{
+                jdbcTemplate.update("UPDATE users SET username=?, email=? where id=?",username, email, userID);
+                hs.put("status", "success");
+            }
+            catch (DuplicateKeyException e){
+                hs.put("message", "User already exists with same username or email");
+                return null;
+            }
+
+        return hs;
     }
 
     public boolean updateUserProfile(String userID, String name, String description) {
@@ -91,14 +97,14 @@ public class UserStore {
         return true;
     }
 
-    public User getUser(String userID){
+    public boolean validateUserById(String userID){
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
-            return user;
+            return true;
         }
         catch (EmptyResultDataAccessException e){
-            return null;
+            return false;
         }
     }
 
