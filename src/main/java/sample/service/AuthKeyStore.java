@@ -9,6 +9,7 @@ import sample.model.UserRowMapper;
 import sample.utilities.MD5Encoder;
 
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.Random;
 
 /**
@@ -27,6 +28,40 @@ public class AuthKeyStore {
     public AuthKeyStore(SimpleJdbcTemplate jdbcTemplate, MD5Encoder md5Encoder){
         this.jdbcTemplate = jdbcTemplate;
         this.md5Encoder = md5Encoder;
+    }
+
+    public Hashtable<String, String> authUserByEmail(String email, String password) {
+        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        try{
+            Hashtable<String, String> hs = new Hashtable<String, String>();
+            System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
+            User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=\""+ password + "\"", userRowMapper);
+
+            String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
+            hs.put("userID", Integer.toString(user.getId()));
+            hs.put("auth_key", auth_key);
+            return hs;
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
+    public Hashtable<String, String> authUserByUsername(String username, String password) {
+        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        try{
+            Hashtable<String, String> hs = new Hashtable<String, String>();
+            System.out.println("select * from users where username=\"" + username + "\" and password=\""+ password + "\"");
+            User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=\""+ password + "\"", userRowMapper);
+
+            String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
+            hs.put("userID", Integer.toString(user.getId()));
+            hs.put("auth_key", auth_key);
+            return hs;
+        }
+        catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     public User getUserByAuthKey(String userID, String auth_key) {
