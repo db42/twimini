@@ -101,6 +101,7 @@
 		</div>
         <script src="/static/js/activatetable.js" type="text/javascript"></script>
         <script src="/static/js/helper.js" type="text/javascript"></script>
+        <script src="/static/js/field_validator.js" type="text/javascript"></script>
         <script src="/static/js/settings_helper.js" type="text/javascript"></script>
 	</body>
 </html>
