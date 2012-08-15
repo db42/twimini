@@ -22,11 +22,13 @@
 }
 
 .error-settings{
-    color: red;
+    color: #B91E1E;
     text-align: center;;
     width: 260px;
-    padding: 20px 0 3px 0;
+    padding: 15px 0 0px 0;
     display: none;
+    font: 14px Times, serif;
+    font-style: italic;
 }
 
 .top-balance{
