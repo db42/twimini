@@ -32,15 +32,13 @@
         <%@include file="error_msg.jsp" %>
 
 		<div class="front-box">
-			<div class="tweet-img">
-
-			</div>
+			<div class="tweet-img"></div>
 			<div class="ask-box login-box">
 				<form class="index-form" action="" onsubmit="user_login(this); return false;" method="post">
 				    <input class="form-input" type="text" name="email" autocomplete="on" title="Email" placeholder="Username or Email">
-                    <div class="error-settings login-error" id="username-error">aa</div>
+                    <div class="error-settings login-error" id="username-error"></div>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
-                    <div class="error-settings login-error" id="password-error">aa</div>
+                    <div class="error-settings login-error" id="password-error"></div>
 				    <input class="form-submit-btn login-btn" type="submit" value="Login">
 				</form>
 			</div>
@@ -48,9 +46,9 @@
 				<div class="register-message"><strong>New to Twitter?</strong> Register</div>
 				<form class="index-form" action="" onsubmit="user_register(this); return false;" method="post">
 				    <input class="form-input" type="text" maxlength="20" name="name" placeholder="Username">
-                    <div class="error-settings login-error" id="register-username-error">aa</div>
+                    <div class="error-settings login-error" id="register-username-error"></div>
 				    <input class="form-input" type="text" name="email" autocomplete="on" placeholder="Email">
-                    <div class="error-settings login-error" id="email-username-error">aa</div>
+                    <div class="error-settings login-error" id="email-username-error"></div>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
 				    <input class="form-submit-btn sign-up" type="submit" value="Register">
 				</form>

@@ -83,7 +83,7 @@ NEW TODO s
 - search, user info block
 - Optimizations
     - caching, backend db structure and all that
-- alt image
+- alt image - only text
 - slow append
 - validation - login and registration
 - java, javascript - docs, tests
