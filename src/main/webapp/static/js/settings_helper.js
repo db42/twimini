@@ -87,33 +87,4 @@ $(function () {
 
     apply_validation_events();
 
-//    $('#account-form').validate({
-//        validClass: "success",
-//        focusCleanup: true,
-//        errorClass: "error",
-//        wrapper: "br",
-//        errorElement: "div",
-//        submitHandler: function(form){
-//            form.submit();
-//        },
-//        invalidHandler: function(form, validator) {
-//            callError("Errors have been highlighted, Please correct them!")
-//        },
-//        rules:{
-//            username: {
-//                maxlength: 125
-//            },
-//            email: {
-//                email: true
-//            }
-//        },
-//        messages: {
-//            username: "The name given is too long!",
-//            email: "Incorrect email format!"
-//        },
-//
-//        errorPlacement: function(error, element) {
-//            error.appendTo( element.parent("td").next("td") );
-//        }
-//    })
 });
