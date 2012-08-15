@@ -62,14 +62,14 @@ public class UserStore {
     }
 
     public User updateUser(String userID, String username, String email, String name, String description, String old_password, String new_password) {
-        User user = this.getUserByUserID(userID, old_password);
+        User user = this.authUserByUserID(userID, old_password);
         if (user!=null)
             jdbcTemplate.update("UPDATE users SET username=?, email=?, password=?, name=?, description=?",username, email, new_password, name, description);
         return user;
     }
 
     public User updateUserPassword(String userID, String old_password, String new_password) {
-        User user = this.getUserByUserID(userID, old_password);
+        User user = this.authUserByUserID(userID, old_password);
         if (user!=null)
             jdbcTemplate.update("UPDATE users SET password=? where id=?",new_password, userID);
         return user;
@@ -131,7 +131,7 @@ public class UserStore {
         }
     }
 
-    public User getUserByUserID(String userID, String password) {
+    public User authUserByUserID(String userID, String password) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=\""+ password + "\"", userRowMapper);
