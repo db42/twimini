@@ -1,5 +1,26 @@
 var tm = tm || {};
 
+var new_password;
+
+function save_password(){
+    new_password = event.target.value;
+}
+
+function validate_password(){
+    var red_password = event.target.value;
+    check_password(new_password, red_password);
+}
+
+var event_objects = {
+    'username': check_username,
+    'email': check_email,
+    'name': check_name,
+    'description': check_description,
+    'new_password': save_password,
+    'red_password': validate_password
+};
+
+
 function check_username(username){
     $('#username-error').empty();
     if(username.length === 0){
@@ -14,6 +35,7 @@ function check_username(username){
         $('#username-error').append("User Name Too Large").slideDown("slow");
         return false;
     }
+    $('#username-error').empty();
     return true;
 }
 function check_email(email){
@@ -27,6 +49,7 @@ function check_email(email){
         $('#email-error').append("Email Too Large").slideDown("slow");
         return false;
     }
+    $('#email-error').empty();
     return true;
 }
 
@@ -52,6 +75,7 @@ function check_password(newpassword, retype){
         $('#password-error').empty().append("The retyped Password doesn't match!").slideDown("slow");
         return false;
     }
+    $('#password-error').empty();
     return true;
 }
 
@@ -73,39 +97,54 @@ function profile_change(form) {
     }
 }
 
+function apply_validation_events(){
+    var element = $("input");
+    element.blur( function(){
+        var elem_name = event.target['name'];
+        var elem_value = event.target['value'];
+
+        if (elem_name in event_objects){
+            event_objects[elem_name](elem_value);
+        }
+    });
+}
+
+
 $(function () {
     tm.add_user_info(tm.userID);
     activatables('tab', ['account', 'profile', 'password']);
     $('fbutton').remove();
     tm.fill_topbar();
 
-    $('#account-form').validate({
-        validClass: "success",
-        focusCleanup: true,
-        errorClass: "error",
-        wrapper: "br",
-        errorElement: "div",
-        submitHandler: function(form){
-            form.submit();
-        },
-        invalidHandler: function(form, validator) {
-            callError("Errors have been highlighted, Please correct them!")
-        },
-        rules:{
-            username: {
-                maxlength: 125
-            },
-            email: {
-                email: true
-            }
-        },
-        messages: {
-            username: "The name given is too long!",
-            email: "Incorrect email format!"
-        },
+    apply_validation_events();
 
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parent("td").next("td") );
-        }
-    })
+//    $('#account-form').validate({
+//        validClass: "success",
+//        focusCleanup: true,
+//        errorClass: "error",
+//        wrapper: "br",
+//        errorElement: "div",
+//        submitHandler: function(form){
+//            form.submit();
+//        },
+//        invalidHandler: function(form, validator) {
+//            callError("Errors have been highlighted, Please correct them!")
+//        },
+//        rules:{
+//            username: {
+//                maxlength: 125
+//            },
+//            email: {
+//                email: true
+//            }
+//        },
+//        messages: {
+//            username: "The name given is too long!",
+//            email: "Incorrect email format!"
+//        },
+//
+//        errorPlacement: function(error, element) {
+//            error.appendTo( element.parent("td").next("td") );
+//        }
+//    })
 });
