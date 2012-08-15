@@ -74,15 +74,16 @@ TODO:
 - add fields in user table and update queries correspondingly
 - proper usage of auth interceptor, threadlocal userID
 - major refactoring
+- donot show retweet on already retweeted tweets
+- overall user experience
+- better: use localstorage instead of sessionstorage
 
 NEW TODO s
-- search
-- donot show retweet on already retweeted tweets
+- search, user info block
 - Optimizations
     - caching, backend db structure and all that
 - validation - using tab
 - java, javascript - docs, tests
-- overall user experience
 - handle xss using javascript
 
 - store.java line 316: is the method required?
