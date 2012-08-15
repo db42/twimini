@@ -2,25 +2,6 @@ var tm = tm || {};
 
 var new_password;
 
-function save_password(){
-    new_password = event.target.value;
-}
-
-function validate_password(){
-    var red_password = event.target.value;
-    check_password(new_password, red_password);
-}
-
-var event_objects = {
-    'username': check_username,
-    'email': check_email,
-    'name': check_name,
-    'description': check_description,
-    'new_password': save_password,
-    'red_password': validate_password
-};
-
-
 function check_username(username){
     $('#username-error').empty();
     if(username.length === 0){
@@ -79,6 +60,15 @@ function check_password(newpassword, retype){
     return true;
 }
 
+function save_password(){
+    new_password = event.target.value;
+}
+
+function validate_password(){
+    var red_password = event.target.value;
+    check_password(new_password, red_password);
+}
+
 function password_change(form) {
     if(check_password(form["new_password"].value, form["red_password"].value)){
         tm.auth_ajax("/update_password?userID=".concat(tm.userID), form, function (data) {callError("Password updated successfully."); });
@@ -96,6 +86,16 @@ function profile_change(form) {
         tm.auth_ajax("/update_profile?userID=".concat(tm.userID), form, function (data) {callError("Profile updated successfully."); });
     }
 }
+
+var event_objects = {
+    'username': check_username,
+    'email': check_email,
+    'name': check_name,
+    'description': check_description,
+    'new_password': save_password,
+    'red_password': validate_password
+};
+
 
 function apply_validation_events(){
     var element = $("input");
