@@ -33,7 +33,7 @@ public class UserContoller {
     @RequestMapping(value = "/users/{userID}/search", method = RequestMethod.GET)
     @ResponseBody
     List<User> getSearchJson(@RequestParam String q, @PathVariable String userID){
-        return userStore.getSearchResults(q, userID);
+        return userStore.searchForUsers(q, userID);
     }
 
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)

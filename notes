@@ -88,9 +88,10 @@ NEW TODO s
 - alt image
 - java, javascript - docs, tests
 - handle xss using javascript
+- solve shift tab issue
 
+- validation - login
 - transactions
-- validation - login + solve shift tab issue
 - code refactoring
     - css, jsp
 - slow append

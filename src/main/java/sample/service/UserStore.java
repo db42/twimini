@@ -254,7 +254,7 @@ public class UserStore {
 
     }
 
-    public List<User> getSearchResults(String query, String callerUserID) {
+    public List<User> searchForUsers(String query, String callerUserID) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         query = "\"%"+query+"%\"";
         String db_query = "select * from users where name LIKE "+query+" OR username LIKE "+query;
