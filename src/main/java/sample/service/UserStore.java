@@ -61,13 +61,6 @@ public class UserStore {
         }
     }
 
-    public User updateUser(String userID, String username, String email, String name, String description, String old_password, String new_password) {
-        User user = this.authUserByUserID(userID, old_password);
-        if (user!=null)
-            jdbcTemplate.update("UPDATE users SET username=?, email=?, password=?, name=?, description=?",username, email, new_password, name, description);
-        return user;
-    }
-
     public User updateUserPassword(String userID, String old_password, String new_password) {
         User user = this.authUserByUserID(userID, old_password);
         if (user!=null)

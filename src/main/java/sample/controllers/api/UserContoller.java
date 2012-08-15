@@ -93,23 +93,4 @@ public class UserContoller {
         }
     }
 
-    @RequestMapping(value = "/users/{userID}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    Hashtable<String, String> updateUser(@PathVariable String userID,
-                                         @RequestParam(required = false) String username,
-                                         @RequestParam(required = false) String email,
-                                         @RequestParam(required = false) String name,
-                                         @RequestParam(required = false) String description,
-                                         @RequestParam(required = false) String old_password,
-                                         @RequestParam(required = false) String new_password)
-    {
-        User user = userStore.updateUser(userID,username, email, name, description, old_password, new_password);
-        Hashtable hs = new Hashtable<String, String>();
-        if (user == null)
-            hs.put("status", "failed");
-        else
-            hs.put("status","success");
-        return hs;
-    }
 }
