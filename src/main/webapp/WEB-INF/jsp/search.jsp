@@ -6,6 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="/static/css/topbar.css" type="text/css"/>
 		<link rel="stylesheet" href="/static/css/profile_page.css" type="text/css"/>
+		<link rel="stylesheet" href="/static/css/profile_block.css" type="text/css"/>
         <script src="/static/js/jquery.min.js"type="text/javascript"></script>
         <script src="/static/js/ejs_production.js"type="text/javascript"></script>
         <script src="/static/js/format_date.js"type="text/javascript"></script>
