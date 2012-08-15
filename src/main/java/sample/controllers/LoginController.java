@@ -20,11 +20,11 @@ import java.util.Hashtable;
  */
 @Controller
 public class LoginController {
-    UserStore tUserStore;
+    UserStore userStore;
 
     @Autowired
-    public LoginController(UserStore tUserStore) {
-        this.tUserStore = tUserStore;
+    public LoginController(UserStore UserStore) {
+        this.userStore = UserStore;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -36,13 +36,11 @@ public class LoginController {
         Hashtable hs;
         String userID;
 
-        //user can login with email or username
         if (email.contains("@"))
-            hs = tUserStore.getUserByEmail(email, password);
+            hs = userStore.getUserByEmail(email, password);
         else
-            hs = tUserStore.getUserByUsername(email, password);
+            hs = userStore.getUserByUsername(email, password);
 
-        // add md5 function for password check
         if (hs == null) {
             hs = new Hashtable<String, String>();
             hs.put("status", "failed");
@@ -61,7 +59,7 @@ public class LoginController {
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
-        tUserStore.invalidateAuthKey((String) session.getAttribute("userID"));
+        userStore.invalidateAuthKey((String) session.getAttribute("userID"));
         session.invalidate();
         return "redirect:/";
     }
