@@ -1,18 +1,37 @@
 var tm = tm || {};
 
 searchresult = function(searchterm){
-    //todo:include spaces
-    if (searchterm.search(' ')!==-1)
-        callError("No spaces allowed for search");
 
     tm.searchview = new BasicView('addUser.ejs', 'resultlist', 'search' + "?q="+searchterm, tm.userID);
     tm.searchview.populate();
 };
 
+var getFromUrl = function (request_param) {
+    var queryparams, query, queries = document.location.href.split('?');
+    for (var i=0; i<queries.length; i++) {
+        query = queries[i];
+        console.log(query);
+        queryparams = query.split('=');
+        console.log(queryparams);
+        if (queryparams[0] === request_param) {
+            return queryparams[1];
+        }
+    }
+    return null;
+};
+
 $(function () {
     tm.fill_topbar();
+    var searchterm = getFromUrl("q");
+    console.log("searchterm " + searchterm);
 
-    searchresult("dushyant");
+    //todo:include spaces
+    if (searchterm.search(' ')!==-1)
+        callError("No spaces allowed for search");
+
+    if (searchterm !== null)
+        searchresult(searchterm);
+
     $('#addpost-btn').click(function(){
         tweet_text = $('#tweet-text').val().trim();
         if(tweet_text.length > 140){
