@@ -21,26 +21,26 @@ import java.util.List;
  */
 @Controller
 public class UserContoller {
-    UserStore tUserStore;
+    UserStore userStore;
     RestAuthLayer authLayer;
 
     @Autowired
-    public UserContoller(UserStore tUserStore, RestAuthLayer authLayer){
-        this.tUserStore = tUserStore;
+    public UserContoller(UserStore userStore, RestAuthLayer authLayer){
+        this.userStore = userStore;
         this.authLayer = authLayer;
     }
 
     @RequestMapping(value = "/users/{userID}/search", method = RequestMethod.GET)
     @ResponseBody
     List<User> getSearchJson(@RequestParam String q, @PathVariable String userID){
-        return tUserStore.getSearchResults(q, userID);
+        return userStore.getSearchResults(q, userID);
     }
 
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@PathVariable String userID,@RequestParam int following){
         Hashtable hs = new Hashtable<String, String>();
-        tUserStore.addFollower(following, userID);
+        userStore.addFollower(following, userID);
         hs.put("status","success");
         return hs;
     }
@@ -48,7 +48,7 @@ public class UserContoller {
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
     @ResponseBody
     List<User> getFollowersJson(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, @RequestParam(required = false) String callerUserID){
-        return tUserStore.getFollowers(userID, count, max_id, callerUserID);
+        return userStore.getFollowers(userID, count, max_id, callerUserID);
     }
 
     @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.PUT)
@@ -58,7 +58,7 @@ public class UserContoller {
         authLayer.isAuthorised(follower_id, request);
 
         Hashtable hs = new Hashtable<String, String>();
-        tUserStore.addFollowing(followee_id, follower_id);
+        userStore.addFollowing(followee_id, follower_id);
         hs.put("status","success");
         return hs;
     }
@@ -70,7 +70,7 @@ public class UserContoller {
         authLayer.isAuthorised(follower_id, request);
 
         Hashtable hs = new Hashtable<String, String>();
-        tUserStore.deleteFollowing(followee_id, follower_id);
+        userStore.deleteFollowing(followee_id, follower_id);
         hs.put("status","success");
         return hs;
     }
@@ -78,13 +78,13 @@ public class UserContoller {
     @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
     @ResponseBody
     List<User> getFollowings(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, @RequestParam(required = false) String callerUserID){
-        return tUserStore.getFollowings(userID, count, max_id, callerUserID);
+        return userStore.getFollowings(userID, count, max_id, callerUserID);
     }
 
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
     @ResponseBody
     User getUserJson(@PathVariable String userID, @RequestParam(required = false) String callerUserID, HttpServletResponse response){
-        User user = tUserStore.getUser(userID, callerUserID);
+        User user = userStore.getUser(userID, callerUserID);
         if (user == null)
             throw new ResourceNotFoundException();
         else {
@@ -104,7 +104,7 @@ public class UserContoller {
                                          @RequestParam(required = false) String old_password,
                                          @RequestParam(required = false) String new_password)
     {
-        User user = tUserStore.updateUser(userID,username, email, name, description, old_password, new_password);
+        User user = userStore.updateUser(userID,username, email, name, description, old_password, new_password);
         Hashtable hs = new Hashtable<String, String>();
         if (user == null)
             hs.put("status", "failed");
