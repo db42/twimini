@@ -347,9 +347,10 @@ var repost = function (postID) {
 var canLoad = true;
 $(window).scroll(function () {
     if (1.06 * $(window).scrollTop() >= $(document).height() - $(window).height() && canLoad) {
-        setTimeout(function () {
-        tm.scrollview.load_new_data();
-        }, 1000);
+        if (tm.scrollview !== undefined)
+            setTimeout(function () {
+            tm.scrollview.load_new_data();
+            }, 1000);
     }
 });
 
