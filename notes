@@ -78,16 +78,25 @@ TODO:
 - overall user experience
 - better: use localstorage instead of sessionstorage
 - validation - using tab
+- search, user info block
 
 NEW TODO s
-- search, user info block
 - Optimizations
     - caching, backend db structure and all that
-- alt image - only text
-- slow append
-- validation - login and registration
+- code refactoring
+    - java, js - currently doing it
+- alt image
 - java, javascript - docs, tests
 - handle xss using javascript
+- solve shift tab issue
+
+- validation - login
+- transactions
+- code refactoring
+    - css, jsp
+- slow append
+- ssl
+
 
 - store.java line 316: is the method required?
 

@@ -5,13 +5,13 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
-import sample.model.*;
+import sample.model.FollowRowMapper;
+import sample.model.User;
+import sample.model.UserRowMapper;
 import sample.utilities.MD5Encoder;
 
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created on IntelliJ IDEA.
@@ -24,11 +24,13 @@ import java.util.Random;
 @Service
 public class UserStore {
     SimpleJdbcTemplate jdbcTemplate;
+    AuthKeyStore authKeyStore;
     MD5Encoder md5Encoder;
 
     @Autowired
-    public UserStore(SimpleJdbcTemplate jdbcTemplate, MD5Encoder md5Encoder){
+    public UserStore(SimpleJdbcTemplate jdbcTemplate, AuthKeyStore authKeyStore, MD5Encoder md5Encoder){
         this.jdbcTemplate = jdbcTemplate;
+        this.authKeyStore = authKeyStore;
         this.md5Encoder = md5Encoder;
     }
 
@@ -61,29 +63,28 @@ public class UserStore {
         }
     }
 
-    public User updateUser(String userID, String username, String email, String name, String description, String old_password, String new_password) {
-        User user = this.getUserByUserID(userID, old_password);
-        if (user!=null)
-            jdbcTemplate.update("UPDATE users SET username=?, email=?, password=?, name=?, description=?",username, email, new_password, name, description);
-        return user;
-    }
-
     public User updateUserPassword(String userID, String old_password, String new_password) {
-        User user = this.getUserByUserID(userID, old_password);
+        User user = this.authUserByUserID(userID, old_password);
         if (user!=null)
             jdbcTemplate.update("UPDATE users SET password=? where id=?",new_password, userID);
         return user;
     }
 
-    public User updateUserAccount(String userID, String username, String email) {
-        User user = this.getUser(userID);
-        try{
-            jdbcTemplate.update("UPDATE users SET username=?, email=? where id=?",username, email, userID);
-            return user;
-        }
-        catch (DuplicateKeyException e){
-            return null;
-        }
+    public Hashtable<String, String> updateUserAccount(String userID, String username, String email) {
+        Hashtable<String, String> hs = new Hashtable();
+        hs.put("status", "failed");
+
+        if (validateUserById(userID))
+            try{
+                jdbcTemplate.update("UPDATE users SET username=?, email=? where id=?",username, email, userID);
+                hs.put("status", "success");
+            }
+            catch (DuplicateKeyException e){
+                hs.put("message", "User already exists with same username or email");
+                return null;
+            }
+
+        return hs;
     }
 
     public boolean updateUserProfile(String userID, String name, String description) {
@@ -91,14 +92,14 @@ public class UserStore {
         return true;
     }
 
-    public User getUser(String userID){
+    public boolean validateUserById(String userID){
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
-            return user;
+            return true;
         }
         catch (EmptyResultDataAccessException e){
-            return null;
+            return false;
         }
     }
 
@@ -125,7 +126,7 @@ public class UserStore {
         }
     }
 
-    public User getUserByUserID(String userID, String password) {
+    public User authUserByUserID(String userID, String password) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=\""+ password + "\"", userRowMapper);
@@ -135,65 +136,9 @@ public class UserStore {
             return null;
         }
     }
-    public Hashtable<String, String> getUserByEmail(String email, String password) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
-        try{
-            Hashtable<String, String> hs = new Hashtable<String, String>();
-            System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
-            User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=\""+ password + "\"", userRowMapper);
 
-            String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
-            hs.put("userID", Integer.toString(user.getId()));
-            hs.put("auth_key", auth_key);
-            return hs;
-        }
-        catch (EmptyResultDataAccessException e){
-            return null;
-        }
-    }
 
-    public Hashtable<String, String> getUserByUsername(String username, String password) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
-        try{
-            Hashtable<String, String> hs = new Hashtable<String, String>();
-            System.out.println("select * from users where username=\"" + username + "\" and password=\""+ password + "\"");
-            User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=\""+ password + "\"", userRowMapper);
 
-            String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
-            hs.put("userID", Integer.toString(user.getId()));
-            hs.put("auth_key", auth_key);
-            return hs;
-        }
-        catch (EmptyResultDataAccessException e){
-            return null;
-        }
-    }
-
-    public User getUserByAuthKey(String userID, String auth_key) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
-        try{
-            System.out.println("authorisation key from user: " + auth_key);
-            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and auth_key=\""+ auth_key + "\"", userRowMapper);
-            return user;
-        }
-        catch (EmptyResultDataAccessException e){
-            return null;
-        }
-    }
-
-    private String db_gen_auth_key(String userID) {
-        long current_time_value = new Date().getTime();
-        Random random_number = new Random();
-        String auth_key = md5Encoder.encodeString(Long.toString(current_time_value).concat(random_number.toString()));
-        jdbcTemplate.update("UPDATE users SET auth_key=? where id=?",auth_key, userID);
-        System.out.println("authorisation key generated by system: " + auth_key);
-        return auth_key;
-    }
-
-    public void invalidateAuthKey(String userID) {
-        jdbcTemplate.update("UPDATE users SET auth_key=? where id=?","", userID);
-        System.out.println("authorisation key destroyed");
-    }
 
     public List<User> getFollowers(String userID, String count, String max_id, String callerUserID ) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
@@ -277,7 +222,7 @@ public class UserStore {
 
     }
 
-    public List<User> getSearchResults(String query, String callerUserID) {
+    public List<User> searchForUsers(String query, String callerUserID) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         query = "\"%"+query+"%\"";
         String db_query = "select * from users where name LIKE "+query+" OR username LIKE "+query;

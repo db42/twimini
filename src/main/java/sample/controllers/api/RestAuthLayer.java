@@ -2,7 +2,7 @@ package sample.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sample.service.UserStore;
+import sample.service.AuthKeyStore;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +18,11 @@ import java.io.IOException;
 
 @Service
 public class RestAuthLayer {
-    UserStore tUserStore;
+    AuthKeyStore authKeyStore;
 
     @Autowired
-    public RestAuthLayer(UserStore tUserStore) {
-        this.tUserStore = tUserStore;
+    public RestAuthLayer(AuthKeyStore authKeyStore) {
+        this.authKeyStore = authKeyStore;
     }
 
     public boolean isAuthorised(String userID, HttpServletRequest request){
@@ -39,7 +39,7 @@ public class RestAuthLayer {
         }
         String auth_key = new String(decodedBytes);
 
-        if (tUserStore.getUserByAuthKey(userID, auth_key) == null) {
+        if (authKeyStore.getUserByAuthKey(userID, auth_key) == null) {
             throw new NotAuthorisedException();
         }
 

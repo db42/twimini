@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sample.service.UserStore;
+import sample.service.AuthKeyStore;
 
 import javax.servlet.http.HttpSession;
 import java.util.Hashtable;
@@ -20,11 +20,12 @@ import java.util.Hashtable;
  */
 @Controller
 public class LoginController {
-    UserStore userStore;
+    AuthKeyStore authKeyStore;
+
 
     @Autowired
-    public LoginController(UserStore UserStore) {
-        this.userStore = UserStore;
+    public LoginController(AuthKeyStore authKeyStore) {
+        this.authKeyStore = authKeyStore;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -37,9 +38,9 @@ public class LoginController {
         String userID;
 
         if (email.contains("@"))
-            hs = userStore.getUserByEmail(email, password);
+            hs = authKeyStore.authUserByEmail(email, password);
         else
-            hs = userStore.getUserByUsername(email, password);
+            hs = authKeyStore.authUserByUsername(email, password);
 
         if (hs == null) {
             hs = new Hashtable<String, String>();
@@ -59,7 +60,7 @@ public class LoginController {
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
-        userStore.invalidateAuthKey((String) session.getAttribute("userID"));
+        authKeyStore.invalidateAuthKey((String) session.getAttribute("userID"));
         session.invalidate();
         return "redirect:/";
     }
