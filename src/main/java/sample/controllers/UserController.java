@@ -2,12 +2,13 @@ package sample.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import sample.model.User;
 import sample.service.UserStore;
 
-import javax.servlet.http.HttpSession;
 import java.util.Hashtable;
 
 @Controller
@@ -16,23 +17,6 @@ public class UserController {
 
     @Autowired
     public UserController(UserStore tUserStore) {this.tUserStore = tUserStore;}
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String loginForm() {
-        return "index";
-    }
-
-    @RequestMapping("/profile")
-    ModelAndView SelfProfilePage(){
-        ModelAndView mv = new ModelAndView("profile");
-        return mv;
-    }
-
-    @RequestMapping("/profile/{userID}")
-    ModelAndView ProfilePage(@PathVariable String userID){
-        ModelAndView mv = new ModelAndView("profile");
-        return mv;
-    }
 
    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
@@ -91,48 +75,4 @@ public class UserController {
         return hs;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    Hashtable<String, String> login(@RequestParam("email") String email,
-                              @RequestParam("password") String password,
-                              HttpSession session) {
-
-        Hashtable hs;
-        String userID;
-
-        //user can login with email or username
-        if (email.contains("@"))
-            hs = tUserStore.getUserByEmail(email, password);
-        else
-            hs = tUserStore.getUserByUsername(email, password);
-
-        // add md5 function for password check
-        if (hs == null) {
-            hs = new Hashtable<String, String>();
-            hs.put("status", "failed");
-            return hs;
-        }
-        userID = (String) hs.get("userID");
-
-        session.setAttribute("email", email);
-        session.setAttribute("userID", userID);
-
-        hs.put("status", "success");
-        System.out.print("auth"+hs.get("userID"));
-
-        return hs;
-    }
-
-    @RequestMapping(value = "/logout")
-    public String logout(HttpSession session) {
-        tUserStore.invalidateAuthKey((String) session.getAttribute("userID"));
-        session.invalidate();
-        return "redirect:/";
-    }
-
-    @RequestMapping("/search")
-    ModelAndView SearchPage(){
-        ModelAndView mv = new ModelAndView("search");
-        return mv;
-    }
 }

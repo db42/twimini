@@ -16,7 +16,6 @@ import sample.service.UserStore;
  */
 
 @Controller
-@RequestMapping("/twimini") //TODO: need to remove this prefix
 public class AppController {
     UserStore tUserStore;
 
@@ -25,22 +24,39 @@ public class AppController {
         this.tUserStore = tUserStore;
     }
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     ModelAndView indexPage(){
         ModelAndView mv = new ModelAndView("index");
         return mv;
     }
 
-    @RequestMapping("/home")
+    @RequestMapping("/twimini/home")
     ModelAndView HomePage(){
         ModelAndView mv = new ModelAndView("home");
         return mv;
     }
 
-    @RequestMapping("/settings")
+    @RequestMapping("/profile")
+    ModelAndView SelfProfilePage(){
+        ModelAndView mv = new ModelAndView("profile");
+        return mv;
+    }
+
+    @RequestMapping("/profile/{userID}")
+    ModelAndView ProfilePage(){
+        ModelAndView mv = new ModelAndView("profile");
+        return mv;
+    }
+
+    @RequestMapping("/twimini/settings")
     ModelAndView SettingsPage(){
         ModelAndView mv = new ModelAndView("settings");
         return mv;
     }
 
+    @RequestMapping("/search")
+    ModelAndView SearchPage(){
+        ModelAndView mv = new ModelAndView("search");
+        return mv;
+    }
 }
