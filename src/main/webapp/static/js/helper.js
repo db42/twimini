@@ -1,7 +1,7 @@
 var tm = tm || {};
 
-tm.userID = sessionStorage.getItem("userID");
-tm.auth_key = sessionStorage.getItem("auth_key");
+tm.userID = localStorage.getItem("userID");
+tm.auth_key = localStorage.getItem("auth_key");
 
 tm.auth_ajax = function (url, form, success_fun, type) {
     if (tm.userID === null) {
@@ -238,9 +238,9 @@ function callError(errorMessage) {
 function user_login(form) {
     $.post('/login', $(form).serialize(), function (data) {
         if (data.status === "success") {
-            sessionStorage.setItem("userID", data.userID);
+            localStorage.setItem("userID", data.userID);
             //TODO get auth_key from server instead of password.
-            sessionStorage.setItem("auth_key", data.auth_key);
+            localStorage.setItem("auth_key", data.auth_key);
             window.location.replace("http://localhost:8080/twimini/home");
         } else {
             callError("Username or Password is not correct.");
@@ -294,7 +294,7 @@ tm.getProfileUserid = function () {
 
 
 var logout = function() {
-    sessionStorage.clear();
+    localStorage.clear();
     $.get('/logout', function(data){
         document.location.href = '/';
     })
