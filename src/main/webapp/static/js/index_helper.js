@@ -6,7 +6,7 @@ var event_objects = {
 
 
 function apply_validation_events(){
-    var login_element = $(".login-box input");
+    var login_element = $(".login-box input[name='password']");
     login_element.blur( function(){
         var elem_name = event.target['name'];
         var elem_value = event.target['value'];
