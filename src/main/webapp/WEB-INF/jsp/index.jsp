@@ -17,6 +17,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="/static/css/topbar.css" type="text/css"/>
 		<link rel="stylesheet" href="/static/css/login_page.css" type="text/css"/>
+        <link rel="stylesheet" href="/static/css/edit_profile.css" type="text/css"/>
         <script src="/static/js/jquery.min.js"type="text/javascript"></script>
 		<script src="/static/js/helper.js" type="text/javascript"></script>
 		<title>Login - Twimini</title>
@@ -35,17 +36,21 @@
 
 			</div>
 			<div class="ask-box login-box">
-				<form class="login-form" action="" onsubmit="user_login(this); return false;" method="post">
-				    <input class="form-input" type="text" name="email" autocomplete="on" title="Email" placeholder="Username or Email"> <br/>
+				<form class="index-form" action="" onsubmit="user_login(this); return false;" method="post">
+				    <input class="form-input" type="text" name="email" autocomplete="on" title="Email" placeholder="Username or Email">
+                    <div class="error-settings login-error" id="username-error">aa</div>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
+                    <div class="error-settings login-error" id="password-error">aa</div>
 				    <input class="form-submit-btn login-btn" type="submit" value="Login">
 				</form>
 			</div>
 			<div class="ask-box register-box">
 				<div class="register-message"><strong>New to Twitter?</strong> Register</div>
-				<form class="register-form" action="" onsubmit="user_register(this); return false;" method="post">
-				    <input class="form-input" type="text" maxlength="20" name="name" placeholder="Username"><br/>
-				    <input class="form-input" type="text" name="email" autocomplete="on" placeholder="Email"><br/>
+				<form class="index-form" action="" onsubmit="user_register(this); return false;" method="post">
+				    <input class="form-input" type="text" maxlength="20" name="name" placeholder="Username">
+                    <div class="error-settings login-error" id="register-username-error">aa</div>
+				    <input class="form-input" type="text" name="email" autocomplete="on" placeholder="Email">
+                    <div class="error-settings login-error" id="email-username-error">aa</div>
 				    <input class="form-input" type="password" name="password" placeholder="Password"><br/>
 				    <input class="form-submit-btn sign-up" type="submit" value="Register">
 				</form>

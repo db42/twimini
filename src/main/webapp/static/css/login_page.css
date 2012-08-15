@@ -31,9 +31,8 @@
 	margin: 10px;
     background: #F1F1F1;
 	border-radius: 2px;
-	/*background-image: url('/static/images/back1.png');
-	background-repeat: repeat;*/
-	box-shadow: 0px 0px 4px #292435;
+	box-shadow: 0 0 4px #292435;
+    position: relative;
 }
 .login-box{
 	height: 170px;
@@ -42,7 +41,7 @@
 	height: 260px;
 }
 
-.login-form{
+.index-form{
 	margin: 20px;
 }
 
@@ -56,9 +55,10 @@
 }
 
 .form-submit-btn{
-    float: right;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
     padding: 5px;
-    margin: 20px 10px 10px 10px;
 
     border-radius: 2px;
 	color: white;
@@ -99,14 +99,14 @@
 
 }
 
-.register-form{
-	margin: 20px;
-}
-
 .register-message{	
 	font: 20px bold Arial, Helvetica, sans-serif;
 	color: #292435;
-	/*width: 240px;*/
 	padding: 10px;
 	border-bottom: 1px solid gray;
+}
+
+.index-form .login-error{
+    width: auto;
+    padding-top: 2px;
 }
