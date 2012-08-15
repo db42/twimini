@@ -32,7 +32,7 @@
                 </div>
 				<div class="right-part">
 					<a class="right-container" id="tweets">
-						<div class="top-message"> Search - ${searchTerm} </div>
+						<div class="top-message">Search</div>
                         <div class="resultlist"></div>
 					</a>
 				</div>

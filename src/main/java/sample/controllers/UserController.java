@@ -133,7 +133,6 @@ public class UserController {
     @RequestMapping("/search")
     ModelAndView SearchPage(){
         ModelAndView mv = new ModelAndView("search");
-        mv.addObject("searchTerm", "");
         return mv;
     }
 }
