@@ -77,12 +77,15 @@ TODO:
 - donot show retweet on already retweeted tweets
 - overall user experience
 - better: use localstorage instead of sessionstorage
+- validation - using tab
 
 NEW TODO s
 - search, user info block
 - Optimizations
     - caching, backend db structure and all that
-- validation - using tab
+- alt image
+- slow append
+- validation - login and registration
 - java, javascript - docs, tests
 - handle xss using javascript
 
