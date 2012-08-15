@@ -83,18 +83,7 @@ function activate_follow_button(user_id) {
     );
 }
 
-tm.add_user_info = function (user_id) {
-    $.get('/users/' + user_id + "?callerUserID=" + tm.userID, function (data) {
-        var entity = $(new EJS({url: '/static/ejs/UserInfo.ejs'}).render(data));
-        $('.profile-block').append(entity);
-        if (user_id == tm.userID){
-            $('#fbutton').remove();
-        }
-        else{
-            activate_follow_button(user_id);
-        }
-    });
-};
+
 
 function follow_user_button(user_block){
     var caller_user_id = tm.userID;

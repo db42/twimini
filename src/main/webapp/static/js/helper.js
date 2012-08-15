@@ -300,6 +300,20 @@ var logout = function() {
     })
 
 }
+
+tm.add_user_info = function (user_id) {
+    $.get('/users/' + user_id + "?callerUserID=" + tm.userID, function (data) {
+        var entity = $(new EJS({url: '/static/ejs/UserInfo.ejs'}).render(data));
+        $('.profile-block').append(entity);
+        if (user_id == tm.userID){
+            $('#fbutton').remove();
+        }
+        else{
+            activate_follow_button(user_id);
+        }
+    });
+};
+
 tm.fill_topbar = function () {
     if (typeof tm.image_url === 'undefined') {
         $.get('/users/' + tm.userID, function (data) {
