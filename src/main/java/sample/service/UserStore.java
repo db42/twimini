@@ -81,7 +81,7 @@ public class UserStore {
             }
             catch (DuplicateKeyException e){
                 hs.put("message", "User already exists with same username or email");
-                return null;
+                return hs;
             }
 
         return hs;
