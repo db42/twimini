@@ -84,14 +84,18 @@ NEW TODO s
 - Optimizations
     - caching, backend db structure and all that
 - code refactoring
-    - css, jsp
-    - other - currently doing it
+    - java, js - currently doing it
 - alt image
-- ssl
-- slow append
-- validation - login + solve shift tab issue
 - java, javascript - docs, tests
 - handle xss using javascript
+
+- transactions
+- validation - login + solve shift tab issue
+- code refactoring
+    - css, jsp
+- slow append
+- ssl
+
 
 - store.java line 316: is the method required?
 
