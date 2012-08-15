@@ -40,18 +40,20 @@
 }
 .details-in-right{
 	padding: 4px;
-    width: 150px;
+    width: 140px;
+    color: #2D2D2D;
+    position: relative;
 }
 .float-in-right{
     float: right;
 }
 .user-det{
-    padding: 2px;
     font: 15px Arial, Helvetica, sans-serif;
-    border-bottom: 1px solid white;
-    text-align: center;
-    border-radius: 4px;
+    border-bottom: 1px solid #F0F0F0;
     padding: 3px 2px 1px 2px;
+    position: absolute;
+    right: 5px;
+    margin-top: 5px;
 }
 
 #fbutton{

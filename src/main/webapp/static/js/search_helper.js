@@ -12,7 +12,7 @@ searchresult = function(searchterm){
 $(function () {
     tm.fill_topbar();
 
-    searchresult("dushyant");
+    searchresult("a");
     $('#addpost-btn').click(function(){
         tweet_text = $('#tweet-text').val().trim();
         if(tweet_text.length > 140){

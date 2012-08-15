@@ -61,7 +61,7 @@ public class User  extends MiniUser{
         this.created_at = created_at;
     }
     public String getCreated_at() {
-        return new SimpleDateFormat("HH:mm dd-MM-yyyy").format(created_at);
+        return new SimpleDateFormat("MMM ''yy").format(created_at);
     }
 
     public String getDescription() {

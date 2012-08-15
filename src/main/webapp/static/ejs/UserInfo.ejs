@@ -17,11 +17,15 @@
         <%if (followed==true) {%> "> Following  <%}%>
         <%if (followed==false) {%>  follow">  Follow  <%}%>
     </div>
-    <span class="float-in-right user-det"><b><%=created_at%></b></span>
     <br/>
-    <span class="float-in-right user-det"><b><%=num_tweets%></b> tweets</span>
+    <span class="float-in-right user-det"><b><%=num_tweets%></b> <i>tweets</i></span>
     <br/>
-    <span class="float-in-right user-det"><b><%=num_followers%></b> followers</span>
+    <span class="float-in-right user-det"><b><%=num_followers%></b> <i>followers</i></span>
     <br/>
-    <span class="float-in-right user-det"><b><%=num_followings%></b> following</span>
+    <span class="float-in-right user-det"><b><%=num_followings%></b> <i>following</i></span>
+    <br/>
+    <span class="float-in-right user-det nn">
+        <i>Since: </i>
+        <b><%=created_at%></b>
+    </span>
 </div>
