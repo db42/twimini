@@ -425,7 +425,7 @@ function follow_user_button(user_block){
             user_block.className = 'fubutton following follow';
         }
         else{
-            if (tm.userID === profile_user_id) {
+            if (typeof profile_user_id !== 'undefined' && tm.userID === profile_user_id) {
                 var parentx = user_block.parentNode.parentNode.parentNode;
                 parentx.parentNode.removeChild(parentx);
             }
