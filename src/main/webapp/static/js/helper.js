@@ -316,9 +316,16 @@ tm.add_user_info = function (user_id) {
 
 tm.fill_topbar = function () {
     if (typeof tm.image_url === 'undefined') {
-        $.get('/users/' + tm.userID, function (data) {
-            tm.image_url = data.image_url;
-            $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
+        $.ajax({
+            url: '/users/' + tm.userID,
+            type: 'get',
+            error: function () {
+                $('#profile-image').append("<img src='/static/images/pr_icon.png'></img>");
+            },
+            success: function (data) {
+                tm.image_url = data.image_url;
+                $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
+            }
         });
     } else {
         $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
