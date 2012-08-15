@@ -27,6 +27,8 @@ public class UserStore {
     AuthKeyStore authKeyStore;
     MD5Encoder md5Encoder;
 
+    static String baseImageUrl = "http://www.gravatar.com/avatar/";
+
     @Autowired
     public UserStore(SimpleJdbcTemplate jdbcTemplate, AuthKeyStore authKeyStore, MD5Encoder md5Encoder){
         this.jdbcTemplate = jdbcTemplate;
@@ -48,26 +50,33 @@ public class UserStore {
     }
 
 
-    public User addUser(String username, String email, String password) {
-        //todo : make sure username and password are unique
+    public Hashtable<String, String> addUser(String username, String email, String password) {
+        Hashtable<String, String> hs = new Hashtable<String, String>();
         try {
-            String baseUrl = "http://www.gravatar.com/avatar/";
-            String image_url = baseUrl.concat(md5Encoder.encodeString(email));
+            String image_url = baseImageUrl.concat(md5Encoder.encodeString(email)); //generate gravatar image url
             jdbcTemplate.update("INSERT INTO users (username, email, password, image_url) VALUES (?,?,?,?)",username, email, password, image_url);
-            UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
-            User user = (User)jdbcTemplate.queryForObject("SELECT * from users where username=\"" + username + "\"", userRowMapper);
-            return user;
+            hs.put("status", "success");
+            return hs;
         }
         catch (DuplicateKeyException e){
-            return null;
+            hs.put("status", "failed");
+            hs.put("message", "User already exists with same username or email");
+            return hs;
         }
     }
 
-    public User updateUserPassword(String userID, String old_password, String new_password) {
-        User user = this.authUserByUserID(userID, old_password);
-        if (user!=null)
+    public Hashtable<String, String> updateUserPassword(String userID, String old_password, String new_password) {
+        Hashtable<String, String> hs = new Hashtable<String, String>();
+        if (this.authUserByUserID(userID, old_password)) {
             jdbcTemplate.update("UPDATE users SET password=? where id=?",new_password, userID);
-        return user;
+            hs.put("status", "success");
+        }
+        else {
+            hs.put("status", "failed");
+            hs.put("message", "User is not authorized");
+        }
+
+        return hs;
     }
 
     public Hashtable<String, String> updateUserAccount(String userID, String username, String email) {
@@ -81,15 +90,17 @@ public class UserStore {
             }
             catch (DuplicateKeyException e){
                 hs.put("message", "User already exists with same username or email");
-                return null;
+                return hs;
             }
 
         return hs;
     }
 
-    public boolean updateUserProfile(String userID, String name, String description) {
+    public Hashtable<String, String> updateUserProfile(String userID, String name, String description) {
+        Hashtable<String, String> hs = new Hashtable();
         jdbcTemplate.update("UPDATE users SET name=?, description=? where id=?", name, description, userID);
-        return true;
+        hs.put("status","success");
+        return hs;
     }
 
     public boolean validateUserById(String userID){
@@ -107,7 +118,6 @@ public class UserStore {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         FollowRowMapper followRowMapper = new FollowRowMapper();
         try{
-//            User user = (User) jdbcTemplate.queryForObject("select * from users INNER JOIN followers on users.id=followers.user_id where users.id=" + userID + " AND followers.follower="+callerUserID, userRowMapper);
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
             user.setFollowed(false);
 
@@ -126,19 +136,16 @@ public class UserStore {
         }
     }
 
-    public User authUserByUserID(String userID, String password) {
+    public boolean authUserByUserID(String userID, String password) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=\""+ password + "\"", userRowMapper);
-            return user;
+            return true;
         }
         catch (EmptyResultDataAccessException e){
-            return null;
+            return false;
         }
     }
-
-
-
 
     public List<User> getFollowers(String userID, String count, String max_id, String callerUserID ) {
         UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
@@ -193,10 +200,8 @@ public class UserStore {
                         u.setFollowed(false);
                     }
                 }
-
             }
         }
-
         return followings;
     }
 
@@ -242,7 +247,6 @@ public class UserStore {
         }
         return followers;
     }
-
 
 }
 
