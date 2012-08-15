@@ -78,14 +78,18 @@ TODO:
 - overall user experience
 - better: use localstorage instead of sessionstorage
 - validation - using tab
+- search, user info block
 
 NEW TODO s
-- search, user info block
 - Optimizations
     - caching, backend db structure and all that
+- code refactoring
+    - css, jsp
+    - other - currently doing it
 - alt image
+- ssl
 - slow append
-- validation - login and registration
+- validation - login + solve shift tab issue
 - java, javascript - docs, tests
 - handle xss using javascript
 
