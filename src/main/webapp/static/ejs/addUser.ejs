@@ -5,7 +5,7 @@
     <div class="user-details">
         <a href="/profile/<%=id%>">@<%=username%></a>
         <div class="right-top">
-            <div onclick="follow_user_button(this);" onmousemove="follow_user_button_hover(this);" onmouseout="follow_user_button_out(this);" userid=<%=id%> class="fubutton following
+            <div onclick="tm.follow_user_button(this);" onmousemove="tm.follow_user_button_hover(this);" onmouseout="tm.follow_user_button_out(this);" userid=<%=id%> class="fubutton following
                 <%if (followed==true) {%> " following="yes"> Following  <%}%>
                 <%if (followed==false) {%>  follow" following="no">  Follow  <%}%>
             </div>

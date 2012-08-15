@@ -11,6 +11,7 @@
         <script src="/static/js/ejs_production.js"type="text/javascript"></script>
         <script src="/static/js/format_date.js"type="text/javascript"></script>
         <script src="/static/js/helper.js"type="text/javascript"></script>
+        <script src="/static/js/follow_button.js"type="text/javascript"></script>
         <script src="/static/js/search_helper.js"type="text/javascript"></script>
         <title>Profile - Twimini</title>
 	</head>

@@ -50,6 +50,7 @@
         <script src="/static/js/activatetable.js" type="text/javascript"></script>
         <script src="/static/js/format_date.js"type="text/javascript"></script>
         <script src="/static/js/helper.js" type="text/javascript"></script>
+        <script src="/static/js/follow_button.js"type="text/javascript"></script>
         <script src="/static/js/profile_helper.js" type="text/javascript"></script>
 	</body>
 </html>
