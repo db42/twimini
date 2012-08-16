@@ -26,6 +26,7 @@ public class UserStore {
     SimpleJdbcTemplate jdbcTemplate;
     AuthKeyStore authKeyStore;
     MD5Encoder md5Encoder;
+    String defaultUserCount = "20";
 
     static String baseImageUrl = "http://www.gravatar.com/avatar/";
 
@@ -123,7 +124,8 @@ public class UserStore {
 
             if (callerUserID != null) {
                 try{
-                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+userID +" AND follower="+callerUserID, followRowMapper);
+                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+userID +
+                            " AND follower="+callerUserID, followRowMapper);
                     user.setFollowed(follow);
                 }
                 catch (EmptyResultDataAccessException e){
@@ -149,7 +151,7 @@ public class UserStore {
 
     public List<User> getFollowers(String userID, String count, String max_id, String callerUserID ) {
         UserRowMapper userRowMapper = new UserRowMapper();
-        count = (count == null) ? "20" : count;
+        count = (count == null) ? defaultUserCount : count;
         String query;
 
         if (max_id == null)
@@ -175,7 +177,7 @@ public class UserStore {
 
     public List<User> getFollowings(String userID, String count, String max_id, String callerUserID) {
         UserRowMapper userRowMapper = new UserRowMapper();
-        count = (count == null) ? "20" : count;
+        count = (count == null) ? defaultUserCount : count;
         String query;
 
         if (max_id == null)

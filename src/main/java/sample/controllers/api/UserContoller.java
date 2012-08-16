@@ -36,6 +36,29 @@ public class UserContoller {
         return userStore.searchForUsers(q, userID);
     }
 
+    @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
+    @ResponseBody
+    User getUserJson(@PathVariable String userID,
+                     @RequestParam(required = false) String callerUserID,
+                     HttpServletResponse response){
+        User user = userStore.getUser(userID, callerUserID);
+        if (user == null)
+            throw new ResourceNotFoundException();
+        else {
+            response.setHeader("Cache-Control", "public, max-age=36000"); // HTTP 1.1
+            return user;
+        }
+    }
+
+    @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
+    @ResponseBody
+    List<User> getFollowersJson(@PathVariable String userID,
+                                @RequestParam(required = false) String count,
+                                @RequestParam(required = false) String max_id,
+                                @RequestParam(required = false) String callerUserID){
+        return userStore.getFollowers(userID, count, max_id, callerUserID);
+    }
+
     @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@PathVariable String userID,@RequestParam int following){
@@ -45,10 +68,10 @@ public class UserContoller {
         return hs;
     }
 
-    @RequestMapping(value = "/users/{userID}/followers", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
     @ResponseBody
-    List<User> getFollowersJson(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, @RequestParam(required = false) String callerUserID){
-        return userStore.getFollowers(userID, count, max_id, callerUserID);
+    List<User> getFollowings(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, @RequestParam(required = false) String callerUserID){
+        return userStore.getFollowings(userID, count, max_id, callerUserID);
     }
 
     @RequestMapping(value = "/users/{follower_id}/followings/{followee_id}", method = RequestMethod.PUT)
@@ -73,23 +96,5 @@ public class UserContoller {
         userStore.deleteFollowing(followee_id, follower_id);
         hs.put("status","success");
         return hs;
-    }
-
-    @RequestMapping(value = "/users/{userID}/followings", method = RequestMethod.GET)
-    @ResponseBody
-    List<User> getFollowings(@PathVariable String userID, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, @RequestParam(required = false) String callerUserID){
-        return userStore.getFollowings(userID, count, max_id, callerUserID);
-    }
-
-    @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
-    @ResponseBody
-    User getUserJson(@PathVariable String userID, @RequestParam(required = false) String callerUserID, HttpServletResponse response){
-        User user = userStore.getUser(userID, callerUserID);
-        if (user == null)
-            throw new ResourceNotFoundException();
-        else {
-            response.setHeader("Cache-Control", "public, max-age=36000"); // HTTP 1.1
-            return user;
-        }
     }
 }
