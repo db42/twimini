@@ -23,6 +23,7 @@ public class PostStore {
     SimpleJdbcTemplate jdbcTemplate;
     MD5Encoder md5Encoder;
     UserStore userStore;
+    String defaultPostCount = "20";
 
     @Autowired
     public PostStore(SimpleJdbcTemplate jdbcTemplate, MD5Encoder md5Encoder, UserStore userStore){
@@ -70,7 +71,7 @@ public class PostStore {
         PostRowMapper postRowMapper = new PostRowMapper();
         String query;
         if (count== null)
-            count = "20";
+            count = defaultPostCount;
         if (since_id == null && max_id == null)
             query = "SELECT * from posts where user_id=" +userID + " ORDER BY posts.id DESC LIMIT "+ count;
         else if (max_id == null)
@@ -85,11 +86,11 @@ public class PostStore {
         PostRowMapper postRowMapper = new PostRowMapper();
         String query;
         if (count== null)
-                count = "20";
+            count = defaultPostCount;
 
         if (since_id == null && max_id == null)
-             query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
-                                                            " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time ORDER BY posts.id DESC LIMIT "+ count;
+            query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
+                    " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time ORDER BY posts.id DESC LIMIT "+ count;
         else if (max_id == null)
             query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
                     " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id >" + since_id +" ORDER BY posts.id DESC LIMIT "+ count;
@@ -97,7 +98,6 @@ public class PostStore {
             query = "select posts.id, posts.user_id, posts.post, posts.time, posts.rtwt_id, posts.author_id from followers INNER JOIN posts ON followers.user_id=posts.user_id" +
                     " WHERE followers.follower=" + userID + " AND posts.time<followers.unfollow_time AND posts.id <" + max_id +" ORDER BY posts.id DESC LIMIT "+ count;
 
-        System.out.println(query);
         List<Post> subscribedPosts = jdbcTemplate.query(query, postRowMapper);
         for (Post post: subscribedPosts){
             try{
