@@ -111,6 +111,19 @@ NEW TODO s
 - db indexing
 - db validation before queries
 - caching header
+- exception handling
+
+other notes:
+- shouldn't use setters
+- indexing based on primary keys - btrees
+- config in separate properties file
+- variable names - camel case
+
+- refactoring - Store queries
+- md5
+- indexing
+- js - profile/username
+- get rid of interceptor
 
 
 
