@@ -40,19 +40,19 @@ function validate_password(){
 
 function password_change(form) {
     if(check_password(form["new_password"].value, form["red_password"].value)){
-        tm.auth_ajax("/update_password?userID=".concat(tm.userID), form, function (data) {callError("Password updated successfully."); });
+        tm.auth_ajax("/update_password?userID=".concat(tm.userID), form, function (data) {callMessage("Password updated successfully."); });
     }
 }
 
 function account_change(form) {
     if (tm.check_username(form["username"].value) && tm.check_email(form["email"].value)){
-        tm.auth_ajax("/update_account?userID=".concat(tm.userID), form, function (data) {callError("Account updated successfully."); });
+        tm.auth_ajax("/update_account?userID=".concat(tm.userID), form, function (data) {callMessage("Account updated successfully."); });
     }
 }
 
 function profile_change(form) {
     if(check_name(form["name"].value) && check_description(form["description"].value)){
-        tm.auth_ajax("/update_profile?userID=".concat(tm.userID), form, function (data) {callError("Profile updated successfully."); });
+        tm.auth_ajax("/update_profile?userID=".concat(tm.userID), form, function (data) {callMessage("Profile updated successfully."); });
     }
 }
 

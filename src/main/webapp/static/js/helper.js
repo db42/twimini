@@ -5,7 +5,7 @@ tm.auth_key = localStorage.getItem("auth_key");
 
 tm.auth_ajax = function (url, form, success_fun, type) {
     if (tm.userID === null) {
-        callError("This action requires user log-in. Redirecting to login-page..");
+        callMessage("This action requires user log-in. Redirecting to login-page..");
         setTimeout(function () {
             document.location.href = "/";
         }, 3000);
@@ -27,7 +27,7 @@ tm.auth_ajax = function (url, form, success_fun, type) {
             }
         },
         error: function (){
-            callError('Not Connected!');
+            callMessage('Not Connected!');
         }
     });
 };
@@ -220,16 +220,16 @@ FeedView.prototype.load_new_data = function () {
 
 function add_tweet(tweet) {
     var form=$("<form><input type=\"text\" name=\"post\" value=\""+tweet+"\"></form>");
-    callError("Tweeting...");
+    callMessage("Tweeting...");
     var url, successfun;
     successfun = function (data) {
-        callError("Tweet posted successfully.");
+        callMessage("Tweet posted successfully.");
     };
     url = "/users/" + tm.userID + "/posts";
     tm.auth_ajax(url, form, successfun, 'POST');
 }
 
-function callError(errorMessage) {
+function callMessage(errorMessage) {
     $('#error-message').empty().append(errorMessage);
     $('#message-wrapper').fadeIn("slow");
     setTimeout('$("#message-wrapper").fadeOut("slow");', 5000);
@@ -243,7 +243,7 @@ function user_login(form) {
             localStorage.setItem("auth_key", data.auth_key);
             window.location.replace("http://localhost:8080/twimini/home");
         } else {
-            callError("Username or Password is not correct.");
+            callMessage("Username or Password is not correct.");
         }
     });
 }
@@ -251,12 +251,12 @@ function user_login(form) {
 function user_register(form) {
     $.post('/register', $(form).serialize(), function (data) {
         if (data.status === "success") {
-            callError("User successfully registered. Redirecting... ");
+            callMessage("User successfully registered. Redirecting... ");
             setTimeout(function () {
                 user_login(form);
             }, 2000);
         } else {
-            callError("User registration failed. " + data.message);
+            callMessage("User registration failed. " + data.message);
         }
     });
 }
@@ -344,7 +344,7 @@ var repost = function (postID) {
     url = '/users/' + tm.userID + '/posts/repost/' + postID;
     var element = event.target;
     repost_success = function (data) {
-        callError("Retweet posted successfully.");
+        callMessage("Retweet posted successfully.");
         $(element).hide();
     };
     tm.auth_ajax(url, null, repost_success, 'POST');

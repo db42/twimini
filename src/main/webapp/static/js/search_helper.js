@@ -27,7 +27,7 @@ $(function () {
 
     //todo:include spaces
     if (searchterm.search(' ')!==-1)
-        callError("No spaces allowed for search");
+        callMessage("No spaces allowed for search");
 
     if (searchterm !== null)
         searchresult(searchterm);
@@ -35,7 +35,7 @@ $(function () {
     $('#addpost-btn').click(function(){
         tweet_text = $('#tweet-text').val().trim();
         if(tweet_text.length > 140){
-            callError("Tweet too long!");
+            callMessage("Tweet too long!");
         }
         else{
             add_tweet(tweet_text);
