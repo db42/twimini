@@ -38,6 +38,7 @@ var activate_profile_links = function (user_id) {
     });
 
     $('a[href="#tweets"]').click(function () {
+        tm.get_posts(user_id);
         tm.scrollview = tm.postview;
     });
 };

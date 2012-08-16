@@ -255,10 +255,11 @@ function user_register(form) {
 }
 
 tm.get_posts = function (userID) {
-    tm.postview = new PostView('addTweet.ejs', 'tweetlist', 'posts', userID);
-    tm.postview.populate();
-
-    setInterval(tm.postview.poll.bind(tm.postview), 20000);
+    if (typeof tm.postview === 'undefined') {
+        tm.postview = new PostView('addTweet.ejs', 'tweetlist', 'posts', userID);
+        tm.postview.populate();
+        setInterval(tm.postview.poll.bind(tm.postview), 20000);
+    }
     tm.scrollview = tm.postview;
 };
 
