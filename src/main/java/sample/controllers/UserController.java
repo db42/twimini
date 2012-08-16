@@ -21,8 +21,8 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    Hashtable<String, String> registerJson(@RequestParam String name, @RequestParam String email, @RequestParam String password){
-        Hashtable hs = userStore.addUser(name, email, password);
+    Hashtable<String, String> registerJson(@RequestParam String username, @RequestParam String email, @RequestParam String password){
+        Hashtable hs = userStore.addUser(username, email, password);
         return hs;
     }
 
