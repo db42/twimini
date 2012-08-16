@@ -30,6 +30,26 @@ public class PostController {
         this.authLayer = authLayer;
     }
 
+    @RequestMapping(value = "/posts/{postID}", method = RequestMethod.GET)
+    @ResponseBody
+    Post getPostJson(@PathVariable String postID){
+        Post post = postStore.getPost(postID);
+        if (post == null)
+            throw new ResourceNotFoundException();
+        else
+            return post;
+    }
+
+    @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
+    @ResponseBody
+    List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
+         List<Post> posts = postStore.getPosts(userID, since_id, count, max_id);
+         if (posts == null)
+             throw new ResourceNotFoundException();
+         else
+             return posts;
+     }
+
     @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -52,28 +72,6 @@ public class PostController {
         response.setHeader("Location","/posts/"+p.getId());
 
         return p;
-    }
-
-   @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
-    @ResponseBody
-    List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
-        List<Post> posts = postStore.getPosts(userID, since_id, count, max_id);
-        if (posts == null)
-            throw new ResourceNotFoundException();
-        else
-            return posts;
-
-    }
-
-    @RequestMapping(value = "/posts/{postID}", method = RequestMethod.GET)
-    @ResponseBody
-    Post getPostJson(@PathVariable String postID){
-        Post post = postStore.getPost(postID);
-        if (post == null)
-            throw new ResourceNotFoundException();
-        else
-            return post;
-
     }
 
     @RequestMapping(value = "/users/{userID}/posts/feed", method = RequestMethod.GET)
