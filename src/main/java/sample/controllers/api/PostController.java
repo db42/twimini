@@ -42,7 +42,10 @@ public class PostController {
 
     @RequestMapping(value = "/users/{userID}/posts", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id){
+    List<Post> getPostsJson(@PathVariable String userID,
+                            @RequestParam(required = false) String since_id,
+                            @RequestParam(required = false) String count,
+                            @RequestParam(required = false) String max_id){
          List<Post> posts = postStore.getPosts(userID, since_id, count, max_id);
          if (posts == null)
              throw new ResourceNotFoundException();

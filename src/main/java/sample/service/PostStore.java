@@ -57,8 +57,7 @@ public class PostStore {
     public Post getPost(String postID) {
         PostRowMapper postRowMapper = new PostRowMapper();
         try{
-            Post post = (Post) jdbcTemplate.queryForObject("select * from posts where posts.id=" + postID, postRowMapper);
-            return post;
+            return (Post) jdbcTemplate.queryForObject("select * from posts where posts.id=" + postID, postRowMapper);
         }
         catch (EmptyResultDataAccessException e){
             return null;
