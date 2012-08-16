@@ -31,7 +31,7 @@ public class AuthKeyStore {
     }
 
     public Hashtable<String, String> authUserByEmail(String email, String password) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         try{
             Hashtable<String, String> hs = new Hashtable<String, String>();
             System.out.println("select * from users where email=\"" + email + "\" and password=\""+ password + "\"");
@@ -48,7 +48,7 @@ public class AuthKeyStore {
     }
 
     public Hashtable<String, String> authUserByUsername(String username, String password) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         try{
             Hashtable<String, String> hs = new Hashtable<String, String>();
             System.out.println("select * from users where username=\"" + username + "\" and password=\""+ password + "\"");
@@ -65,7 +65,7 @@ public class AuthKeyStore {
     }
 
     public User getUserByAuthKey(String userID, String auth_key) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         try{
             System.out.println("authorisation key from user: " + auth_key);
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and auth_key=\""+ auth_key + "\"", userRowMapper);
