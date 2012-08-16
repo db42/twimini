@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import sample.model.FollowRowMapper;
 import sample.model.User;
 import sample.model.UserRowMapper;
+import sample.utilities.MD5Encoder;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -50,7 +51,7 @@ public class UserStore {
     public Hashtable<String, String> addUser(String username, String email, String password, String image_url) {
         Hashtable<String, String> hs = new Hashtable<String, String>();
         try {
-            jdbcTemplate.update("INSERT INTO users (username, email, password, image_url) VALUES (?,?,?,?)",username, email, password, image_url);
+            jdbcTemplate.update("INSERT INTO users (username, email, password, image_url) VALUES (?,?,SHA1(?),?)",username, email, password, image_url);
             hs.put("status", "success");
             return hs;
         }
@@ -64,7 +65,7 @@ public class UserStore {
     public Hashtable<String, String> updateUserPassword(String userID, String old_password, String new_password) {
         Hashtable<String, String> hs = new Hashtable<String, String>();
         if (this.authUserByUserID(userID, old_password)) {
-            jdbcTemplate.update("UPDATE users SET password=? where id=?",new_password, userID);
+            jdbcTemplate.update("UPDATE users SET password=SHA1(?) where id=?",new_password, userID);
             hs.put("status", "success");
         }
         else {
@@ -136,7 +137,7 @@ public class UserStore {
     public boolean authUserByUserID(String userID, String password) {
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
-            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=\""+ password + "\"", userRowMapper);
+            User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=SHA1(\""+ password + "\")", userRowMapper);
             return true;
         }
         catch (EmptyResultDataAccessException e){
@@ -221,7 +222,6 @@ public class UserStore {
         jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?",followee_id ,follower_id);
         jdbcTemplate.update("UPDATE users SET num_followings=num_followings-1 where id=?", follower_id);
         jdbcTemplate.update("UPDATE users SET num_followers=num_followers-1 where id=?", followee_id);
-
     }
 
     public List<User> searchForUsers(String query, String callerUserID) {
