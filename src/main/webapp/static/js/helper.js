@@ -354,10 +354,13 @@ var repost = function (postID) {
 var canLoad = true;
 $(window).scroll(function () {
     if (1.06 * $(window).scrollTop() >= $(document).height() - $(window).height() && canLoad) {
-        if (tm.scrollview !== undefined)
+        if (tm.scrollview !== undefined) {
+            canLoad = false;
             setTimeout(function () {
             tm.scrollview.load_new_data();
+            canLoad = true;
             }, 1000);
+    }
     }
 });
 
