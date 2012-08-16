@@ -7,22 +7,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sample.service.UserStore;
+import sample.utilities.MD5Encoder;
 
 import java.util.Hashtable;
 
 @Controller
 public class UserController {
     UserStore userStore;
+    MD5Encoder md5Encoder;
+
+    static String baseImageUrl = "http://www.gravatar.com/avatar/";
 
     @Autowired
-    public UserController(UserStore UserStore) {
+    public UserController(UserStore UserStore, MD5Encoder md5Encoder) {
         this.userStore = UserStore;
+        this.md5Encoder = md5Encoder;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> registerJson(@RequestParam String username, @RequestParam String email, @RequestParam String password){
-        Hashtable hs = userStore.addUser(username, email, password);
+        String image_url = baseImageUrl.concat(md5Encoder.encodeString(email)); //generate gravatar image url
+        Hashtable hs = userStore.addUser(username, email, password, image_url);
         return hs;
     }
 
