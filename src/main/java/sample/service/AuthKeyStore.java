@@ -56,8 +56,7 @@ public class AuthKeyStore {
             hs.put("userID", Integer.toString(user.getId()));
             hs.put("auth_key", auth_key);
             return hs;
-        }
-        catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e){
             return null;
         }
     }

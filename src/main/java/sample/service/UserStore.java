@@ -230,9 +230,9 @@ public class UserStore {
     public List<User> searchForUsers(String query, String callerUserID) {
         UserRowMapper userRowMapper = new UserRowMapper();
         query = "\"%"+query+"%\"";
-        String db_query = "select * from users where name LIKE "+query+" OR username LIKE "+query;
+        query = "select * from users where name LIKE "+query+" OR username LIKE "+query;
 
-        List<User> followers = jdbcTemplate.query(db_query, userRowMapper);
+        List<User> followers = jdbcTemplate.query(query, userRowMapper);
         if (callerUserID != null) {
             for(User u:followers){
                 try{
@@ -247,6 +247,5 @@ public class UserStore {
         }
         return followers;
     }
-
 }
 
