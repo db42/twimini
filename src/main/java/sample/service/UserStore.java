@@ -37,7 +37,7 @@ public class UserStore {
     private boolean doesFollow(int user_id, String follower){
         try{
             FollowRowMapper followRowMapper = new FollowRowMapper();
-            return (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+user_id+" AND follower="+follower, followRowMapper);
+            return (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+user_id+" AND follower="+follower +" AND unfollow_time > NOW()", followRowMapper);
         } catch (EmptyResultDataAccessException e){
             return false;
         }
@@ -85,7 +85,6 @@ public class UserStore {
             hs.put("status", "failed");
             hs.put("message", "User is not authorized");
         }
-
         return hs;
     }
 
