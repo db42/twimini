@@ -1,4 +1,5 @@
 var tm = tm || {};
+var canLoad = true;
 
 tm.userID = localStorage.getItem("userID");
 tm.auth_key = localStorage.getItem("auth_key");
@@ -26,7 +27,7 @@ tm.auth_ajax = function (url, form, success_fun, type) {
                 success_fun(data);
             }
         },
-        error: function (){
+        error: function () {
             callMessage('Not Connected!');
         }
     });
@@ -46,12 +47,7 @@ BasicView.prototype.getUrl = function () {
 };
 
 BasicView.prototype.addOne = function (data, append) {
-    console.log("addOne");
-    console.log(this.ejsName);
-    console.log(this.listName);
-    console.log(this.url);
-    console.log(this.getUrl());
-    console.log(data);
+    var entity, tweet_id;
     if (data.timestamp !== undefined) {
         data.timestamp = tm.humaneDate(tm.parseISO8601(data.timestamp));
         if (this.since_id < data.id) {
@@ -63,8 +59,8 @@ BasicView.prototype.addOne = function (data, append) {
         this.max_id = data.id; //SET since_id to the id of the oldest tweet.
     }
 
-    var entity = $(new EJS({url: '/static/ejs/' + this.ejsName}).render(data));
-    var tweet_id = data.id;
+    entity = $(new EJS({url: '/static/ejs/' + this.ejsName}).render(data));
+    tweet_id = data.id;
 
     if (typeof append === 'undefined') {
         $('.' + this.listName).prepend(entity);
@@ -78,7 +74,6 @@ BasicView.prototype.addOne = function (data, append) {
         if (data.reposted === false && tm.userID != data.user_id && tm.userID != data.author_id) {
             var retweet_button = $("<div class=\"retweet\" onclick=\"repost(" + data.id + ")\">Re-Tweet</div>");
             $('#tweet_id_' + tweet_id + ' .post-data').append(retweet_button);
-            // <img src='/static/images/retweet.png' />
         }
 
         //Retweet by
@@ -217,14 +212,14 @@ FeedView.prototype.load_new_data = function () {
 };
 
 function add_tweet(tweet) {
-    var form=$("<form><input type=\"text\" name=\"post\" value=\""+tweet+"\"></form>");
+    var url, successfun, tweet_form;
+    tweet_form = $("<form><input type=\"text\" name=\"post\" value=\"" + tweet + "\"></form>");
     callMessage("Tweeting...");
-    var url, successfun;
     successfun = function (data) {
         callMessage("Tweet posted successfully.");
     };
     url = "/users/" + tm.userID + "/posts";
-    tm.auth_ajax(url, form, successfun, 'POST');
+    tm.auth_ajax(url, tweet_form, successfun, 'POST');
 }
 
 function callMessage(errorMessage) {
@@ -291,22 +286,20 @@ tm.getProfileUserid = function () {
 
 
 
-var logout = function() {
+var logout = function () {
     localStorage.clear();
-    $.get('/logout', function(data){
+    $.get('/logout', function (data) {
         document.location.href = '/';
-    })
-
-}
+    });
+};
 
 tm.add_user_info = function (user_id) {
     $.get('/users/' + user_id + "?callerUserID=" + tm.userID, function (data) {
         var entity = $(new EJS({url: '/static/ejs/UserInfo.ejs'}).render(data));
         $('.profile-block').append(entity);
-        if (user_id == tm.userID){
+        if (user_id == tm.userID) {
             $('#fbutton').remove();
-        }
-        else{
+        } else {
             tm.activate_follow_button(user_id);
         }
     });
@@ -329,37 +322,34 @@ tm.fill_topbar = function () {
         $('#profile-image').append('<img src=' + tm.image_url + '?s=30></img>');
     }
 
-    $("#settings-block").click(function(){
-        document.location.href='/twimini/settings';
+    $("#settings-block").click(function () {
+        document.location.href = '/twimini/settings';
     });
-    $("#logout-block").click(function(){
-        document.location.href='/logout';
+    $("#logout-block").click(function () {
+        document.location.href = '/logout';
     });
 };
 
 var repost = function (postID) {
-    var url, repost_success;
+    var url, repost_success, event_target;
     url = '/users/' + tm.userID + '/posts/repost/' + postID;
-    var element = event.target;
+    event_target = event.target;
     repost_success = function (data) {
         callMessage("Retweet posted successfully.");
-        $(element).hide();
+        $(event_target).hide();
     };
     tm.auth_ajax(url, null, repost_success, 'POST');
 };
 
 
-var canLoad = true;
 $(window).scroll(function () {
     if (1.06 * $(window).scrollTop() >= $(document).height() - $(window).height() && canLoad) {
         if (tm.scrollview !== undefined) {
             canLoad = false;
             setTimeout(function () {
-            tm.scrollview.load_new_data();
-            canLoad = true;
+                tm.scrollview.load_new_data();
+                canLoad = true;
             }, 1000);
-    }
+        }
     }
 });
-
-
