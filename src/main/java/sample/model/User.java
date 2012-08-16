@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
  */
 
 
-public class User  extends MiniUser{
+public class User extends MiniUser{
     String description;
     Timestamp created_at;
     boolean followed;
@@ -21,15 +21,19 @@ public class User  extends MiniUser{
     String num_followers;
     String num_followings;
 
-    public void setNum_followers(String num_followers) {
+    public User(int id, String image_url, String name, String username,
+                Timestamp created_at,
+                String description,
+                String num_followers,
+                String num_followings,
+                String num_tweets,
+                boolean followed) {
+        super(id, image_url, name, username);
+        this.created_at = created_at;
+        this.description = description;
+        this.followed = followed;
         this.num_followers = num_followers;
-    }
-
-    public void setNum_followings(String num_followings) {
         this.num_followings = num_followings;
-    }
-
-    public void setNum_tweets(String num_tweets) {
         this.num_tweets = num_tweets;
     }
 
@@ -53,13 +57,6 @@ public class User  extends MiniUser{
         this.followed = followed;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
     public String getCreated_at() {
         return new SimpleDateFormat("MMM ''yy").format(created_at);
     }
