@@ -256,7 +256,7 @@ function user_register(form) {
                 user_login(form);
             }, 2000);
         } else {
-            callError("User registration failed.");
+            callError("User registration failed. " + data.message);
         }
     });
 }
