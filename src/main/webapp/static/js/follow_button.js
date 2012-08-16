@@ -1,4 +1,4 @@
-tm = tm || {};
+var tm = tm || {};
 
 var follow_user = function (user_id, caller_user_id) {
     var url = '/users/' + caller_user_id + '/followings/' + user_id;
@@ -59,11 +59,13 @@ tm.activate_follow_button = function (user_id) {
     );
 };
 
-tm.follow_user_button = function (user_block){
-    var caller_user_id = tm.userID;
-    var user_id = user_block.getAttribute('userid');
+tm.follow_user_button = function (user_block) {
+    var user_id, caller_user_id, parent;
 
-    if(user_block.innerHTML.trim() === "Follow"){
+    caller_user_id = tm.userID;
+    user_id = user_block.getAttribute('userid');
+
+    if (user_block.innerHTML.trim() === "Follow") {
         follow_user(user_id, caller_user_id);
         user_block.innerHTML = 'Following';
         user_block.className = 'fubutton following';
@@ -72,19 +74,16 @@ tm.follow_user_button = function (user_block){
          $('.' + this.listName).append(entity);
          var followingsview = new BasicView('addUser.ejs', 'followinglist', 'followings', userID);
          followingsview.addOne();*/
-    }
-    else if(user_block.innerHTML.trim() === "Unfollow"){
+    } else if (user_block.innerHTML.trim() === "Unfollow") {
         unfollow_user(user_id, caller_user_id);
-        if(user_block.parentElement.parentElement.parentElement.parentElement.parentElement.id === "followers"){
+        if (user_block.parentElement.parentElement.parentElement.parentElement.parentElement.id === "followers") {
             user_block.innerHTML = 'Follow';
             user_block.className = 'fubutton following follow';
-        }
-        else{
+        } else {
             if (typeof profile_user_id !== 'undefined' && tm.userID === profile_user_id) {
-                var parentx = user_block.parentNode.parentNode.parentNode;
-                parentx.parentNode.removeChild(parentx);
-            }
-            else {
+                parent = user_block.parentNode.parentNode.parentNode;
+                parent.parentNode.removeChild(parent);
+            } else {
                 user_block.innerHTML = 'Follow';
                 user_block.className = 'fubutton following follow';
             }
@@ -92,15 +91,15 @@ tm.follow_user_button = function (user_block){
     }
 };
 
-tm.follow_user_button_hover = function (user_block){
-    if(user_block.innerHTML.trim() === "Following"){
+tm.follow_user_button_hover = function (user_block) {
+    if (user_block.innerHTML.trim() === "Following") {
         user_block.innerHTML = 'Unfollow';
         user_block.className = 'fubutton unfollow';
     }
 };
 
-tm.follow_user_button_out = function (user_block){
-    if(user_block.innerHTML.trim() === "Unfollow"){
+tm.follow_user_button_out = function (user_block) {
+    if (user_block.innerHTML.trim() === "Unfollow") {
         user_block.innerHTML = 'Following';
         user_block.className = 'fubutton following';
     }
