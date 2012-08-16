@@ -19,17 +19,20 @@ public class Post {
     Timestamp timestamp;
     boolean reposted;
 
+    public Post(int id, int user_id, String post, Timestamp time){
+        this.id = id;
+        this.user_id = user_id;
+        this.post = post;
+        this.timestamp = time;
+        reposted = false;
+    }
+
     public boolean isReposted() {
         return reposted;
     }
 
     public void setReposted(boolean reposted) {
         this.reposted = reposted;
-    }
-
-
-    public void Post(){
-        reposted = false;
     }
 
     public int getAuthor_id() {
@@ -62,17 +65,8 @@ public class Post {
 
     public String getTimestamp() {
         String dateString = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss").format(timestamp);
-
         return dateString.substring(0,10)+'T'+dateString.substring(10)+'Z';
     }
 
-
-
-    public Post(int id, int user_id, String post, Timestamp time){
-        this.id = id;
-        this.user_id = user_id;
-        this.post = post;
-        this.timestamp = time;
-    }
 
 }

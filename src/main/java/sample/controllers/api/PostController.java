@@ -68,7 +68,10 @@ public class PostController {
     @RequestMapping(value = "/users/{userID}/posts/repost/{postID}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    Post rePostJson(@PathVariable String userID, @PathVariable String postID, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Post rePostJson(@PathVariable String userID,
+                    @PathVariable String postID,
+                    HttpServletRequest request,
+                    HttpServletResponse response) throws IOException {
         authLayer.isAuthorised(userID, request);
 
         Post p = postStore.rePost(userID, postID);
@@ -79,7 +82,11 @@ public class PostController {
 
     @RequestMapping(value = "/users/{userID}/posts/feed", method = RequestMethod.GET)
     @ResponseBody
-    List<Post> getSubscribedPostsJson(@PathVariable String userID, @RequestParam(required = false) String since_id, @RequestParam(required = false) String count, @RequestParam(required = false) String max_id, HttpServletRequest request){
+    List<Post> getSubscribedPostsJson(@PathVariable String userID,
+                                      @RequestParam(required = false) String since_id,
+                                      @RequestParam(required = false) String count,
+                                      @RequestParam(required = false) String max_id,
+                                      HttpServletRequest request){
         authLayer.isAuthorised(userID, request);
 
         return postStore.getSubscribedPosts(userID, since_id, count, max_id);
