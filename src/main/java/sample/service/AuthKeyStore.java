@@ -34,7 +34,7 @@ public class AuthKeyStore {
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
             Hashtable<String, String> hs = new Hashtable<String, String>();
-            User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=\""+ password + "\"", userRowMapper);
+            User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
 
             String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
             hs.put("userID", Integer.toString(user.getId()));
@@ -50,7 +50,7 @@ public class AuthKeyStore {
         UserRowMapper userRowMapper = new UserRowMapper();
         try{
             Hashtable<String, String> hs = new Hashtable<String, String>();
-            User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=\""+ password + "\"", userRowMapper);
+            User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
 
             String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
             hs.put("userID", Integer.toString(user.getId()));

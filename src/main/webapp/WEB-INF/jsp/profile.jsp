@@ -15,6 +15,7 @@
 		<%@include file="topbar.jsp" %>
 
         <%@include file="error_msg.jsp" %>
+        <%@include file="new_tweet.jsp" %>
 		<div class="page-content">
 			<%@include file="profile_block.jsp" %>
 
