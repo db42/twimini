@@ -110,5 +110,4 @@ public class PostStore {
         }
         return subscribedPosts;
     }
-
 }
