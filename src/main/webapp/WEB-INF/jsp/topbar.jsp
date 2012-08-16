@@ -5,11 +5,9 @@
                 <a href="/twimini/home"> Home </a>
             </li>
         </ul>
-
         <div class="icon-position">
             <i class="twitter-icon-embossed"></i>
         </div>
-
         <ul class = "right-pull">
             <li id="nav">
                 <ul >
@@ -32,7 +30,6 @@
                 <span id="search-icon"></span>
                 <input class="search-input" type="text" name="q" placeholder=" Search..." autocomplete="off" dir="ltr"/>
             </form>
-
         </ul>
     </div>
 </div>
