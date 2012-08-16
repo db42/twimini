@@ -38,8 +38,7 @@ public class PostStore {
         else
             try{
                 jdbcTemplate.update("INSERT INTO posts (user_id, post, rtwt_id, author_id) VALUES (?,?,?,?)", userID, post, postID, authorID);
-            }
-            catch (DuplicateKeyException e){
+            } catch (DuplicateKeyException e){
                 return null;
             }
 
@@ -79,10 +78,7 @@ public class PostStore {
         else
             query = "SELECT * from posts where user_id=" +userID +" AND posts.id<"+max_id + " ORDER BY posts.id DESC LIMIT "+ count;
 
-        List<Post> posts = (List< Post>) jdbcTemplate.query(query, postRowMapper);
-
-        return posts;
-
+        return (List< Post>) jdbcTemplate.query(query, postRowMapper);
     }
 
     public List<Post> getSubscribedPosts(String userID, String since_id, String count, String max_id) {
