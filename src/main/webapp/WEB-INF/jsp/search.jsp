@@ -13,7 +13,7 @@
         <script src="/static/js/helper.js"type="text/javascript"></script>
         <script src="/static/js/follow_button.js"type="text/javascript"></script>
         <script src="/static/js/search_helper.js"type="text/javascript"></script>
-        <title>Profile - Twimini</title>
+        <title>Search - Twimini</title>
 	</head>
 	<body>
 		<%@include file="topbar.jsp" %>

@@ -63,7 +63,6 @@ BasicView.prototype.addOne = function (data, append) {
         this.max_id = data.id; //SET since_id to the id of the oldest tweet.
     }
 
-
     var entity = $(new EJS({url: '/static/ejs/' + this.ejsName}).render(data));
     var tweet_id = data.id;
 
@@ -72,7 +71,6 @@ BasicView.prototype.addOne = function (data, append) {
     } else {
         $('.' + this.listName).append(entity);
     }
-
 
     if (typeof data.post !== 'undefined') {
 
