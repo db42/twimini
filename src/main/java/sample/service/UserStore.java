@@ -104,7 +104,7 @@ public class UserStore {
     }
 
     public boolean validateUserById(String userID){
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
             return true;
@@ -115,7 +115,7 @@ public class UserStore {
     }
 
     public User getUser(String userID, String callerUserID){
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         FollowRowMapper followRowMapper = new FollowRowMapper();
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
@@ -137,7 +137,7 @@ public class UserStore {
     }
 
     public boolean authUserByUserID(String userID, String password) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID + " and password=\""+ password + "\"", userRowMapper);
             return true;
@@ -148,7 +148,7 @@ public class UserStore {
     }
 
     public List<User> getFollowers(String userID, String count, String max_id, String callerUserID ) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         count = (count == null) ? "20" : count;
         String query;
 
@@ -174,7 +174,7 @@ public class UserStore {
     }
 
     public List<User> getFollowings(String userID, String count, String max_id, String callerUserID) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         count = (count == null) ? "20" : count;
         String query;
 
@@ -228,7 +228,7 @@ public class UserStore {
     }
 
     public List<User> searchForUsers(String query, String callerUserID) {
-        UserRowMapper userRowMapper = new UserRowMapper(md5Encoder);
+        UserRowMapper userRowMapper = new UserRowMapper();
         query = "\"%"+query+"%\"";
         String db_query = "select * from users where name LIKE "+query+" OR username LIKE "+query;
 
