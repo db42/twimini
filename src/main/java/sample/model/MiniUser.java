@@ -15,36 +15,28 @@ public class MiniUser{
     String name;
     String email;
     String image_url;
-    public int getId() {
-        return id;
+
+    public MiniUser(int id, String image_url, String name, String username) {
+        this.id = id;
+        this.image_url = image_url;
+        this.name = name;
+        this.username = username;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getImage_url() {
         return this.image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
     }
 
     public void setEmail(String email) {
