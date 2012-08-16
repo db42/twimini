@@ -16,7 +16,7 @@ public class UserRowMapper implements RowMapper {
 
     @Override
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
-        User user = new User(resultSet.getInt("id"),
+        return new User(resultSet.getInt("id"),
                 resultSet.getString("image_url"),
                 resultSet.getString("name"),
                 resultSet.getString("username"),
@@ -26,6 +26,5 @@ public class UserRowMapper implements RowMapper {
                 resultSet.getString("num_followings"),
                 resultSet.getString("num_tweets"),
                 false);
-        return user;
     }
 }

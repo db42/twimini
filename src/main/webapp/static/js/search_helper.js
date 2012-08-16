@@ -1,7 +1,6 @@
 var tm = tm || {};
 
 searchresult = function(searchterm){
-
     tm.searchview = new BasicView('addUser.ejs', 'resultlist', 'search' + "?q="+searchterm, tm.userID);
     tm.searchview.populate();
 };
