@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import sample.model.FollowRowMapper;
 import sample.model.User;
 import sample.model.UserRowMapper;
-import sample.utilities.MD5Encoder;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -25,16 +24,13 @@ import java.util.List;
 public class UserStore {
     SimpleJdbcTemplate jdbcTemplate;
     AuthKeyStore authKeyStore;
-    MD5Encoder md5Encoder;
     String defaultUserCount = "20";
 
-    static String baseImageUrl = "http://www.gravatar.com/avatar/";
 
     @Autowired
-    public UserStore(SimpleJdbcTemplate jdbcTemplate, AuthKeyStore authKeyStore, MD5Encoder md5Encoder){
+    public UserStore(SimpleJdbcTemplate jdbcTemplate, AuthKeyStore authKeyStore){
         this.jdbcTemplate = jdbcTemplate;
         this.authKeyStore = authKeyStore;
-        this.md5Encoder = md5Encoder;
     }
 
     //TODO: return status
@@ -51,10 +47,9 @@ public class UserStore {
     }
 
 
-    public Hashtable<String, String> addUser(String username, String email, String password) {
+    public Hashtable<String, String> addUser(String username, String email, String password, String image_url) {
         Hashtable<String, String> hs = new Hashtable<String, String>();
         try {
-            String image_url = baseImageUrl.concat(md5Encoder.encodeString(email)); //generate gravatar image url
             jdbcTemplate.update("INSERT INTO users (username, email, password, image_url) VALUES (?,?,?,?)",username, email, password, image_url);
             hs.put("status", "success");
             return hs;
