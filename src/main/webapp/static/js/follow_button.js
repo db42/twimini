@@ -3,14 +3,14 @@ var tm = tm || {};
 var follow_user = function (user_id, caller_user_id) {
     var url = '/users/' + caller_user_id + '/followings/' + user_id;
     tm.auth_ajax(url, null, function (data) {
-        callMessage("Successfully followed.");
+        tm.callGlobalMessage("Successfully followed.");
     }, 'PUT');
 };
 
 var unfollow_user = function (user_id, caller_user_id) {
     var url = '/users/' + caller_user_id + '/followings/' + user_id;
     tm.auth_ajax(url, null, function (data) {
-        callMessage("Successfully unfollowed.");
+        tm.callGlobalMessage("Successfully unfollowed.");
     }, 'DELETE');
 };
 
