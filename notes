@@ -99,6 +99,18 @@ NEW TODO s
 
 
 - store.java line 316: is the method required?
+- line 83: follow_button.js
+- line 72: follow_button.js
+- update followers and followings when click
+- checking server side: tweet + parameters
+- no session
+- static content - cacheable
+- html + api - js
+- no cookie
+- rest urls
+- db indexing
+- db validation before queries
+- caching header
 
 
 
