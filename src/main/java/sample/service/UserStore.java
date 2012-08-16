@@ -34,6 +34,15 @@ public class UserStore {
         this.authKeyStore = authKeyStore;
     }
 
+    private boolean doesFollow(int user_id, String follower){
+        try{
+            FollowRowMapper followRowMapper = new FollowRowMapper();
+            return (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+user_id+" AND follower="+follower, followRowMapper);
+        } catch (EmptyResultDataAccessException e){
+            return false;
+        }
+    }
+
     //TODO: return status
     public void addFollower(int following, String userID) {
         jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID);
@@ -113,19 +122,11 @@ public class UserStore {
 
     public User getUser(String userID, String callerUserID){
         UserRowMapper userRowMapper = new UserRowMapper();
-        FollowRowMapper followRowMapper = new FollowRowMapper();
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
-            user.setFollowed(false);
 
             if (callerUserID != null) {
-                try{
-                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+userID +
-                            " AND follower="+callerUserID, followRowMapper);
-                    user.setFollowed(follow);
-                }
-                catch (EmptyResultDataAccessException e){
-                }
+                user.setFollowed(doesFollow(user.getId(), callerUserID));
             }
             return user;
         }
@@ -158,14 +159,7 @@ public class UserStore {
         List<User> followers = jdbcTemplate.query(query, userRowMapper);
         if (callerUserID != null) {
             for(User u:followers){
-                try{
-                    FollowRowMapper followRowMapper = new FollowRowMapper();
-                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
-                    u.setFollowed(follow);
-                }
-                catch (EmptyResultDataAccessException e){
-                    u.setFollowed(false);
-                }
+                u.setFollowed(doesFollow(u.getId(), callerUserID));
             }
         }
         return followers;
@@ -189,14 +183,7 @@ public class UserStore {
                 }
             else {
                 for(User u:followings){
-                    try{
-                        FollowRowMapper followRowMapper = new FollowRowMapper();
-                        Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
-                        u.setFollowed(follow);
-                    }
-                    catch (EmptyResultDataAccessException e){
-                        u.setFollowed(false);
-                    }
+                    u.setFollowed(doesFollow(u.getId(), callerUserID));
                 }
             }
         }
@@ -232,14 +219,7 @@ public class UserStore {
         List<User> followers = jdbcTemplate.query(query, userRowMapper);
         if (callerUserID != null) {
             for(User u:followers){
-                try{
-                    FollowRowMapper followRowMapper = new FollowRowMapper();
-                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
-                    u.setFollowed(follow);
-                }
-                catch (EmptyResultDataAccessException e){
-                    u.setFollowed(false);
-                }
+                u.setFollowed(doesFollow(u.getId(), callerUserID));
             }
         }
         return followers;
