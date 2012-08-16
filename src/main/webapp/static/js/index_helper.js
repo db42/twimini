@@ -1,3 +1,5 @@
+var tm = tm || {};
+
 var event_objects = {
     'username': tm.check_username,
     'email': tm.check_email,
@@ -5,29 +7,27 @@ var event_objects = {
 };
 
 
-function apply_validation_events(){
-    var login_element = $(".login-box input[name='password']");
-    login_element.blur( function(){
-        var elem_name = event.target['name'];
-        var elem_value = event.target['value'];
+function extracted(target_element, selector_prefix) {
+    var elem_name, elem_value;
+    target_element.blur(function () {
+        elem_name = event.target.name;
+        elem_value = event.target.value;
 
-        if (elem_name in event_objects){
-            event_objects[elem_name](elem_value, 'login-');
+        if (elem_name in event_objects) {
+            event_objects[elem_name](elem_value, selector_prefix);
         }
     });
-
-    var register_element = $(".register-box input");
-    register_element.blur( function(){
-        var elem_name = event.target['name'];
-        var elem_value = event.target['value'];
-
-        if (elem_name in event_objects){
-            event_objects[elem_name](elem_value, 'register-');
-        }
-    });
-
 }
 
-$(function(){
+function apply_validation_events() {
+    var login_element, register_element;
+    login_element = $(".login-box input[name='password']");
+    extracted(login_element, 'login-');
+
+    register_element = $(".register-box input");
+    extracted(register_element, 'register-');
+}
+
+$(function () {
     apply_validation_events();
 });
