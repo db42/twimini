@@ -57,7 +57,7 @@ public class LoginController extends ApiExceptionResolver{
     }
 
     @RequestMapping(value = "/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, @RequestParam String userID) {
         authKeyStore.invalidateAuthKey((String) session.getAttribute("userID"));
         session.invalidate();
         return "redirect:/";

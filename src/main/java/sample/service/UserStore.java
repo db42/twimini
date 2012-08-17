@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import sample.model.FollowRowMapper;
 import sample.model.User;
 import sample.model.UserRowMapper;
-import sample.utilities.MD5Encoder;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -77,14 +76,8 @@ public class UserStore {
 
     public Hashtable<String, String> updateUserPassword(String userID, String old_password, String new_password) {
         Hashtable<String, String> hs = new Hashtable<String, String>();
-        if (this.authUserByUserID(userID, old_password)) {
-            jdbcTemplate.update("UPDATE users SET password=SHA1(?) where id=?",new_password, userID);
-            hs.put("status", "success");
-        }
-        else {
-            hs.put("status", "failed");
-            hs.put("message", "User is not authorized");
-        }
+        jdbcTemplate.update("UPDATE users SET password=SHA1(?) where id=?",new_password, userID);
+        hs.put("status", "success");
         return hs;
     }
 

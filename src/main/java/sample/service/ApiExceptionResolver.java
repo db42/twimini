@@ -24,10 +24,13 @@ public class ApiExceptionResolver implements HandlerExceptionResolver {
         MappingJacksonJsonView jv = new MappingJacksonJsonView();
         Hashtable<String, String> hs = new Hashtable<String, String>();
         hs.put("status", "failed");
-        if (e instanceof NotAuthorisedException)
+        if (e instanceof NotAuthorisedException) {
             httpServletResponse.setStatus(401);
-        else if (e instanceof ResourceNotFoundException)
+            hs.put("message", "User is not authorized");
+        }
+        else if (e instanceof ResourceNotFoundException) {
             httpServletResponse.setStatus(404);
+        }
         else {
             hs.put("error-message", e.getMessage());
             httpServletResponse.setStatus(500);

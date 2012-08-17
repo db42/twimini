@@ -8,6 +8,7 @@ import sample.controllers.api.exceptions.ResourceNotFoundException;
 import sample.model.User;
 import sample.service.ApiExceptionResolver;
 import sample.service.UserStore;
+import sample.utilities.MD5Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,11 +26,14 @@ import java.util.List;
 public class UserContoller extends ApiExceptionResolver{
     UserStore userStore;
     RestAuthLayer authLayer;
+    MD5Encoder md5Encoder;
+    static String baseGravatarImageUrl = "http://www.gravatar.com/avatar/";
 
     @Autowired
-    public UserContoller(UserStore userStore, RestAuthLayer authLayer){
+    public UserContoller(UserStore userStore, RestAuthLayer authLayer, MD5Encoder md5Encoder){
         this.userStore = userStore;
         this.authLayer = authLayer;
+        this.md5Encoder = md5Encoder;
     }
 
     @RequestMapping(value = "/users/{userID}/search", method = RequestMethod.GET)
@@ -99,4 +103,47 @@ public class UserContoller extends ApiExceptionResolver{
         hs.put("status","success");
         return hs;
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    Hashtable<String, String> registerJson(@RequestParam String username,
+                                           @RequestParam String email,
+                                           @RequestParam String password){
+        String image_url = baseGravatarImageUrl.concat(md5Encoder.encodeString(email));
+        return userStore.addUser(username, email, password, image_url);
+    }
+
+    @RequestMapping(value = "/update_password", method = RequestMethod.POST)
+    @ResponseBody
+    Hashtable<String, String> updateUserPassword(@RequestParam String userID,
+                                                 @RequestParam(required = false) String old_password,
+                                                 @RequestParam(required = false) String new_password,
+                                                 HttpServletRequest request){
+
+        authLayer.isAuthorised(userID, request);
+        return userStore.updateUserPassword(userID, old_password, new_password);
+    }
+
+    @RequestMapping(value = "/update_account", method = RequestMethod.POST)
+    @ResponseBody
+    Hashtable<String, String> updateUserAccount(@RequestParam String userID,
+                                                @RequestParam(required = false) String username,
+                                                @RequestParam(required = false) String email,
+                                                HttpServletRequest request){
+
+        authLayer.isAuthorised(userID, request);
+        return userStore.updateUserAccount(userID, username, email);
+    }
+
+    @RequestMapping(value = "/update_profile", method = RequestMethod.POST)
+    @ResponseBody
+    Hashtable<String, String> updateUserProfile(@RequestParam String userID,
+                                                @RequestParam(required = false) String name,
+                                                @RequestParam(required = false) String description,
+                                                HttpServletRequest request){
+
+        authLayer.isAuthorised(userID, request);
+        return userStore.updateUserProfile(userID, name, description);
+    }
+
 }
