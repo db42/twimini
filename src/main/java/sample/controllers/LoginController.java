@@ -11,7 +11,6 @@ import sample.service.ApiExceptionResolver;
 import sample.service.AuthKeyStore;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Hashtable;
 
 /**
@@ -36,39 +35,24 @@ public class LoginController extends ApiExceptionResolver{
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     Hashtable<String, String> login(@RequestParam("email") String userIdentifier,
-                              @RequestParam("password") String password,
-                              HttpSession session) {
+                              @RequestParam("password") String password){
 
         Hashtable hs;
-        String userID;
-
         if (userIdentifier.contains("@"))
             hs = authKeyStore.authUserByEmail(userIdentifier, password);
         else
             hs = authKeyStore.authUserByUsername(userIdentifier, password);
 
-        if (hs.get("status") == "failed") {
-            hs = new Hashtable<String, String>();
-            hs.put("status", "failed");
-            return hs;
-        }
-        userID = (String) hs.get("userID");
-        session.setAttribute("email", userIdentifier);
-        session.setAttribute("userID", userID);
-
-        hs.put("status", "success");
         return hs;
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
-    public Hashtable<String, String> logout(HttpSession session, @RequestParam String userID, HttpServletRequest request) {
+    public Hashtable<String, String> logout(@RequestParam String userID, HttpServletRequest request) {
         authLayer.isAuthorised(userID, request);
         authKeyStore.invalidateAuthKey(userID);
-        System.out.println(userID);
         Hashtable<String, String> hs = new Hashtable<String, String>();
         hs.put("status", "success");
-        session.invalidate();
         return hs;
     }
 }

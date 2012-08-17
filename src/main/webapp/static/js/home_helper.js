@@ -28,6 +28,9 @@ var addEventOnTweetBox = function () {
 };
 
 $(function () {
+    if (tm.userID === null) {
+        document.location.href = "/";
+    }
     tm.get_feed();
     tm.fill_topbar();
     addEventOnPostButton();

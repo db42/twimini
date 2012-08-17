@@ -79,6 +79,9 @@ function apply_validation_events() {
 
 
 $(function () {
+    if (tm.userID === null) {
+        document.location.href = "/";
+    }
     tm.add_user_info(tm.userID);
     activatables('tab', ['account', 'profile', 'password']);
     $('#fbutton').remove();
