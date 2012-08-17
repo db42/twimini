@@ -25,7 +25,6 @@ public class LoginController extends ApiExceptionResolver{
     AuthKeyStore authKeyStore;
     AuthLayer authLayer;
 
-
     @Autowired
     public LoginController(AuthKeyStore authKeyStore, AuthLayer authLayer) {
         this.authKeyStore = authKeyStore;

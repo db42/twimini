@@ -5,10 +5,13 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
+import sample.controllers.api.UserContoller;
 import sample.model.FollowRowMapper;
 import sample.model.User;
 import sample.model.UserRowMapper;
+import sample.utilities.MD5Encoder;
 
+import java.awt.image.SampleModel;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -42,6 +45,11 @@ public class UserStore {
         }
     }
 
+    private void changeUserStats(String followee_id, String follower_id, String op){
+        jdbcTemplate.update("UPDATE users SET num_followings=num_followings "+op+" where id=?", follower_id);
+        jdbcTemplate.update("UPDATE users SET num_followers=num_followers "+op+" where id=?", followee_id);
+    }
+
     public boolean addFollowing(String followee_id, String follower_id) {
         try{
             jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", followee_id, follower_id);
@@ -49,15 +57,13 @@ public class UserStore {
         catch (DuplicateKeyException e){
             jdbcTemplate.update("UPDATE followers SET unfollow_time='2038-01-01 00:00:00' where user_id=? AND follower=?",followee_id ,follower_id);
         }
-        jdbcTemplate.update("UPDATE users SET num_followings=num_followings+1 where id=?", follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followers=num_followers+1 where id=?", followee_id);
+        changeUserStats(followee_id, follower_id, "+1");
         return true;
     }
 
     public void deleteFollowing(String followee_id, String follower_id) {
         jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?",followee_id ,follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followings=num_followings-1 where id=?", follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followers=num_followers-1 where id=?", followee_id);
+        changeUserStats(followee_id, follower_id, "-1");
     }
 
     public Hashtable<String, String> addUser(String username, String email, String password, String image_url) {
@@ -87,7 +93,9 @@ public class UserStore {
 
         if (validateUserById(userID))
             try{
-                jdbcTemplate.update("UPDATE users SET username=?, email=? where id=?",username, email, userID);
+                MD5Encoder md5Encoder = new MD5Encoder();
+                String image_url = UserContoller.baseGravatarImageUrl.concat(md5Encoder.encodeString(email));
+                jdbcTemplate.update("UPDATE users SET username=?, email=?, image_url=? where id=?",username, email, image_url, userID);
                 hs.put("status", "success");
             }
             catch (DuplicateKeyException e){

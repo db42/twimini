@@ -67,6 +67,4 @@ public class Post {
         String dateString = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss").format(timestamp);
         return dateString.substring(0,10)+'T'+dateString.substring(10)+'Z';
     }
-
-
 }
