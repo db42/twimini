@@ -1,4 +1,4 @@
-package sample.service;
+package sample.service.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

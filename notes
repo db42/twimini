@@ -103,15 +103,22 @@ NEW TODO s
 - line 72: follow_button.js
 - update followers and followings when click
 - checking server side: tweet + parameters
+
+Client UI
 - no session
 - static content - cacheable
 - html + api - js
 - no cookie
+
+REST API
 - rest urls
+- exception handling
+
+
+DB
 - db indexing
 - db validation before queries
 - caching header
-- exception handling
 
 other notes:
 - shouldn't use setters

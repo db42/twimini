@@ -1,10 +1,8 @@
-package sample.service;
+package sample.exceptions;
 
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
-import sample.controllers.api.exceptions.NotAuthorisedException;
-import sample.controllers.api.exceptions.ResourceNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

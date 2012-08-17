@@ -1,10 +1,10 @@
-package sample.controllers.api;
+package sample.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sample.controllers.api.exceptions.NotAuthorisedException;
-import sample.service.ApiExceptionResolver;
-import sample.service.AuthKeyStore;
+import sample.exceptions.ApiExceptionResolver;
+import sample.exceptions.NotAuthorisedException;
+import sample.service.db.AuthKeyStore;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +19,11 @@ import java.io.IOException;
  */
 
 @Service
-public class RestAuthLayer extends ApiExceptionResolver{
+public class AuthLayer extends ApiExceptionResolver {
     AuthKeyStore authKeyStore;
 
     @Autowired
-    public RestAuthLayer(AuthKeyStore authKeyStore) {
+    public AuthLayer(AuthKeyStore authKeyStore) {
         this.authKeyStore = authKeyStore;
     }
 

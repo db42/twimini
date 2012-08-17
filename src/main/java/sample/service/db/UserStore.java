@@ -1,4 +1,4 @@
-package sample.service;
+package sample.service.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -76,7 +76,7 @@ public class UserStore {
 
     public Hashtable<String, String> updateUserPassword(String userID, String old_password, String new_password) {
         Hashtable<String, String> hs = new Hashtable<String, String>();
-        jdbcTemplate.update("UPDATE users SET password=SHA1(?) where id=?",new_password, userID);
+        jdbcTemplate.update("UPDATE users SET password=SHA1(?) where id=?", new_password, userID);
         hs.put("status", "success");
         return hs;
     }

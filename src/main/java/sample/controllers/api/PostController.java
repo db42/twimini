@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sample.controllers.api.exceptions.ResourceNotFoundException;
+import sample.exceptions.ResourceNotFoundException;
 import sample.model.Post;
-import sample.service.ApiExceptionResolver;
-import sample.service.PostStore;
+import sample.exceptions.ApiExceptionResolver;
+import sample.service.db.PostStore;
+import sample.service.AuthLayer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +25,10 @@ import java.util.List;
 @Controller
 public class PostController extends ApiExceptionResolver {
     PostStore postStore;
-    RestAuthLayer authLayer;
+    AuthLayer authLayer;
 
     @Autowired
-    public PostController(PostStore postStore, RestAuthLayer authLayer){
+    public PostController(PostStore postStore, AuthLayer authLayer){
         this.postStore = postStore;
         this.authLayer = authLayer;
     }

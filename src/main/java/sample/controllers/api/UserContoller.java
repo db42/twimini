@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sample.controllers.api.exceptions.ResourceNotFoundException;
+import sample.exceptions.ResourceNotFoundException;
 import sample.model.User;
-import sample.service.ApiExceptionResolver;
-import sample.service.UserStore;
+import sample.exceptions.ApiExceptionResolver;
+import sample.service.AuthLayer;
+import sample.service.db.UserStore;
 import sample.utilities.MD5Encoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +25,12 @@ import java.util.List;
 @Controller
 public class UserContoller extends ApiExceptionResolver{
     UserStore userStore;
-    RestAuthLayer authLayer;
+    AuthLayer authLayer;
     MD5Encoder md5Encoder;
     static String baseGravatarImageUrl = "http://www.gravatar.com/avatar/";
 
     @Autowired
-    public UserContoller(UserStore userStore, RestAuthLayer authLayer, MD5Encoder md5Encoder){
+    public UserContoller(UserStore userStore, AuthLayer authLayer, MD5Encoder md5Encoder){
         this.userStore = userStore;
         this.authLayer = authLayer;
         this.md5Encoder = md5Encoder;

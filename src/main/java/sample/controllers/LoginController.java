@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sample.controllers.api.RestAuthLayer;
-import sample.service.ApiExceptionResolver;
-import sample.service.AuthKeyStore;
+import sample.service.AuthLayer;
+import sample.exceptions.ApiExceptionResolver;
+import sample.service.db.AuthKeyStore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Hashtable;
@@ -23,11 +23,11 @@ import java.util.Hashtable;
 @Controller
 public class LoginController extends ApiExceptionResolver{
     AuthKeyStore authKeyStore;
-    RestAuthLayer authLayer;
+    AuthLayer authLayer;
 
 
     @Autowired
-    public LoginController(AuthKeyStore authKeyStore, RestAuthLayer authLayer) {
+    public LoginController(AuthKeyStore authKeyStore, AuthLayer authLayer) {
         this.authKeyStore = authKeyStore;
         this.authLayer = authLayer;
     }
