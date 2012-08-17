@@ -23,7 +23,6 @@ import java.util.Hashtable;
 public class LoginController extends ApiExceptionResolver{
     AuthKeyStore authKeyStore;
 
-
     @Autowired
     public LoginController(AuthKeyStore authKeyStore) {
         this.authKeyStore = authKeyStore;

@@ -42,6 +42,11 @@ public class UserStore {
         }
     }
 
+    private void changeUserStats(String followee_id, String follower_id, String op){
+        jdbcTemplate.update("UPDATE users SET num_followings=num_followings "+op+" where id=?", follower_id);
+        jdbcTemplate.update("UPDATE users SET num_followers=num_followers "+op+" where id=?", followee_id);
+    }
+
     public boolean addFollowing(String followee_id, String follower_id) {
         try{
             jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", followee_id, follower_id);
@@ -49,15 +54,13 @@ public class UserStore {
         catch (DuplicateKeyException e){
             jdbcTemplate.update("UPDATE followers SET unfollow_time='2038-01-01 00:00:00' where user_id=? AND follower=?",followee_id ,follower_id);
         }
-        jdbcTemplate.update("UPDATE users SET num_followings=num_followings+1 where id=?", follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followers=num_followers+1 where id=?", followee_id);
+        changeUserStats(followee_id, follower_id, "+1");
         return true;
     }
 
     public void deleteFollowing(String followee_id, String follower_id) {
         jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?",followee_id ,follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followings=num_followings-1 where id=?", follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followers=num_followers-1 where id=?", followee_id);
+        changeUserStats(followee_id, follower_id, "-1");
     }
 
     public Hashtable<String, String> addUser(String username, String email, String password, String image_url) {
