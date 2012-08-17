@@ -17,7 +17,7 @@
                                 <a href="/twimini/settings">Settings</a>
                             </li>
                             <li id="logout-block">
-                                <a href="#" onclick="return logout()">Logout</a>
+                                <a href="#">Logout</a>
                             </li>
                         </ul>
                     </li>

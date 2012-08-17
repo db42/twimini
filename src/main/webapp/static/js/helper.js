@@ -288,8 +288,11 @@ tm.getProfileUserid = function () {
 
 
 var logout = function () {
-    localStorage.clear();
-    $.get('/logout', function (data) {
+    var form = $("<form><input type=\"hidden\" name=\"userID\" value=\"" + tm.userID + "\"></form>");
+        console.log(form);
+    tm.auth_ajax('/logout', form, function (data) {
+        tm.userID = null;
+        localStorage.clear();
         document.location.href = '/';
     });
 };
@@ -327,7 +330,7 @@ tm.fill_topbar = function () {
         document.location.href = '/twimini/settings';
     });
     $("#logout-block").click(function () {
-        document.location.href = '/logout';
+        logout();
     });
 };
 

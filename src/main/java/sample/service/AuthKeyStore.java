@@ -32,32 +32,36 @@ public class AuthKeyStore {
 
     public Hashtable<String, String> authUserByEmail(String email, String password) {
         UserRowMapper userRowMapper = new UserRowMapper();
+        Hashtable<String, String> hs = new Hashtable<String, String>();
         try{
-            Hashtable<String, String> hs = new Hashtable<String, String>();
             User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
 
             String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
+            hs.put("status","success");
             hs.put("userID", Integer.toString(user.getId()));
             hs.put("auth_key", auth_key);
             return hs;
         }
         catch (EmptyResultDataAccessException e){
-            return null;
+            hs.put("status","failed");
+            return hs;
         }
     }
 
     public Hashtable<String, String> authUserByUsername(String username, String password) {
         UserRowMapper userRowMapper = new UserRowMapper();
+        Hashtable<String, String> hs = new Hashtable<String, String>();
         try{
-            Hashtable<String, String> hs = new Hashtable<String, String>();
             User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
 
             String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
+            hs.put("status","success");
             hs.put("userID", Integer.toString(user.getId()));
             hs.put("auth_key", auth_key);
             return hs;
         } catch (EmptyResultDataAccessException e){
-            return null;
+            hs.put("status","failed");
+            return hs;
         }
     }
 
