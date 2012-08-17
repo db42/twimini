@@ -236,7 +236,7 @@ function user_login(form) {
             //TODO get auth_key from server instead of password.
             localStorage.setItem("auth_key", data.auth_key);
 //            window.location.replace("http://localhost:8080/twimini/home");
-            document.location.href = '/twimimi/home';
+            document.location.href = '/twimini/home';
         } else {
             tm.callGlobalMessage("Username or Password is not correct.");
         }
