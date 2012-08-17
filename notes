@@ -110,14 +110,35 @@ Client UI
 - html + api - js
 - no cookie
 
+demo:
+- register - validation(character and duplication) and working
+- login - validation and working
+- do post
+- profile
+    - followers
+    - followings
+- setting
+    - different settings
+    - validation
+- infinite scrolling
+- polling
+- search
+-public profile
+
 REST API
 - rest urls
+- no session
+- duplicate entries in database handling by error message
 - exception handling
+    - invalid userid
+    - different for 404 and unauthorised
 
 
 DB
 - db indexing
 - db validation before queries
+- duplication
+
 - caching header
 
 other notes:
