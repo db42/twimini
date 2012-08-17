@@ -220,6 +220,7 @@ function add_tweet(tweet) {
     };
     url = "/users/" + tm.userID + "/posts";
     tm.auth_ajax(url, tweet_form, successfun, 'POST');
+    $('#tweet-text').val('');
 }
 
 tm.callGlobalMessage = function (errorMessage) {
