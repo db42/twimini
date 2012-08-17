@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sample.service.ApiExceptionResolver;
 import sample.service.UserStore;
 import sample.utilities.MD5Encoder;
 
 import java.util.Hashtable;
 
 @Controller
-public class UserController {
+public class UserController extends ApiExceptionResolver{
     UserStore userStore;
     MD5Encoder md5Encoder;
 

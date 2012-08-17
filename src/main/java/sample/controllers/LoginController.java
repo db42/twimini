@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sample.service.ApiExceptionResolver;
 import sample.service.AuthKeyStore;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,7 @@ import java.util.Hashtable;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class LoginController {
+public class LoginController extends ApiExceptionResolver{
     AuthKeyStore authKeyStore;
 
 

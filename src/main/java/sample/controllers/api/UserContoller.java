@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sample.controllers.api.exceptions.ResourceNotFoundException;
 import sample.model.User;
+import sample.service.ApiExceptionResolver;
 import sample.service.UserStore;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class UserContoller {
+public class UserContoller extends ApiExceptionResolver{
     UserStore userStore;
     RestAuthLayer authLayer;
 
