@@ -5,10 +5,13 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Service;
+import sample.controllers.api.UserContoller;
 import sample.model.FollowRowMapper;
 import sample.model.User;
 import sample.model.UserRowMapper;
+import sample.utilities.MD5Encoder;
 
+import java.awt.image.SampleModel;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -90,7 +93,9 @@ public class UserStore {
 
         if (validateUserById(userID))
             try{
-                jdbcTemplate.update("UPDATE users SET username=?, email=? where id=?",username, email, userID);
+                MD5Encoder md5Encoder = new MD5Encoder();
+                String image_url = UserContoller.baseGravatarImageUrl.concat(md5Encoder.encodeString(email));
+                jdbcTemplate.update("UPDATE users SET username=?, email=?, image_url=? where id=?",username, email, image_url, userID);
                 hs.put("status", "success");
             }
             catch (DuplicateKeyException e){

@@ -26,7 +26,7 @@ public class UserContoller extends ApiExceptionResolver{
     UserStore userStore;
     RestAuthLayer authLayer;
     MD5Encoder md5Encoder;
-    static String baseGravatarImageUrl = "http://www.gravatar.com/avatar/";
+    public static String baseGravatarImageUrl = "http://www.gravatar.com/avatar/";
 
     @Autowired
     public UserContoller(UserStore userStore, RestAuthLayer authLayer, MD5Encoder md5Encoder){
