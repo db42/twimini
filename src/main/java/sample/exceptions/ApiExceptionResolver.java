@@ -30,8 +30,8 @@ public class ApiExceptionResolver implements HandlerExceptionResolver {
             httpServletResponse.setStatus(404);
         }
         else {
+            httpServletResponse.setStatus(412);
             hs.put("error-message", e.getMessage());
-            httpServletResponse.setStatus(500);
         }
 
         return new ModelAndView(jv, hs);
