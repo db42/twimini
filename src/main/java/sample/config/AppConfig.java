@@ -55,8 +55,5 @@ public class AppConfig {
         return db;
     }
 
-    @Bean
-    public ThreadLocal<Long> userID() {
-        return new ThreadLocal<Long>();
-    }
+
 }
