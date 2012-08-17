@@ -11,7 +11,6 @@ import sample.model.User;
 import sample.model.UserRowMapper;
 import sample.utilities.MD5Encoder;
 
-import java.awt.image.SampleModel;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -26,14 +25,14 @@ import java.util.List;
 @Service
 public class UserStore {
     SimpleJdbcTemplate jdbcTemplate;
-    AuthKeyStore authKeyStore;
+    AuthStore authStore;
     String defaultUserCount = "20";
 
 
     @Autowired
-    public UserStore(SimpleJdbcTemplate jdbcTemplate, AuthKeyStore authKeyStore){
+    public UserStore(SimpleJdbcTemplate jdbcTemplate, AuthStore authStore){
         this.jdbcTemplate = jdbcTemplate;
-        this.authKeyStore = authKeyStore;
+        this.authStore = authStore;
     }
 
     private boolean doesFollow(int user_id, String follower){

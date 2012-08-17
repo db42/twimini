@@ -20,12 +20,12 @@ import java.util.Random;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class AuthKeyStore {
+public class AuthStore {
     SimpleJdbcTemplate jdbcTemplate;
     MD5Encoder md5Encoder;
 
     @Autowired
-    public AuthKeyStore(SimpleJdbcTemplate jdbcTemplate, MD5Encoder md5Encoder){
+    public AuthStore(SimpleJdbcTemplate jdbcTemplate, MD5Encoder md5Encoder){
         this.jdbcTemplate = jdbcTemplate;
         this.md5Encoder = md5Encoder;
     }

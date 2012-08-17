@@ -8,7 +8,7 @@ import sample.exceptions.ResourceNotFoundException;
 import sample.model.Post;
 import sample.exceptions.ApiExceptionResolver;
 import sample.service.db.PostStore;
-import sample.service.AuthLayer;
+import sample.service.AuthRequestLayer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,12 +25,12 @@ import java.util.List;
 @Controller
 public class PostController extends ApiExceptionResolver {
     PostStore postStore;
-    AuthLayer authLayer;
+    AuthRequestLayer authRequestLayer;
 
     @Autowired
-    public PostController(PostStore postStore, AuthLayer authLayer){
+    public PostController(PostStore postStore, AuthRequestLayer authRequestLayer){
         this.postStore = postStore;
-        this.authLayer = authLayer;
+        this.authRequestLayer = authRequestLayer;
     }
 
     @RequestMapping(value = "/posts/{postID}", method = RequestMethod.GET)
@@ -60,7 +60,7 @@ public class PostController extends ApiExceptionResolver {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     Post newPostJson(@PathVariable String userID, @RequestParam String post, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        authLayer.isAuthorised(userID, request);
+        authRequestLayer.isAuthorised(userID, request);
 
         Post p = postStore.addPost(userID, post, null, null);
         response.setHeader("Location","/posts/"+p.getId());
@@ -75,7 +75,7 @@ public class PostController extends ApiExceptionResolver {
                     @PathVariable String postID,
                     HttpServletRequest request,
                     HttpServletResponse response) throws IOException {
-        authLayer.isAuthorised(userID, request);
+        authRequestLayer.isAuthorised(userID, request);
 
         Post p = postStore.rePost(userID, postID);
         response.setHeader("Location","/posts/"+p.getId());
@@ -90,7 +90,7 @@ public class PostController extends ApiExceptionResolver {
                                       @RequestParam(required = false) String count,
                                       @RequestParam(required = false) String max_id,
                                       HttpServletRequest request){
-        authLayer.isAuthorised(userID, request);
+        authRequestLayer.isAuthorised(userID, request);
 
         return postStore.getSubscribedPosts(userID, since_id, count, max_id);
     }

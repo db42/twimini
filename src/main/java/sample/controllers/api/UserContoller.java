@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sample.exceptions.ResourceNotFoundException;
 import sample.model.User;
 import sample.exceptions.ApiExceptionResolver;
-import sample.service.AuthLayer;
+import sample.service.AuthRequestLayer;
 import sample.service.db.UserStore;
 import sample.utilities.MD5Encoder;
 
@@ -25,14 +25,14 @@ import java.util.List;
 @Controller
 public class UserContoller extends ApiExceptionResolver{
     UserStore userStore;
-    AuthLayer authLayer;
+    AuthRequestLayer authRequestLayer;
     MD5Encoder md5Encoder;
     public static String baseGravatarImageUrl = "http://www.gravatar.com/avatar/";
 
     @Autowired
-    public UserContoller(UserStore userStore, AuthLayer authLayer, MD5Encoder md5Encoder){
+    public UserContoller(UserStore userStore, AuthRequestLayer authRequestLayer, MD5Encoder md5Encoder){
         this.userStore = userStore;
-        this.authLayer = authLayer;
+        this.authRequestLayer = authRequestLayer;
         this.md5Encoder = md5Encoder;
     }
 
@@ -82,7 +82,7 @@ public class UserContoller extends ApiExceptionResolver{
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     Hashtable<String, String> addFollowings(@PathVariable String follower_id, @PathVariable String followee_id, HttpServletRequest request){
-        authLayer.isAuthorised(follower_id, request);
+        authRequestLayer.isAuthorised(follower_id, request);
 
         Hashtable hs = new Hashtable<String, String>();
         userStore.addFollowing(followee_id, follower_id);
@@ -94,7 +94,7 @@ public class UserContoller extends ApiExceptionResolver{
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     Hashtable<String, String> deleteFollowings(@PathVariable String follower_id, @PathVariable String followee_id, HttpServletRequest request){
-        authLayer.isAuthorised(follower_id, request);
+        authRequestLayer.isAuthorised(follower_id, request);
 
         Hashtable hs = new Hashtable<String, String>();
         userStore.deleteFollowing(followee_id, follower_id);
@@ -118,7 +118,7 @@ public class UserContoller extends ApiExceptionResolver{
                                                  @RequestParam(required = false) String new_password,
                                                  HttpServletRequest request){
 
-        authLayer.isAuthorised(userID, request);
+        authRequestLayer.isAuthorised(userID, request);
         return userStore.updateUserPassword(userID, old_password, new_password);
     }
 
@@ -129,7 +129,7 @@ public class UserContoller extends ApiExceptionResolver{
                                                 @RequestParam(required = false) String email,
                                                 HttpServletRequest request){
 
-        authLayer.isAuthorised(userID, request);
+        authRequestLayer.isAuthorised(userID, request);
         return userStore.updateUserAccount(userID, username, email);
     }
 
@@ -140,7 +140,7 @@ public class UserContoller extends ApiExceptionResolver{
                                                 @RequestParam(required = false) String description,
                                                 HttpServletRequest request){
 
-        authLayer.isAuthorised(userID, request);
+        authRequestLayer.isAuthorised(userID, request);
         return userStore.updateUserProfile(userID, name, description);
     }
 

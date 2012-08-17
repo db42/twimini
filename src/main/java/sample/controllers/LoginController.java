@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sample.service.AuthLayer;
+import sample.service.AuthRequestLayer;
 import sample.exceptions.ApiExceptionResolver;
-import sample.service.db.AuthKeyStore;
+import sample.service.db.AuthStore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Hashtable;
@@ -22,13 +22,13 @@ import java.util.Hashtable;
  */
 @Controller
 public class LoginController extends ApiExceptionResolver{
-    AuthKeyStore authKeyStore;
-    AuthLayer authLayer;
+    AuthStore authStore;
+    AuthRequestLayer authRequestLayer;
 
     @Autowired
-    public LoginController(AuthKeyStore authKeyStore, AuthLayer authLayer) {
-        this.authKeyStore = authKeyStore;
-        this.authLayer = authLayer;
+    public LoginController(AuthStore authStore, AuthRequestLayer authRequestLayer) {
+        this.authStore = authStore;
+        this.authRequestLayer = authRequestLayer;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -38,9 +38,9 @@ public class LoginController extends ApiExceptionResolver{
 
         Hashtable hs;
         if (userIdentifier.contains("@"))
-            hs = authKeyStore.authUserByEmail(userIdentifier, password);
+            hs = authStore.authUserByEmail(userIdentifier, password);
         else
-            hs = authKeyStore.authUserByUsername(userIdentifier, password);
+            hs = authStore.authUserByUsername(userIdentifier, password);
 
         return hs;
     }
@@ -48,8 +48,8 @@ public class LoginController extends ApiExceptionResolver{
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public Hashtable<String, String> logout(@RequestParam String userID, HttpServletRequest request) {
-        authLayer.isAuthorised(userID, request);
-        authKeyStore.invalidateAuthKey(userID);
+        authRequestLayer.isAuthorised(userID, request);
+        authStore.invalidateAuthKey(userID);
         Hashtable<String, String> hs = new Hashtable<String, String>();
         hs.put("status", "success");
         return hs;

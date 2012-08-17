@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sample.exceptions.ApiExceptionResolver;
 import sample.exceptions.NotAuthorisedException;
-import sample.service.db.AuthKeyStore;
+import sample.service.db.AuthStore;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +19,12 @@ import java.io.IOException;
  */
 
 @Service
-public class AuthLayer extends ApiExceptionResolver {
-    AuthKeyStore authKeyStore;
+public class AuthRequestLayer extends ApiExceptionResolver {
+    AuthStore authStore;
 
     @Autowired
-    public AuthLayer(AuthKeyStore authKeyStore) {
-        this.authKeyStore = authKeyStore;
+    public AuthRequestLayer(AuthStore authStore) {
+        this.authStore = authStore;
     }
 
     public boolean isAuthorised(String userID, HttpServletRequest request){
@@ -42,7 +42,7 @@ public class AuthLayer extends ApiExceptionResolver {
 
         String auth_key = new String(decodedBytes);
 
-        if (authKeyStore.getUserByAuthKey(userID, auth_key) == null) {
+        if (authStore.getUserByAuthKey(userID, auth_key) == null) {
             throw new NotAuthorisedException();
         }
 
