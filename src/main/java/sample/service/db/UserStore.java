@@ -81,8 +81,16 @@ public class UserStore {
 
     public Hashtable<String, String> updateUserPassword(String userID, String old_password, String new_password) {
         Hashtable<String, String> hs = new Hashtable<String, String>();
-        jdbcTemplate.update("UPDATE users SET password=SHA1(?) where id=?", new_password, userID);
-        hs.put("status", "success");
+        if (authStore.authUserByUserID(userID, old_password))
+        {
+            jdbcTemplate.update("UPDATE users SET password=SHA1(?) where id=?", new_password, userID);
+            hs.put("status","success");
+        }
+        else {
+            hs.put("status","failed");
+            hs.put("message", "Password is not correct");
+        }
+
         return hs;
     }
 

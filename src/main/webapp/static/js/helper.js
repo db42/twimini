@@ -25,10 +25,12 @@ tm.auth_ajax = function (url, form, success_fun, type) {
         success: function (data) {
             if (data.status !== "failed") {
                 success_fun(data);
+            } else if (data.status === "failed") {
+                tm.callGlobalMessage(data.message);
             }
         },
         error: function () {
-            tm.callGlobalMessage('Not Connected!');
+                tm.callGlobalMessage('Not Connected!');
         }
     });
 };

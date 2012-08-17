@@ -118,7 +118,7 @@ public class UserContoller extends ApiExceptionResolver{
                                                  @RequestParam(required = false) String new_password,
                                                  HttpServletRequest request){
 
-        authRequestLayer.isAuthorised(userID, request);
+//        authRequestLayer.isAuthorised(userID, request);
         return userStore.updateUserPassword(userID, old_password, new_password);
     }
 

@@ -30,11 +30,12 @@ public class AuthStore {
         this.md5Encoder = md5Encoder;
     }
 
-    public Hashtable<String, String> authUserByEmail(String email, String password) {
+
+    private Hashtable<String, String> authUser(String field_name, String field_value, String password) {
         UserRowMapper userRowMapper = new UserRowMapper();
         Hashtable<String, String> hs = new Hashtable<String, String>();
         try{
-            User user = (User) jdbcTemplate.queryForObject("select * from users where email=\"" + email + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
+            User user = (User) jdbcTemplate.queryForObject("select * from users where "+ field_name + "=\"" + field_value + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
 
             String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
             hs.put("status","success");
@@ -48,20 +49,23 @@ public class AuthStore {
         }
     }
 
+    public Hashtable<String, String> authUserByEmail(String email, String password) {
+        return authUser("email", email, password);
+    }
+
     public Hashtable<String, String> authUserByUsername(String username, String password) {
+        return authUser("username", username, password);
+    }
+
+    public boolean authUserByUserID(String userID, String password) {
         UserRowMapper userRowMapper = new UserRowMapper();
         Hashtable<String, String> hs = new Hashtable<String, String>();
         try{
-            User user = (User) jdbcTemplate.queryForObject("select * from users where username=\"" + username + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
-
-            String auth_key = db_gen_auth_key(Integer.toString(user.getId()));
-            hs.put("status","success");
-            hs.put("userID", Integer.toString(user.getId()));
-            hs.put("auth_key", auth_key);
-            return hs;
-        } catch (EmptyResultDataAccessException e){
-            hs.put("status","failed");
-            return hs;
+            User user = (User) jdbcTemplate.queryForObject("select * from users where id =\"" + userID + "\" and password=SHA1(\""+ password + "\")", userRowMapper);
+            return true;
+        }
+        catch (EmptyResultDataAccessException e){
+            return false;
         }
     }
 
