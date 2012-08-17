@@ -30,17 +30,17 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    Hashtable<String, String> login(@RequestParam("email") String email,
+    Hashtable<String, String> login(@RequestParam("email") String userIdentifier,
                               @RequestParam("password") String password,
                               HttpSession session) {
 
         Hashtable hs;
         String userID;
 
-        if (email.contains("@"))
-            hs = authKeyStore.authUserByEmail(email, password);
+        if (userIdentifier.contains("@"))
+            hs = authKeyStore.authUserByEmail(userIdentifier, password);
         else
-            hs = authKeyStore.authUserByUsername(email, password);
+            hs = authKeyStore.authUserByUsername(userIdentifier, password);
 
         if (hs == null) {
             hs = new Hashtable<String, String>();
@@ -48,13 +48,10 @@ public class LoginController {
             return hs;
         }
         userID = (String) hs.get("userID");
-
-        session.setAttribute("email", email);
+        session.setAttribute("email", userIdentifier);
         session.setAttribute("userID", userID);
 
         hs.put("status", "success");
-        System.out.print("auth"+hs.get("userID"));
-
         return hs;
     }
 

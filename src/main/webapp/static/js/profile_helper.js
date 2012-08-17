@@ -2,7 +2,6 @@ var tm = tm || {};
 
 var profile_user_id;
 
-
 var get_followings = function (user_id) {
     if (typeof tm.follwingsview === 'undefined') {
         tm.follwingsview = new BasicView('addUser.ejs', 'followinglist', 'followings' + "?callerUserID=" + tm.userID, user_id);

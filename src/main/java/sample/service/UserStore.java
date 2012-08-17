@@ -34,19 +34,32 @@ public class UserStore {
         this.authKeyStore = authKeyStore;
     }
 
-    //TODO: return status
-    public void addFollower(int following, String userID) {
-        jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", following, userID);
-        jdbcTemplate.update("UPDATE users SET num_followings=num_followings+1 where id=?", userID);
-        jdbcTemplate.update("UPDATE users SET num_followers=num_followers+1 where id=?", following);
+    private boolean doesFollow(int user_id, String follower){
+        try{
+            FollowRowMapper followRowMapper = new FollowRowMapper();
+            return (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+user_id+" AND follower="+follower +" AND unfollow_time > NOW()", followRowMapper);
+        } catch (EmptyResultDataAccessException e){
+            return false;
+        }
     }
 
-    public void removeFollower(int following, String userID) {
-        jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?", following, userID);
-        jdbcTemplate.update("UPDATE users SET num_followers=num_followers-1 where id=?", following);
-        jdbcTemplate.update("UPDATE users SET num_followings=num_followings-1 where id=?", userID);
+    public boolean addFollowing(String followee_id, String follower_id) {
+        try{
+            jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", followee_id, follower_id);
+        }
+        catch (DuplicateKeyException e){
+            jdbcTemplate.update("UPDATE followers SET unfollow_time='2038-01-01 00:00:00' where user_id=? AND follower=?",followee_id ,follower_id);
+        }
+        jdbcTemplate.update("UPDATE users SET num_followings=num_followings+1 where id=?", follower_id);
+        jdbcTemplate.update("UPDATE users SET num_followers=num_followers+1 where id=?", followee_id);
+        return true;
     }
 
+    public void deleteFollowing(String followee_id, String follower_id) {
+        jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?",followee_id ,follower_id);
+        jdbcTemplate.update("UPDATE users SET num_followings=num_followings-1 where id=?", follower_id);
+        jdbcTemplate.update("UPDATE users SET num_followers=num_followers-1 where id=?", followee_id);
+    }
 
     public Hashtable<String, String> addUser(String username, String email, String password, String image_url) {
         Hashtable<String, String> hs = new Hashtable<String, String>();
@@ -72,7 +85,6 @@ public class UserStore {
             hs.put("status", "failed");
             hs.put("message", "User is not authorized");
         }
-
         return hs;
     }
 
@@ -113,19 +125,11 @@ public class UserStore {
 
     public User getUser(String userID, String callerUserID){
         UserRowMapper userRowMapper = new UserRowMapper();
-        FollowRowMapper followRowMapper = new FollowRowMapper();
         try{
             User user = (User) jdbcTemplate.queryForObject("select * from users where id=" + userID, userRowMapper);
-            user.setFollowed(false);
 
             if (callerUserID != null) {
-                try{
-                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+userID +
-                            " AND follower="+callerUserID, followRowMapper);
-                    user.setFollowed(follow);
-                }
-                catch (EmptyResultDataAccessException e){
-                }
+                user.setFollowed(doesFollow(user.getId(), callerUserID));
             }
             return user;
         }
@@ -158,14 +162,7 @@ public class UserStore {
         List<User> followers = jdbcTemplate.query(query, userRowMapper);
         if (callerUserID != null) {
             for(User u:followers){
-                try{
-                    FollowRowMapper followRowMapper = new FollowRowMapper();
-                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
-                    u.setFollowed(follow);
-                }
-                catch (EmptyResultDataAccessException e){
-                    u.setFollowed(false);
-                }
+                u.setFollowed(doesFollow(u.getId(), callerUserID));
             }
         }
         return followers;
@@ -189,39 +186,11 @@ public class UserStore {
                 }
             else {
                 for(User u:followings){
-                    try{
-                        FollowRowMapper followRowMapper = new FollowRowMapper();
-                        Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
-                        u.setFollowed(follow);
-                    }
-                    catch (EmptyResultDataAccessException e){
-                        u.setFollowed(false);
-                    }
+                    u.setFollowed(doesFollow(u.getId(), callerUserID));
                 }
             }
         }
         return followings;
-    }
-
-    public boolean addFollowing(String followee_id, String follower_id) {
-        try{
-            jdbcTemplate.update("INSERT INTO followers (user_id, follower) VALUES (?,?)", followee_id, follower_id);
-            jdbcTemplate.update("UPDATE users SET num_followings=num_followings+1 where id=?", follower_id);
-            jdbcTemplate.update("UPDATE users SET num_followers=num_followers+1 where id=?", followee_id);
-            return true;
-        }
-        catch (DuplicateKeyException e){
-            jdbcTemplate.update("UPDATE followers SET unfollow_time='2038-01-01 00:00:00' where user_id=? AND follower=?",followee_id ,follower_id);
-            jdbcTemplate.update("UPDATE users SET num_followings=num_followings+1 where id=?", follower_id);
-            jdbcTemplate.update("UPDATE users SET num_followers=num_followers+1 where id=?", followee_id);
-            return true;
-        }
-    }
-
-    public void deleteFollowing(String followee_id, String follower_id) {
-        jdbcTemplate.update("UPDATE followers SET unfollow_time = NOW() where user_id=? AND follower=?",followee_id ,follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followings=num_followings-1 where id=?", follower_id);
-        jdbcTemplate.update("UPDATE users SET num_followers=num_followers-1 where id=?", followee_id);
     }
 
     public List<User> searchForUsers(String query, String callerUserID) {
@@ -232,14 +201,7 @@ public class UserStore {
         List<User> followers = jdbcTemplate.query(query, userRowMapper);
         if (callerUserID != null) {
             for(User u:followers){
-                try{
-                    FollowRowMapper followRowMapper = new FollowRowMapper();
-                    Boolean follow = (Boolean) jdbcTemplate.queryForObject("select * from followers where user_id="+u.getId()+" AND follower="+callerUserID, followRowMapper);
-                    u.setFollowed(follow);
-                }
-                catch (EmptyResultDataAccessException e){
-                    u.setFollowed(false);
-                }
+                u.setFollowed(doesFollow(u.getId(), callerUserID));
             }
         }
         return followers;

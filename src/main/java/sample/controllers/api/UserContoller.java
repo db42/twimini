@@ -63,7 +63,7 @@ public class UserContoller {
     @ResponseBody
     Hashtable<String, String> newFollowerJson(@PathVariable String userID,@RequestParam int following){
         Hashtable hs = new Hashtable<String, String>();
-        userStore.addFollower(following, userID);
+        userStore.addFollowing(String.valueOf(following), userID);
         hs.put("status","success");
         return hs;
     }
