@@ -11,7 +11,6 @@ import sample.service.UserStore;
 import sample.utilities.MD5Encoder;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -45,13 +44,11 @@ public class UserContoller extends ApiExceptionResolver{
     @RequestMapping(value = "/users/{userID}", method = RequestMethod.GET)
     @ResponseBody
     User getUserJson(@PathVariable String userID,
-                     @RequestParam(required = false) String callerUserID,
-                     HttpServletResponse response){
+                     @RequestParam(required = false) String callerUserID){
         User user = userStore.getUser(userID, callerUserID);
         if (user == null)
             throw new ResourceNotFoundException();
         else {
-            response.setHeader("Cache-Control", "public, max-age=36000"); // HTTP 1.1
             return user;
         }
     }
